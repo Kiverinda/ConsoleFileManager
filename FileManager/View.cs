@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace FileManager
@@ -40,6 +41,9 @@ namespace FileManager
                 {
                     ColorTextAndBackground.ForFile();
                     Console.Write(panel.CurrentListDirAndFiles[i].Name);
+                    Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 3 / 8, positionInFilePanel);
+                    string size = (panel.CurrentListDirAndFiles[i].Size).ToString("#,#", CultureInfo.InvariantCulture);
+                    Console.Write($"|  {size}");
                     ColorTextAndBackground.Base();
                 }
                 else
@@ -252,15 +256,19 @@ namespace FileManager
             Console.CursorVisible = false;
             Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 1);
             Console.Write("КОПИРОВАНИЕ: ");
+            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 2);
+            Console.Write(currentPath + " -> ");
             Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 3);
-            Console.Write(currentPath + " -> " + targetPath);
+            Console.Write(targetPath);
             ColorTextAndBackground.Base();
         }
 
         public void CopyPersentage(double persentage)
         {
+            ColorTextAndBackground.InverseBase();
             Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 5);
             Console.Write($"Выполненно: {(int)persentage} %");
+            ColorTextAndBackground.Base();
             CopyViewPersentage(persentage);
         }
 
@@ -286,7 +294,7 @@ namespace FileManager
             }
             else
             {
-                margin = this.WindowWidth / 2 + 2;
+                margin = WindowWidth / 2 + 2;
             }
             return margin;
         }

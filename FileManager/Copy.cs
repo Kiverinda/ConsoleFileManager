@@ -115,7 +115,7 @@ namespace FileManager
         {
             Clear clear = new Clear();
             clear.Copy();
-            ViewCopy.Copy(path, Path.Combine(TargetPanel.CurrentPath, Path.GetFileName(path)));
+            ViewCopy.Copy(Path.GetFileName(path), TargetPanel.CurrentPath);
             CustomFileCopy cs = new CustomFileCopy(path, path.Replace(ActivePanel.CurrentPath, TargetPanel.CurrentPath));
             cs.OnProgressChanged += ViewPersentageToConsole;
             //cs.OnComplete += ViewVessageCompleteToConsole;

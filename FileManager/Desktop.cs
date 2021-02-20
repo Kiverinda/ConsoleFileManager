@@ -30,6 +30,13 @@ namespace FileManager
 
         public static void Update()
         {
+            LeftPanel.UpdatePath(LeftPanel.CurrentPath);
+            RightPanel.UpdatePath(RightPanel.CurrentPath);
+            LeftPanel.BufferSelectedPositionCursor.Clear();
+            RightPanel.BufferSelectedPositionCursor.Clear();
+            ActivePanel.AbsoluteCursorPosition = 0;
+            ActivePanel.RelativeCursorPosition = 0;
+            ActivePanel.FirstLineWhenScrolling = 0;
             ViewDesktop();
         }
 
@@ -51,6 +58,7 @@ namespace FileManager
                 else if (click.Key == ConsoleKey.Enter)
                 {
                     Action.Enter();
+                    Update();
                 }
                 else if (click.Key == ConsoleKey.UpArrow)
                 {
@@ -67,6 +75,7 @@ namespace FileManager
                 else if (click.Key == ConsoleKey.F2)
                 {
                     Action.CreateFile();
+                    Update();
                 }
                 else if (click.Key == ConsoleKey.F3)
                 {
@@ -75,18 +84,22 @@ namespace FileManager
                 else if (click.Key == ConsoleKey.F5)
                 {
                     Action.Copy();
+                    Update();
                 }
                 else if (click.Key == ConsoleKey.F6)
                 {
                     Action.Move();
+                    Update();
                 }
                 else if (click.Key == ConsoleKey.F7)
                 {
                     Action.CreateDirectory();
+                    Update();
                 }
                 else if (click.Key == ConsoleKey.F8)
                 {
                     Action.Delete();
+                    Update();
                 }
 
             } while (click.Key != ConsoleKey.Escape);

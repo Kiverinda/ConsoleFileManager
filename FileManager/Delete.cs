@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace FileManager
 {
@@ -73,7 +73,6 @@ namespace FileManager
         {
             View view = new View();
             CurrentPanel.UpdatePath(CurrentPanel.CurrentPath);
-            SecondPanel.UpdatePath(SecondPanel.CurrentPath);
             view.FPanel(CurrentPanel);
             view.FPanel(SecondPanel);
             view.CurrentCursor(CurrentPanel);

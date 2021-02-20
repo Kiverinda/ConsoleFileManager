@@ -38,7 +38,7 @@ namespace FileManager
             {
                 ViewCopy.Message($"НЕЛЬЗЯ СКОПИРОВАТЬ ФАЙЛ В ТЕКУЩИЙ КАТАЛОГ");
                 Console.ReadKey();
-                Desktop.Update();
+                return;
             }
 
             CheckingExistenceObjectInDestinationFolder(currentList[ActivePanel.AbsoluteCursorPosition]);
@@ -52,7 +52,7 @@ namespace FileManager
                 {
                     ViewCopy.Message($"ФАЙЛ УЖЕ СУЩЕСТВУЕТ");
                     Console.ReadKey();
-                    Desktop.Update();
+                    return;
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace FileManager
                 {
                     ViewCopy.Message($"ДИРЕКТОРИЯ УЖЕ СУЩЕСТВУЕТ");
                     Console.ReadKey();
-                    Desktop.Update();
+                    return;
                 }
                 else
                 {
@@ -83,6 +83,7 @@ namespace FileManager
             {
                 ViewCopy.Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
                 Console.ReadKey();
+                return;
             }
             else
             {
@@ -102,6 +103,7 @@ namespace FileManager
             {
                 ViewCopy.Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
                 Console.ReadKey();
+                return;
             }
             else
             {
@@ -118,8 +120,6 @@ namespace FileManager
             cs.OnProgressChanged += ViewPersentageToConsole;
             //cs.OnComplete += ViewVessageCompleteToConsole;
             cs.Copy();
-            UpdateDateInWindow();
-
         }
 
         public void CopyDirectory(string path, List<FileAttributes> newTreeFiles)
@@ -141,16 +141,6 @@ namespace FileManager
                     CopyFile(attributes.Path);
                 }
             }
-            UpdateDateInWindow();
-        }
-
-        public void UpdateDateInWindow()
-        {
-            ColorTextAndBackground.Base();
-            TargetPanel.UpdatePath(TargetPanel.CurrentPath);
-            ViewCopy.FPanel(ActivePanel);
-            ViewCopy.FPanel(TargetPanel);
-            ViewCopy.CurrentCursor(ActivePanel);
         }
 
         public void ViewPersentageToConsole(double persentage, ref bool cancelFlag)

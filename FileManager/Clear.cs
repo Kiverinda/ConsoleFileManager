@@ -64,6 +64,7 @@ namespace FileManager
             Console.Write("|");
             Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth / 3)));
             Console.Write("|");
+            ColorTextAndBackground.Base();
         }
 
 

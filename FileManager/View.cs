@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FileManager
 {
@@ -74,15 +72,12 @@ namespace FileManager
                     ColorTextAndBackground.InverseForFile();
                     Console.Write(nameFile);
                     ColorTextAndBackground.ForFile();
-
                 }
                 else
                 {
-
                     ColorTextAndBackground.InverseBase();
                     Console.Write(nameFile);
                     ColorTextAndBackground.Base();
-
                 }
             }
 
@@ -175,11 +170,13 @@ namespace FileManager
         {
             Clear clear = new Clear();
             clear.Message();
+            ColorTextAndBackground.InverseBase();
             Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 2);
             Console.Write(message);
             Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 3);
             Console.CursorVisible = true;
             string nameFile = Console.ReadLine();
+            ColorTextAndBackground.Base();
             Console.CursorVisible = false;
             return nameFile;
         }
@@ -187,38 +184,29 @@ namespace FileManager
         {
             Clear clear = new Clear();
             clear.Message();
+            ColorTextAndBackground.InverseBase();
             Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 2);
             Console.Write(message);
-//            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 3);
+            ColorTextAndBackground.Base();
         }
 
         public void Confirmation(string message, string path)
         {
             Clear clear = new Clear();
             clear.Message();
+            ColorTextAndBackground.InverseBase();
             Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 2);
             Console.Write(message);
             Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 3);
             Console.Write(path);
             Console.SetCursorPosition(WindowWidth / 3 + 15, WindowHight / 3 + 5);
             Console.Write("Y  Да               N Нет");
+            ColorTextAndBackground.Base();
         }
 
         public void Footer()
         {
             ColorTextAndBackground.Base();
-            //Console.SetCursorPosition(0, WindowHight - 5);
-            //Console.Write("|");
-            //Console.SetCursorPosition(WindowWidth - 1, WindowHight - 5);
-            //Console.Write("|");
-            //Console.SetCursorPosition(0, WindowHight - 4);
-            //Console.Write("|");
-            //Console.SetCursorPosition(0, WindowHight - 3);
-            //Console.Write("|");
-            //Console.SetCursorPosition(0, WindowHight - 3);
-            //Console.Write("|");
-            //Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth - 2)));
-
             Console.SetCursorPosition(0, WindowHight - 2);
             Console.Write("|");
             Console.SetCursorPosition(3, WindowHight - 2); 
@@ -266,6 +254,7 @@ namespace FileManager
             Console.Write("КОПИРОВАНИЕ: ");
             Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 3);
             Console.Write(currentPath + " -> " + targetPath);
+            ColorTextAndBackground.Base();
         }
 
         public void CopyPersentage(double persentage)

@@ -8,7 +8,7 @@ namespace FileManager
     static class Action
     {
         private static int windowHight = Console.WindowHeight;
-        private static int windowFileHight = windowHight - 9;
+        private static int windowFileHight = windowHight - 7;
 
         public static void ChangeActivePanel()
         {
@@ -48,7 +48,6 @@ namespace FileManager
             else
             {
                 Desktop.ActivePanel.UpdatePath(currentPath);
-                Desktop.Update();
             }
         }
 
@@ -117,9 +116,6 @@ namespace FileManager
             {
                 using (File.Create(pathToFile)) { }
             }
-            ColorTextAndBackground.Base();
-            Desktop.ActivePanel.UpdatePath(path);
-            Desktop.Update();
         }
 
         public static void EditFile()
@@ -153,17 +149,12 @@ namespace FileManager
             {
                 Directory.CreateDirectory(pathToDirectory);
             }
-
-            ColorTextAndBackground.Base();
-            Desktop.LeftPanel.UpdatePath(path);
-            Desktop.RightPanel.UpdatePath(path);
-            Desktop.Update();
         }
 
         public static void Delete()
         {
             FilesPanel activePanel = Desktop.ActivePanel;
-
+            
             Delete delete = new Delete(activePanel);
             if (activePanel.BufferSelectedPositionCursor.Count == 0)
             {
@@ -171,13 +162,16 @@ namespace FileManager
             }
             else
             {
+                List<FileAttributes> ListToDelete = new List<FileAttributes>();
                 foreach (int i in activePanel.BufferSelectedPositionCursor)
                 {
-                    FileAttributes attributes = activePanel.CurrentListDirAndFiles[i];
-                    delete.DeleteFileOrDirectory(attributes);
+                    ListToDelete.Add(activePanel.CurrentListDirAndFiles[i]);
+                }
+                foreach (FileAttributes i in ListToDelete)
+                {
+                    delete.DeleteFileOrDirectory(i);
                 }
             }
-            activePanel.BufferSelectedPositionCursor.Clear();
         }
 
         public static void Copy()
@@ -197,7 +191,6 @@ namespace FileManager
                     copy.CheckingExistenceObjectInDestinationFolder(attributes);
                 }
             }
-            activePanel.BufferSelectedPositionCursor.Clear();
         }
 
         public static void Move()

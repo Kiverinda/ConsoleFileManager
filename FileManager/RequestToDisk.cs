@@ -22,7 +22,7 @@ namespace FileManager
         {
             DriveInfo[] alldisk = DriveInfo.GetDrives();
             FileAttributes[] disks = new FileAttributes[alldisk.Length];
-            for(int i = 0; i < alldisk.Length; i++)
+            for (int i = 0; i < alldisk.Length; i++)
             {
                 disks[i] = new FileAttributes(alldisk[i].Name, alldisk[i].Name);
             }
@@ -74,7 +74,7 @@ namespace FileManager
             if (!IsRoot())
             {
                 string upLevel = CurrentPath.Remove(CurrentPath.LastIndexOf(@"\"), CurrentPath.Length - CurrentPath.LastIndexOf(@"\"));
-                newTreeFiles.Add(new FileAttributes("[..]", upLevel));
+                newTreeFiles.Add(new FileAttributes("[..]", "[..]", upLevel, 0, false, ""));
             }
 
             newTreeFiles = AddedFilesToList(newTreeFiles);
@@ -124,7 +124,7 @@ namespace FileManager
             long sizeDir = GetSizeDirectory(list);
             return sizeDir;
         }
-        
+
         public long GetSizeDirectory(List<FileAttributes> list)
         {
             long sizeDir = 0;
@@ -200,10 +200,12 @@ namespace FileManager
 
         public string Substring(string str)
         {
-            int length = 30;
-            string stringTemp = string.Concat(Enumerable.Repeat(' ', length));
-            str = str + stringTemp;
-            return str.Substring(0, length);
+            int length = 56;
+            if (str.Length > length)
+            {
+                return str.Substring(0, length);
+            }
+            return str;
         }
     }
 }

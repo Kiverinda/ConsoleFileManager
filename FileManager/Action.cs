@@ -36,7 +36,7 @@ namespace FileManager
             FilesPanel currentPanel = Desktop.ActivePanel;
             List<FileAttributes> currentList = currentPanel.CurrentListDirAndFiles;
             string currentPath = currentList[currentPanel.AbsoluteCursorPosition].Path;
-
+            View view = new View();
             if (currentList[currentPanel.AbsoluteCursorPosition].IsFile)
             {
                 FileLaunch(currentList[currentPanel.AbsoluteCursorPosition]);
@@ -44,35 +44,51 @@ namespace FileManager
             else
             {
                 Desktop.ActivePanel.UpdatePath(currentPath);
+                view.CurrentCursor(Desktop.ActivePanel);
             }
         }
 
         private static void FileLaunch(FileAttributes attributes)
         {
-            if (attributes.Extension == ".exe")
+            View view = new View();
+            try
             {
-                Process open = new Process();
-                open.StartInfo.FileName = attributes.Path;
-                open.Start();
+                if (attributes.Extension == ".exe")
+                {
+                    Process open = new Process();
+                    open.StartInfo.FileName = attributes.Path;
+                    open.Start();
+                }
+                else if (attributes.Extension == ".txt")
+                {
+                    Process open = new Process();
+                    open.StartInfo.FileName = @"c:\Windows\System32\notepad.exe";
+                    open.StartInfo.Arguments = attributes.Path;
+                    open.Start();
+                }
+                else if (attributes.Extension == ".mp4")
+                {
+                    Process open = new Process();
+                    open.StartInfo.FileName = @"c:\Program Files\Windows Media Player\wmplayer.exe";
+                    open.StartInfo.Arguments = attributes.Path;
+                    open.Start();
+                }
+                else if (attributes.Extension == ".mp3")
+                {
+                    Process open = new Process();
+                    open.StartInfo.FileName = @"c:\Program Files\Windows Media Player\wmplayer.exe";
+                    open.StartInfo.Arguments = attributes.Path;
+                    open.Start();
+                }
+                else
+                {
+                    // Process.Start(attributes.Path);
+                    return;
+                }
             }
-            else if (attributes.Extension == ".txt")
+            catch (System.ComponentModel.Win32Exception)
             {
-                Process open = new Process();
-                open.StartInfo.FileName = @"c:\Windows\System32\notepad.exe";
-                open.StartInfo.Arguments = attributes.Path;
-                open.Start();
-            }
-            else if (attributes.Extension == ".mp4")
-            {
-                Process open = new Process();
-                open.StartInfo.FileName = @"C:\Program Files (x86)\K-Lite Codec Pack\MPC-HC64\mpc-hc64.exe";
-                open.StartInfo.Arguments = attributes.Path;
-                open.Start();
-            }
-            else
-            {
-                // Process.Start(attributes.Path);
-                return;
+                view.Message("Не найден файл");
             }
         }
 
@@ -137,7 +153,7 @@ namespace FileManager
             string message = "Введите имя файла";
             View view = new View();
             string nameFile = view.MessageCreate(message);
-            
+
             string pathToFile = Path.Combine(path, nameFile);
             if (!File.Exists(pathToFile) && nameFile != "")
             {
@@ -170,7 +186,7 @@ namespace FileManager
             View view = new View();
             string nameDirectory = view.MessageCreate(message);
 
-            string pathToDirectory = Path.Combine(path, nameDirectory); 
+            string pathToDirectory = Path.Combine(path, nameDirectory);
             if (!Directory.Exists(pathToDirectory) && nameDirectory != "")
             {
                 Directory.CreateDirectory(pathToDirectory);
@@ -180,7 +196,7 @@ namespace FileManager
         public static void Delete()
         {
             FilesPanel activePanel = Desktop.ActivePanel;
-            
+
             Delete delete = new Delete(activePanel);
             if (activePanel.BufferSelectedPositionCursor.Count == 0)
             {
@@ -205,7 +221,7 @@ namespace FileManager
             FilesPanel activePanel = Desktop.ActivePanel;
             Copy copy = new Copy(activePanel);
 
-            if(activePanel.BufferSelectedPositionCursor.Count == 0)
+            if (activePanel.BufferSelectedPositionCursor.Count == 0)
             {
                 copy.Check();
             }
@@ -297,15 +313,17 @@ namespace FileManager
 
         public static void Tree(string path)
         {
+            int countView = Console.WindowHeight - 9;
+            int startPosition = 0;
+            ConsoleKeyInfo click;
             RequestToDisk request = new RequestToDisk(path);
-            List<FileAttributes> source = request.GetListDirectoryAndFiles();
-            Clear clear = new Clear();
             View view = new View();
-            int WindowFileHeight = Console.WindowHeight - 9;
-            int count = 0;
-            int countView = 0;
+            view.Message("ИДЕТ ПОСТРОЕНИЕ ДЕРЕВА");
+            List<FileAttributes> source = request.GetListDirectoryAndFiles();
+            view.FPanel(Desktop.ActivePanel);
+            Clear clear = new Clear();
+            
             FilesPanel viewPanel;
-
             if (Desktop.ActivePanel.IsLeftPanel)
             {
                 viewPanel = Desktop.RightPanel;
@@ -314,20 +332,31 @@ namespace FileManager
             {
                 viewPanel = Desktop.LeftPanel;
             }
-            clear.FPanel(viewPanel);
-            while(count < source.Count)
+
+            while (true)
             {
-                if(countView <= WindowFileHeight)
+                clear.FPanel(viewPanel);
+                view.Tree(viewPanel, source, startPosition);
+                click = Console.ReadKey();
+                if (click.Key == ConsoleKey.Escape)
                 {
-                    view.Tree(viewPanel, source[count].Path, countView);
-                    count++;
-                    countView++;
+                    return;
                 }
-                else
+                if (click.Key == ConsoleKey.DownArrow)
                 {
-                    Console.ReadLine();
-                    countView = 0;
+                    if (startPosition + countView < source.Count)
+                    {
+                        startPosition = startPosition + countView;
+                    }
                 }
+                if (click.Key == ConsoleKey.UpArrow)
+                {
+                    if(startPosition >= countView)
+                    {
+                        startPosition = startPosition - countView;
+                    }
+                }
+
             }
         }
     }

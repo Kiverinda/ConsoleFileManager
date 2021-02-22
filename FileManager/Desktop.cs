@@ -108,7 +108,6 @@ namespace FileManager
                 {
                     string path = Desktop.ActivePanel.CurrentListDirAndFiles[Desktop.ActivePanel.AbsoluteCursorPosition].Path;
                     Action.Tree(path);
-                    Console.ReadLine();
                     Update();
                 }
 

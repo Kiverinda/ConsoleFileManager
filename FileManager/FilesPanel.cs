@@ -46,19 +46,21 @@ namespace FileManager
         public double ListToSize()
         {
             double size = 0;
-            foreach(FileAttributes fa in ListTo)
+            foreach(FileAttributes file in ListTo)
             {
-                size += fa.Size;
+                size += file.Size;
             }
             return size;
         }
         
         public void UpdatePath(string path)
         {
-            CurrentListDirAndFiles = new RequestToDisk(path).GetListCurrentDirectory();
+            RequestToDisk request = new RequestToDisk(path);
             CurrentPath = path;
+            CurrentListDirAndFiles = request.GetListCurrentDirectory();
             AbsoluteCursorPosition = 0;
             RelativeCursorPosition = 0;
+            FirstLineWhenScrolling = 0;
             BufferSelectedPositionCursor = new HashSet<int>();
             ListTo = new List<FileAttributes>();
         }

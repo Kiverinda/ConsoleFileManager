@@ -31,7 +31,6 @@ namespace FileManager
 
         public string GetRoot()
         {
-         //   FileInfo f = new FileInfo(CurrentPath);
             return Path.GetPathRoot(CurrentPath);
         }
 
@@ -46,7 +45,19 @@ namespace FileManager
                     isRoot = true;
                     CurrentPath += @"\";
                 }
+                else if (CurrentPath.ToUpper() == str.Name.Remove(str.Name.LastIndexOf(@"\"), str.Name.Length - str.Name.LastIndexOf(@"\")))
+                {
+                    isRoot = true;
+                    CurrentPath += @"\";
+                    CurrentPath = CurrentPath.ToUpper();
+                }
                 else if (CurrentPath == str.Name)
+                {
+                    isRoot = true;
+                    CurrentPath += @"\";
+                    CurrentPath = CurrentPath.ToUpper();
+                }
+                else if (CurrentPath.ToUpper() == str.Name)
                 {
                     isRoot = true;
                     CurrentPath += @"\";

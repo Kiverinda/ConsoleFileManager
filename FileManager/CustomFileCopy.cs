@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+﻿using System.IO;
 
 namespace FileManager
 {
@@ -17,8 +14,8 @@ namespace FileManager
 
         public CustomFileCopy(string Source, string Dest)
         {
-            this.SourceFilePath = Source;
-            this.DestFilePath = Dest;
+            SourceFilePath = Source;
+            DestFilePath = Dest;
 
             OnProgressChanged += delegate { };
             OnComplete += delegate { };

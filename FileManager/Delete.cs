@@ -8,19 +8,10 @@ namespace FileManager
     public class Delete
     {
         public FilesPanel CurrentPanel { get; set; }
-        public FilesPanel SecondPanel { get; set; }
 
         public Delete(FilesPanel filesPanel)
         {
             CurrentPanel = filesPanel;
-            if (CurrentPanel.IsLeftPanel)
-            {
-                SecondPanel = Desktop.RightPanel;
-            }
-            else
-            {
-                SecondPanel = Desktop.LeftPanel;
-            }
         }
 
         public void Check()
@@ -43,7 +34,6 @@ namespace FileManager
             {
                 if (Confirmation(attributes.Path)) Directory.Delete(attributes.Path, true);
             }
-            UpdateDateInWindow();
         }
 
         public bool Confirmation(string path)
@@ -67,15 +57,6 @@ namespace FileManager
             } while (click.Key != ConsoleKey.Escape);
             
             return false;
-        }
-
-        public void UpdateDateInWindow()
-        {
-            View view = new View();
-            CurrentPanel.UpdatePath(CurrentPanel.CurrentPath);
-            view.FPanel(CurrentPanel);
-            view.FPanel(SecondPanel);
-            view.CurrentCursor(CurrentPanel);
         }
     }
 }

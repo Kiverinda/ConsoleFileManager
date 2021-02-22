@@ -6,20 +6,22 @@ namespace FileManager
 {
     public class View
     {
-        private int WindowHight { get; set; }
+        private int WindowHeight { get; set; }
         private int WindowWidth { get; set; }
         private int MarginTop_For_StringPath { get; set; }
         private int MarginTop_For_WindowFiles { get; set; }
-        private int WindowFileHight { get; set; }
+        private int WindowFileHeight { get; set; }
+        private Clear CurrentClear;
 
 
         public View()
         {
-            WindowHight = Console.WindowHeight;
+            CurrentClear = new Clear();
+            WindowHeight = Console.WindowHeight;
             WindowWidth = Console.WindowWidth;
             MarginTop_For_StringPath = 1;
             MarginTop_For_WindowFiles = 3;
-            WindowFileHight = WindowHight - 7;
+            WindowFileHeight = WindowHeight - 9;
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
             Console.CursorVisible = false;
@@ -27,14 +29,13 @@ namespace FileManager
         
         public void FPanel(FilesPanel panel)
         {
-            Clear clear = new Clear();
-            clear.FPanel(panel);
+            CurrentClear.FPanel(panel);
             Console.SetWindowPosition(0, 0);
             Console.SetCursorPosition(MarginLeft(panel), MarginTop_For_StringPath);
             Console.Write(panel.CurrentPath);
             int i = panel.FirstLineWhenScrolling;
             int positionInFilePanel = MarginTop_For_WindowFiles;
-            while (i < WindowFileHight + panel.FirstLineWhenScrolling + 1 && i < panel.CurrentListDirAndFiles.Count)
+            while (i < WindowFileHeight + panel.FirstLineWhenScrolling + 1 && i < panel.CurrentListDirAndFiles.Count)
             {
                 Console.SetCursorPosition(MarginLeft(panel), positionInFilePanel);
                 if (panel.CurrentListDirAndFiles[i].IsFile)
@@ -172,12 +173,11 @@ namespace FileManager
 
         public string MessageCreate(string message)
         {
-            Clear clear = new Clear();
-            clear.Message();
+            CurrentClear.Message();
             ColorTextAndBackground.InverseBase();
-            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 2);
+            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHeight / 3 + 2);
             Console.Write(message);
-            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 3);
+            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHeight / 3 + 4);
             Console.CursorVisible = true;
             string nameFile = Console.ReadLine();
             ColorTextAndBackground.Base();
@@ -186,79 +186,73 @@ namespace FileManager
         }
         public void Message(string message)
         {
-            Clear clear = new Clear();
-            clear.Message();
+            CurrentClear.Message();
             ColorTextAndBackground.InverseBase();
-            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 2);
+            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHeight / 3 + 2);
             Console.Write(message);
             ColorTextAndBackground.Base();
         }
 
         public void Confirmation(string message, string path)
-        {
-            Clear clear = new Clear();
-            clear.Message();
+        { 
+            CurrentClear.Message();
             ColorTextAndBackground.InverseBase();
-            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 2);
+            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHeight / 3 + 2);
             Console.Write(message);
-            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHight / 3 + 3);
+            Console.SetCursorPosition(WindowWidth / 3 + 5, WindowHeight / 3 + 3);
             Console.Write(path);
-            Console.SetCursorPosition(WindowWidth / 3 + 15, WindowHight / 3 + 5);
+            Console.SetCursorPosition(WindowWidth / 3 + 15, WindowHeight / 3 + 5);
             Console.Write("Y  Да               N Нет");
             ColorTextAndBackground.Base();
         }
 
+        public ConsoleKeyInfo CommandLine(string path, string command)
+        {
+            CurrentClear.CommandLine();
+            Console.CursorVisible = true;
+            Console.SetCursorPosition(2, WindowHeight - 4);
+            Console.Write($"{path} ");
+            Console.Write(command);
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            Console.CursorVisible = false;
+            return key;
+        }
+
         public void Footer()
         {
+            CurrentClear.CommandLine();
+            Menu();
+        }
+
+        public void Menu() { 
             ColorTextAndBackground.Base();
-            Console.SetCursorPosition(0, WindowHight - 2);
+            Console.SetCursorPosition(0, WindowHeight - 2);
+            Console.Write("|  F1 ПОМОЩЬ  ");
+            Console.Write("|  F2 ФАЙЛ  ");
+            Console.Write("|  F3 РЕДАКТИРОВАНИЕ  ");
+            Console.Write("|  F4 ПЕРЕИМЕНОВАТЬ  ");
+            Console.Write("|  F5 КОПИРОВАНИЕ  ");
+            Console.Write("|  F6 ПЕРЕМЕЩЕНИЕ  ");
+            Console.Write("|  F7 КАТАЛОГ   ");
+            Console.Write("|  F8 УДАЛЕНИЕ  ");
+            Console.Write("|  F9 ДЕРЕВО   ");
+            Console.Write("|  ESC ВЫХОД   ");
             Console.Write("|");
-            Console.SetCursorPosition(3, WindowHight - 2); 
-            Console.Write("F1 ПОМОЩЬ"); 
-            Console.SetCursorPosition(15, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(19, WindowHight - 2);
-            Console.Write("F2 ФАЙЛ");
-            Console.SetCursorPosition(29, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(32, WindowHight - 2);
-            Console.Write("F3 РЕДАКТИРОВАНИЕ");
-            Console.SetCursorPosition(51, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(54, WindowHight - 2);
-            Console.Write("F5 КОПИРОВАНИЕ");
-            Console.SetCursorPosition(70, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(73, WindowHight - 2);
-            Console.Write("F6 ПЕРЕМЕЩЕНИЕ");
-            Console.SetCursorPosition(89, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(92, WindowHight - 2);
-            Console.Write("F7 КАТАЛОГ");
-            Console.SetCursorPosition(105, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(108, WindowHight - 2);
-            Console.Write("F8 УДАЛЕНИЕ");
-            Console.SetCursorPosition(122, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(125, WindowHight - 2);
-            Console.Write("ESC ВЫХОД");
-            Console.SetCursorPosition(138, WindowHight - 2);
-            Console.Write("|");
-            Console.SetCursorPosition(0, WindowHight - 1);
+            Console.SetCursorPosition(0, WindowHeight - 1);
             Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth - 1)));
             Console.SetCursorPosition(0, 0);
         }
 
         public void Copy(string currentPath, string targetPath)
         {
+            CurrentClear.Copy();
             ColorTextAndBackground.InverseBase();
             Console.CursorVisible = false;
-            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 1);
+            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 1);
             Console.Write("КОПИРОВАНИЕ: ");
-            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 2);
+            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 2);
             Console.Write(currentPath + " -> ");
-            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 3);
+            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 3);
             Console.Write(targetPath);
             ColorTextAndBackground.Base();
         }
@@ -266,25 +260,37 @@ namespace FileManager
         public void CopyPersentage(double persentage)
         {
             ColorTextAndBackground.InverseBase();
-            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 5);
+            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 5);
             Console.Write($"Выполненно: {(int)persentage} %");
             ColorTextAndBackground.Base();
-            CopyViewPersentage(persentage);
+            CopyLinePersentage(persentage);
         }
 
-        public void CopyViewPersentage(double persentage)
+        public void CopyLinePersentage(double persentage)
         {
-            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHight / 3 + 7);
+            Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 7);
             Console.Write("[");
             Console.Write(string.Concat(Enumerable.Repeat('-', WindowWidth / 2 - 10)));
             Console.Write("]");
-            Console.SetCursorPosition(WindowWidth / 4 + 6, WindowHight / 3 + 7);
+            Console.SetCursorPosition(WindowWidth / 4 + 6, WindowHeight / 3 + 7);
             ColorTextAndBackground.Base();
             int viewPersentage = (int)((WindowWidth / 2 - 10) * persentage / 100);
             Console.Write(string.Concat(Enumerable.Repeat(' ', viewPersentage)));
             Console.CursorVisible = false;
         }
 
+        public void Tree(FilesPanel panel, string path, int count)
+        {
+            ////CurrentClear.FPanel(panel);
+            //Console.SetCursorPosition(MarginLeft(panel), MarginTop_For_WindowFiles);
+            //Console.Write(path);
+            if (count < WindowFileHeight)
+            {
+                Console.SetCursorPosition(MarginLeft(panel), MarginTop_For_WindowFiles + count);
+                Console.Write(path);
+            }
+        }
+        
         public int MarginLeft(FilesPanel panel)
         {
             int margin;

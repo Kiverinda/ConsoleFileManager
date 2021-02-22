@@ -17,7 +17,7 @@ namespace FileManager
             WindowHight = Console.WindowHeight;
             WindowWidth = Console.WindowWidth;
             WidthPanel = WindowWidth / 2;
-            HightFilePanel = WindowHight - 3;
+            HightFilePanel = WindowHight - 5;
             RightBorder = WidthPanel - 2;
         }
         public void FPanel(FilesPanel panel)
@@ -42,8 +42,7 @@ namespace FileManager
                 Console.Write(string.Concat(Enumerable.Repeat(' ', RightBorder)));
                 Console.Write("|");
             }
-            Console.SetCursorPosition(MarginLeft(panel), HightFilePanel);
-            Console.Write(string.Concat(Enumerable.Repeat('*', RightBorder + 1)));
+
         }
 
         public void Message()
@@ -92,6 +91,16 @@ namespace FileManager
             ColorTextAndBackground.Base();
         }
 
+        public void CommandLine()
+        {
+            Console.SetCursorPosition(0, WindowHight - 5);
+            Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth)));
+            Console.SetCursorPosition(0, WindowHight - 4);
+            Console.Write(string.Concat(Enumerable.Repeat(' ', WindowWidth)));
+            Console.SetCursorPosition(0, WindowHight - 3);
+            Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth)));
+        }
+        
         public int MarginLeft(FilesPanel panel)
         {
             int margin = 0;

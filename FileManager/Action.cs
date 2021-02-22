@@ -7,9 +7,6 @@ namespace FileManager
 {
     static class Action
     {
-        private static int windowHight = Console.WindowHeight;
-        private static int windowFileHight = windowHight - 7;
-
         public static void ChangeActivePanel()
         {
             View view = new View();
@@ -25,29 +22,57 @@ namespace FileManager
             view.CurrentCursor(Desktop.ActivePanel);
         }
 
+        public static void SelectCommandLine(FilesPanel currentPanel)
+        {
+            View view = new View();
+            view.OldCursor(Desktop.ActivePanel);
+            CommandLine line = new CommandLine(currentPanel);
+            line.Parse();
+            view.CurrentCursor(Desktop.ActivePanel);
+        }
+
         public static void Enter()
         {
             FilesPanel currentPanel = Desktop.ActivePanel;
             List<FileAttributes> currentList = currentPanel.CurrentListDirAndFiles;
             string currentPath = currentList[currentPanel.AbsoluteCursorPosition].Path;
-            string currentExtension = currentList[currentPanel.AbsoluteCursorPosition].Extension;
 
             if (currentList[currentPanel.AbsoluteCursorPosition].IsFile)
             {
-                if (currentExtension == ".exe")
-                {
-                    Process open = new Process();
-                    open.StartInfo.FileName = currentPath;
-                    open.Start();
-                }
-                else
-                {
-                    return;
-                }
+                FileLaunch(currentList[currentPanel.AbsoluteCursorPosition]);
             }
             else
             {
                 Desktop.ActivePanel.UpdatePath(currentPath);
+            }
+        }
+
+        private static void FileLaunch(FileAttributes attributes)
+        {
+            if (attributes.Extension == ".exe")
+            {
+                Process open = new Process();
+                open.StartInfo.FileName = attributes.Path;
+                open.Start();
+            }
+            else if (attributes.Extension == ".txt")
+            {
+                Process open = new Process();
+                open.StartInfo.FileName = @"c:\Windows\System32\notepad.exe";
+                open.StartInfo.Arguments = attributes.Path;
+                open.Start();
+            }
+            else if (attributes.Extension == ".mp4")
+            {
+                Process open = new Process();
+                open.StartInfo.FileName = @"C:\Program Files (x86)\K-Lite Codec Pack\MPC-HC64\mpc-hc64.exe";
+                open.StartInfo.Arguments = attributes.Path;
+                open.Start();
+            }
+            else
+            {
+                // Process.Start(attributes.Path);
+                return;
             }
         }
 
@@ -56,6 +81,8 @@ namespace FileManager
             FilesPanel panel = Desktop.ActivePanel;
             View view = new View();
             Clear clear = new Clear();
+            int windowFileHight = Console.WindowHeight - 9;
+
             if (panel.AbsoluteCursorPosition >= Desktop.ActivePanel.CurrentListDirAndFiles.Count - 1)
             {
                 return;
@@ -126,7 +153,6 @@ namespace FileManager
             if (currentList[Desktop.ActivePanel.AbsoluteCursorPosition].IsFile)
             {
                 Process open = new Process();
-
                 open.StartInfo.FileName = @"c:\Windows\System32\notepad.exe";
                 open.StartInfo.Arguments = currentPath;
                 open.Start();
@@ -177,8 +203,8 @@ namespace FileManager
         public static void Copy()
         {
             FilesPanel activePanel = Desktop.ActivePanel;
-
             Copy copy = new Copy(activePanel);
+
             if(activePanel.BufferSelectedPositionCursor.Count == 0)
             {
                 copy.Check();
@@ -192,6 +218,26 @@ namespace FileManager
                 }
             }
         }
+
+        public static void Rename()
+        {
+            FilesPanel activePanel = Desktop.ActivePanel;
+            View view = new View();
+            string newName = view.MessageCreate("ВВЕДИТЕ НОВОЕ ИМЯ");
+            FileAttributes source = activePanel.CurrentListDirAndFiles[activePanel.AbsoluteCursorPosition];
+            string oldName = source.Name;
+
+            if (source.IsFile)
+            {
+                File.Move(source.Path, source.Path.Replace(oldName, newName));
+            }
+            else
+            {
+                Directory.Move(source.Path, source.Path.Replace(oldName, newName));
+            }
+            Desktop.Update();
+        }
+
 
         public static void Move()
         {
@@ -247,6 +293,42 @@ namespace FileManager
             int currentPositionCursor = Desktop.ActivePanel.AbsoluteCursorPosition;
             Desktop.ActivePanel.AddBufferSelectedPositionCursor(currentPositionCursor);
             view.SelectedItems(Desktop.ActivePanel);
+        }
+
+        public static void Tree(string path)
+        {
+            RequestToDisk request = new RequestToDisk(path);
+            List<FileAttributes> source = request.GetListDirectoryAndFiles();
+            Clear clear = new Clear();
+            View view = new View();
+            int WindowFileHeight = Console.WindowHeight - 9;
+            int count = 0;
+            int countView = 0;
+            FilesPanel viewPanel;
+
+            if (Desktop.ActivePanel.IsLeftPanel)
+            {
+                viewPanel = Desktop.RightPanel;
+            }
+            else
+            {
+                viewPanel = Desktop.LeftPanel;
+            }
+            clear.FPanel(viewPanel);
+            while(count < source.Count)
+            {
+                if(countView <= WindowFileHeight)
+                {
+                    view.Tree(viewPanel, source[count].Path, countView);
+                    count++;
+                    countView++;
+                }
+                else
+                {
+                    Console.ReadLine();
+                    countView = 0;
+                }
+            }
         }
     }
 }

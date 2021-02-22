@@ -32,11 +32,6 @@ namespace FileManager
         {
             LeftPanel.UpdatePath(LeftPanel.CurrentPath);
             RightPanel.UpdatePath(RightPanel.CurrentPath);
-            LeftPanel.BufferSelectedPositionCursor.Clear();
-            RightPanel.BufferSelectedPositionCursor.Clear();
-            ActivePanel.AbsoluteCursorPosition = 0;
-            ActivePanel.RelativeCursorPosition = 0;
-            ActivePanel.FirstLineWhenScrolling = 0;
             ViewDesktop();
         }
 
@@ -50,6 +45,10 @@ namespace FileManager
                 if (((click.Modifiers & ConsoleModifiers.Control) != 0) && (click.Key == ConsoleKey.F1))
                 {
                     Action.SelectDisk(Desktop.ActivePanel);
+                }
+                else if (((click.Modifiers & ConsoleModifiers.Control) != 0) && (click.Key == ConsoleKey.Z))
+                {
+                    Action.SelectCommandLine(Desktop.ActivePanel);
                 }
                 else if (click.Key == ConsoleKey.Tab)
                 {
@@ -81,6 +80,10 @@ namespace FileManager
                 {
                     Action.EditFile();
                 }
+                else if (click.Key == ConsoleKey.F4)
+                {
+                    Action.Rename();
+                }
                 else if (click.Key == ConsoleKey.F5)
                 {
                     Action.Copy();
@@ -99,6 +102,13 @@ namespace FileManager
                 else if (click.Key == ConsoleKey.F8)
                 {
                     Action.Delete();
+                    Update();
+                }
+                else if (click.Key == ConsoleKey.F9)
+                {
+                    string path = Desktop.ActivePanel.CurrentListDirAndFiles[Desktop.ActivePanel.AbsoluteCursorPosition].Path;
+                    Action.Tree(path);
+                    Console.ReadLine();
                     Update();
                 }
 

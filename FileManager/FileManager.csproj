@@ -3,6 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Authors>Dmitriy Kiverin</Authors>
+    <Copyright>Dmitriy Kiverin</Copyright>
+    <Description>Two-window file manager with command line support</Description>
   </PropertyGroup>
 
 </Project>

@@ -74,7 +74,6 @@ namespace FileManager
             }
         }
 
-
         public void CheckFreeSpaceFile(FileAttributes attributes)
         {
             long freeSpace = new RequestToDisk(TargetPanel.CurrentPath).GetFreeSpace();
@@ -113,8 +112,6 @@ namespace FileManager
 
         public void CopyFile(string path)
         {
-            Clear clear = new Clear();
-            clear.Copy();
             ViewCopy.Copy(Path.GetFileName(path), TargetPanel.CurrentPath);
             CustomFileCopy cs = new CustomFileCopy(path, path.Replace(ActivePanel.CurrentPath, TargetPanel.CurrentPath));
             cs.OnProgressChanged += ViewPersentageToConsole;

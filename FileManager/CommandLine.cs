@@ -106,8 +106,8 @@ namespace FileManager
                     case "tree":
                         if (Directory.Exists(command[1]))
                         {
-                            Action.GetInstance().Tree(command[1]);
-                            Console.ReadLine();
+                            new Tree().TreeFilesAndDirectory(command[1]);
+                            Desktop.GetInstance().Update();
                         }
                         break;
                     default:

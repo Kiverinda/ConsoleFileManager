@@ -3,12 +3,14 @@ using System.Threading;
 
 namespace FileManager
 {
-    public delegate void ResizeWindow(ref bool Close);
+    public delegate void ResizeWindow();
 
     class ThreadControlSizeWindow
     {
+        private static ThreadControlSizeWindow instance { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public bool Close { get; set; }
         public event ResizeWindow Resize;
 
         public ThreadControlSizeWindow()
@@ -16,6 +18,15 @@ namespace FileManager
             Width = Console.WindowWidth;
             Height = Console.WindowHeight;
             Resize += delegate { };
+        }
+
+        public static ThreadControlSizeWindow GetInstance()
+        {
+            if (instance == null)
+            {
+                    instance = new ThreadControlSizeWindow();
+            }
+            return instance;
         }
 
         public void Start()
@@ -27,14 +38,14 @@ namespace FileManager
 
         public void Control()
         {
-            bool Close = false;
+            Close = false;
             while (!Close)
             {
                 if (Console.WindowHeight != Height || Console.WindowWidth != Width)
                 {
                     Height = Console.WindowHeight;
                     Width = Console.WindowWidth;
-                    Resize(ref Close);
+                    Resize();
                     Thread.Sleep(100);
                 }
             }

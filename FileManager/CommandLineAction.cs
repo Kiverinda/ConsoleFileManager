@@ -26,10 +26,10 @@ namespace FileManager
         {
             string current = CurrentPath.Remove(CurrentPath.LastIndexOf(@"\"), CurrentPath.Length - CurrentPath.LastIndexOf(@"\"));
             string target = TargetPath.Remove(TargetPath.LastIndexOf(@"\"), TargetPath.Length - TargetPath.LastIndexOf(@"\"));
-            Desktop.LeftPanel.UpdatePath(current);
-            Desktop.RightPanel.UpdatePath(target);
-            Desktop.ActivePanel = Desktop.LeftPanel;
-            Desktop.ViewDesktop();
+            Desktop.GetInstance().LeftPanel.UpdatePath(current);
+            Desktop.GetInstance().RightPanel.UpdatePath(target);
+            Desktop.GetInstance().ActivePanel = Desktop.GetInstance().LeftPanel;
+            Desktop.GetInstance().ViewDesktop();
             FileAttributes newAttributes;
             if (Path.GetExtension(CurrentPath) != "")
             {
@@ -43,7 +43,7 @@ namespace FileManager
                 newAttributes = new FileAttributes(Path.GetFileName(CurrentPath), CurrentPath);
             }
 
-            Copy copy = new Copy(Desktop.ActivePanel);
+            Copy copy = new Copy(Desktop.GetInstance().ActivePanel);
             copy.CheckingExistenceObjectInDestinationFolder(newAttributes);
         }
 
@@ -68,7 +68,7 @@ namespace FileManager
 
         public void CL_Delete()
         {
-            Delete delete = new Delete(Desktop.ActivePanel);
+            Delete delete = new Delete(Desktop.GetInstance().ActivePanel);
             string name = Path.GetFileName(CurrentPath);
             bool isFile = false;
             if (File.Exists(CurrentPath)) isFile = true;

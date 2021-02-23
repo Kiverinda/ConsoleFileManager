@@ -29,25 +29,23 @@ namespace FileManager
             using (FileStream source = new FileStream(SourceFilePath, FileMode.Open, FileAccess.Read))
             {
                 long fileLength = source.Length;
-                using (FileStream dest = new FileStream(DestFilePath, FileMode.CreateNew, FileAccess.Write))
+                using FileStream dest = new FileStream(DestFilePath, FileMode.CreateNew, FileAccess.Write);
+                long totalBytes = 0;
+                int currentBlockSize = 0;
+
+                while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0)
                 {
-                    long totalBytes = 0;
-                    int currentBlockSize = 0;
+                    totalBytes += currentBlockSize;
+                    double persentage = (double)totalBytes * 100.0 / fileLength;
 
-                    while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0)
+                    dest.Write(buffer, 0, currentBlockSize);
+
+                    cancelFlag = false;
+                    OnProgressChanged(persentage, ref cancelFlag);
+
+                    if (cancelFlag == true)
                     {
-                        totalBytes += currentBlockSize;
-                        double persentage = (double)totalBytes * 100.0 / fileLength;
-
-                        dest.Write(buffer, 0, currentBlockSize);
-
-                        cancelFlag = false;
-                        OnProgressChanged(persentage, ref cancelFlag);
-
-                        if (cancelFlag == true)
-                        {
-                            break;
-                        }
+                        break;
                     }
                 }
             }

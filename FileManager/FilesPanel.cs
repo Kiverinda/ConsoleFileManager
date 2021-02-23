@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Collections.Generic;
-
+using System;
 
 namespace FileManager
 {
@@ -15,7 +15,7 @@ namespace FileManager
         public List<FileAttributes> ListTo { get; set; }
         public HashSet<int> BufferSelectedPositionCursor { get; set; }
 
-    
+     
         public FilesPanel(bool isLeftPanel)
         {
             IsLeftPanel = isLeftPanel;

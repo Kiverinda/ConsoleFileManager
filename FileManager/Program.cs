@@ -7,9 +7,11 @@ namespace FileManager
     {
         static void Main()
         {
+            
             Console.SetBufferSize(170, 55);
             Console.SetWindowSize(170, 55);
-            Desktop.Init();
+            
+            Desktop.GetInstance().Run();
         }
     }
 }

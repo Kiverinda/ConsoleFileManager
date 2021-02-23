@@ -4,7 +4,7 @@ using System.IO;
 
 namespace FileManager
 {
-    public class Copy
+    class Copy : ICommand
     {
         public FilesPanel ActivePanel { get; set; }
         public FilesPanel TargetPanel { get; set; }
@@ -16,13 +16,18 @@ namespace FileManager
 
             if (activePanel.IsLeftPanel)
             {
-                TargetPanel = Desktop.RightPanel;
+                TargetPanel = Desktop.GetInstance().RightPanel;
             }
             else
             {
-                TargetPanel = Desktop.LeftPanel;
+                TargetPanel = Desktop.GetInstance().LeftPanel;
             }
 
+            ViewCopy = new View();
+        }
+
+        public Copy()
+        {
             ViewCopy = new View();
         }
 
@@ -87,7 +92,6 @@ namespace FileManager
             else
             {
                 CopyFile(attributes.Path);
-
             }
         }
 
@@ -147,6 +151,39 @@ namespace FileManager
             {
                 cancelFlag = true;
             }
+        }
+
+        public bool CanExexute(ConsoleKeyInfo click)
+        {
+            return click.Key == ConsoleKey.F5;
+        }
+
+        public bool Execute()
+        {
+            ActivePanel = Desktop.GetInstance().ActivePanel;
+            if (ActivePanel.IsLeftPanel)
+            {
+                TargetPanel = Desktop.GetInstance().RightPanel;
+            }
+            else
+            {
+                TargetPanel = Desktop.GetInstance().LeftPanel;
+            }
+
+            if (ActivePanel.BufferSelectedPositionCursor.Count == 0)
+            {
+                Check();
+            }
+            else
+            {
+                foreach (int i in ActivePanel.BufferSelectedPositionCursor)
+                {
+                    FileAttributes attributes = ActivePanel.CurrentListDirAndFiles[i];
+                    CheckingExistenceObjectInDestinationFolder(attributes);
+                }
+            }
+            Desktop.GetInstance().Update();
+            return false;
         }
 
         //public void ViewVessageCompleteToConsole()

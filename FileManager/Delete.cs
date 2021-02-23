@@ -5,34 +5,46 @@ using System.Collections.Generic;
 
 namespace FileManager
 {
-    public class Delete
+    public class Delete : ICommand
     {
-        public FilesPanel CurrentPanel { get; set; }
+        public FilesPanel ActivePanel { get; set; }
 
         public Delete(FilesPanel filesPanel)
         {
-            CurrentPanel = filesPanel;
+            ActivePanel = filesPanel;
+        }
+
+        public Delete()
+        {
+
         }
 
         public void Check()
         {
-            List<FileAttributes> currentList = CurrentPanel.CurrentListDirAndFiles;
-            if (currentList[CurrentPanel.AbsoluteCursorPosition].Name == "[..]")
+            List<FileAttributes> currentList = ActivePanel.CurrentListDirAndFiles;
+            if (currentList[ActivePanel.AbsoluteCursorPosition].Name == "[..]")
             {
                 return;
             }
-            DeleteFileOrDirectory(currentList[CurrentPanel.AbsoluteCursorPosition]);
+            DeleteFileOrDirectory(currentList[ActivePanel.AbsoluteCursorPosition]);
         }
 
         public void DeleteFileOrDirectory(FileAttributes attributes)
         {
-            if (attributes.IsFile)
+            try
             {
-                if (Confirmation(attributes.Path)) File.Delete(attributes.Path);
+                if (attributes.IsFile)
+                {
+                    if (Confirmation(attributes.Path)) File.Delete(attributes.Path);
+                }
+                else
+                {
+                    if (Confirmation(attributes.Path)) Directory.Delete(attributes.Path, true);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                if (Confirmation(attributes.Path)) Directory.Delete(attributes.Path, true);
+                new ErrorLog(this, ex.Message, ex.StackTrace);
             }
         }
 
@@ -56,6 +68,35 @@ namespace FileManager
 
             } while (click.Key != ConsoleKey.Escape);
             
+            return false;
+        }
+
+        public bool CanExexute(ConsoleKeyInfo click)
+        {
+            return click.Key == ConsoleKey.F8;
+        }
+
+        public bool Execute()
+        {
+            ActivePanel = Desktop.GetInstance().ActivePanel;
+
+            if (ActivePanel.BufferSelectedPositionCursor.Count == 0)
+            {
+                Check();
+            }
+            else
+            {
+                List<FileAttributes> ListToDelete = new List<FileAttributes>();
+                foreach (int i in ActivePanel.BufferSelectedPositionCursor)
+                {
+                    ListToDelete.Add(ActivePanel.CurrentListDirAndFiles[i]);
+                }
+                foreach (FileAttributes i in ListToDelete)
+                {
+                    DeleteFileOrDirectory(i);
+                }
+            }
+            Desktop.GetInstance().Update();
             return false;
         }
     }

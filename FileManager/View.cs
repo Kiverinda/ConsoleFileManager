@@ -12,7 +12,7 @@ namespace FileManager
         private int MarginTop_For_StringPath { get; set; }
         private int MarginTop_For_WindowFiles { get; set; }
         private int WindowFileHeight { get; set; }
-        private Clear CurrentClear;
+        private Clear CurrentClear { get; set; }
 
 
         public View()
@@ -73,10 +73,10 @@ namespace FileManager
                 Console.SetCursorPosition(MarginLeft(panel), panel.RelativeCursorPosition + startPositionFilePanel);
                 ColorTextAndBackground.InverseSelect();
                 Console.Write(name);
-                Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, panel.RelativeCursorPosition + startPositionFilePanel);
-                Console.Write($"| {extension}   ");
-                Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, panel.RelativeCursorPosition + startPositionFilePanel);
-                Console.Write($"| {size}");
+                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, panel.RelativeCursorPosition + startPositionFilePanel);
+                //Console.Write($"| {extension}   ");
+                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, panel.RelativeCursorPosition + startPositionFilePanel);
+                //Console.Write($"| {size}");
                 ColorTextAndBackground.ForFile();
             }
             else
@@ -116,10 +116,10 @@ namespace FileManager
                 ColorTextAndBackground.Select();
                 Console.SetCursorPosition(MarginLeft(panel), panel.RelativeCursorPosition + positionInFilePanel);
                 Console.Write(name);
-                Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, panel.RelativeCursorPosition + positionInFilePanel);
-                Console.Write($"| {extension}   ");
-                Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, panel.RelativeCursorPosition + positionInFilePanel);
-                Console.Write($"| {size}");
+                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, panel.RelativeCursorPosition + positionInFilePanel);
+                //Console.Write($"| {extension}   ");
+                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, panel.RelativeCursorPosition + positionInFilePanel);
+                //Console.Write($"| {size}");
                 ColorTextAndBackground.ForFile();
             }
             else

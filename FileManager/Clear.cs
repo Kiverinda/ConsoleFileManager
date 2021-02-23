@@ -6,11 +6,11 @@ namespace FileManager
 {
     public class Clear
     {
-        private int WindowHight;
-        private int WindowWidth;
-        private int WidthPanel;
-        private int HightFilePanel;
-        private int RightBorder;
+        private int WindowHight { get; set; }
+        private int WindowWidth { get; set; }
+        private int WidthPanel { get; set; }
+        private int HightFilePanel { get; set; }
+        private int RightBorder { get; set; }
 
         public Clear()
         {

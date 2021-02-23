@@ -5,11 +5,12 @@ using System.Collections.Generic;
 
 namespace FileManager
 {
-    public class CommandLine
+    class CommandLine
     {
         public FilesPanel CurrentPanel { get; set; }
         public View CommandView { get; set; }
         public Stack<String> StackString { get; set; }
+        public Dictionary<string, ConsoleKeyInfo> MatchingCommandToButton { get; set; }
 
         public CommandLine(FilesPanel currentPanel)
         {
@@ -34,7 +35,7 @@ namespace FileManager
                     StackString.Push(commandString);
                     string[] command = commandString.Split(' ');
                     CheckCommand(command);
-                    Desktop.Update();
+                    Desktop.GetInstance().Update();
                     CommandView.OldCursor(CurrentPanel);
                     commandString = "";
                     continue;
@@ -80,36 +81,44 @@ namespace FileManager
 
         public void CheckCommand(string[] command)
         {
-            switch (command[0])
+            try
             {
-                case "cd":
-                    if (Directory.Exists(command[1]))
-                    {
-                        Desktop.ActivePanel.UpdatePath(command[1]);
-                    }
-                    break;
-                case "copy":
-                    CommandLineAction claCopy = new CommandLineAction(command[1], command[2]);
-                    claCopy.CL_Copy();
-                    break;
-                case "rename":
-                    CommandLineAction claRename = new CommandLineAction(command[1]);
-                    claRename.CL_Rename();
-                    break;
-                case "delete":
-                    CommandLineAction claDelete = new CommandLineAction(command[1]);
-                    claDelete.CL_Delete();
-                    break;
-                case "tree":
-                    if (Directory.Exists(command[1]))
-                    {
-                        Action.Tree(command[1]);
-                        Console.ReadLine();
-                    }
-                    break;
-                default:
-                    return;
+                switch (command[0])
+                {
+                    case "cd":
+                        if (Directory.Exists(command[1]))
+                        {
+                            Desktop.GetInstance().ActivePanel.UpdatePath(command[1]);
+                        }
+                        break;
+                    case "copy":
+                        CommandLineAction claCopy = new CommandLineAction(command[1], command[2]);
+                        claCopy.CL_Copy();
+                        break;
+                    case "rename":
+                        CommandLineAction claRename = new CommandLineAction(command[1]);
+                        claRename.CL_Rename();
+                        break;
+                    case "delete":
+                        CommandLineAction claDelete = new CommandLineAction(command[1]);
+                        claDelete.CL_Delete();
+                        break;
+                    case "tree":
+                        if (Directory.Exists(command[1]))
+                        {
+                            Action.GetInstance().Tree(command[1]);
+                            Console.ReadLine();
+                        }
+                        break;
+                    default:
+                        return;
+                }
             }
+            catch(Exception ex)
+            {
+                new ErrorLog(this, ex.Message, ex.StackTrace);
+            }
+            
         }
         
     }

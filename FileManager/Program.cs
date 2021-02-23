@@ -7,8 +7,6 @@ namespace FileManager
     {
         static void Main()
         {
-            Console.SetBufferSize(170, 55);
-            Console.SetWindowSize(170, 55);
             ThreadControlSizeWindow Control = ThreadControlSizeWindow.GetInstance();
             Control.Resize += ControlSize;
             Control.Start();

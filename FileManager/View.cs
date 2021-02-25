@@ -5,16 +5,44 @@ using System.Collections.Generic;
 
 namespace FileManager
 {
+    /// <summary>
+    /// Класс для вывода информации на экран
+    /// </summary>
     public class View
     {
-        private int WindowHeight { get; set; }
-        private int WindowWidth { get; set; }
-        private int MarginTop_For_StringPath { get; set; }
-        private int MarginTop_For_WindowFiles { get; set; }
-        private int WindowFileHeight { get; set; }
-        private Clear CurrentClear { get; set; }
+        /// <summary>
+        /// Высота окна приложения
+        /// </summary>
+        public int WindowHeight { get; set; }
 
+        /// <summary>
+        /// Ширина окна приложения
+        /// </summary>
+        public int WindowWidth { get; set; }
 
+        /// <summary>
+        /// Отступ сверху до строки с путем к директории
+        /// </summary>
+        public int MarginTop_For_StringPath { get; set; }
+
+        /// <summary>
+        /// Отступ сверху до файловой панели
+        /// </summary>
+        public int MarginTop_For_WindowFiles { get; set; }
+
+        /// <summary>
+        /// Высота файловой панели
+        /// </summary>
+        public int WindowFileHeight { get; set; }
+
+        /// <summary>
+        /// Экзепляр класса с шаблонами окон
+        /// </summary>
+        public Clear CurrentClear { get; set; }
+
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public View()
         {
             CurrentClear = new Clear();
@@ -28,6 +56,10 @@ namespace FileManager
             Console.CursorVisible = false;
         }
 
+        /// <summary>
+        /// Вывод файловой панели на экран
+        /// </summary>
+        /// <param name="panel"></param>
         public void FPanel(FilesPanel panel)
         {
             CurrentClear.FPanel(panel);
@@ -59,6 +91,10 @@ namespace FileManager
             }
         }
 
+        /// <summary>
+        /// Вывод на экран текущего положения курсора
+        /// </summary>
+        /// <param name="panel"></param>
         public void CurrentCursor(FilesPanel panel)
         {
 
@@ -98,6 +134,10 @@ namespace FileManager
 
         }
 
+        /// <summary>
+        /// Вывод на экран старого положения курсора
+        /// </summary>
+        /// <param name="panel"></param>
         public void OldCursor(FilesPanel panel)
         {
             Console.CursorVisible = false;
@@ -133,6 +173,11 @@ namespace FileManager
             }
         }
 
+        /// <summary>
+        /// Окно выбора диска
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="positionCursor"></param>
         public void SelectDrive(FilesPanel panel, int positionCursor)
         {
             Attributes[] allDrives = new RequestToDisk().AllDrives();
@@ -162,6 +207,10 @@ namespace FileManager
             ColorTextAndBackground.Base();
         }
 
+        /// <summary>
+        /// Отображение выбранного элемента файловой панели
+        /// </summary>
+        /// <param name="panel"></param>
         public void SelectedItems(FilesPanel panel)
         {
             Console.CursorVisible = false;
@@ -189,6 +238,11 @@ namespace FileManager
             CurrentCursor(panel);
         }
 
+        /// <summary>
+        /// Вывод на экран окна создания файла или директории и получение имени от пользователя 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>Имя файла или директории</returns>
         public string MessageCreate(string message)
         {
             CurrentClear.Message();
@@ -202,6 +256,11 @@ namespace FileManager
             Console.CursorVisible = false;
             return nameFile;
         }
+
+        /// <summary>
+        /// Вывод на экран окна с сообщением
+        /// </summary>
+        /// <param name="message"></param>
         public void Message(string message)
         {
             CurrentClear.Message();
@@ -211,6 +270,11 @@ namespace FileManager
             ColorTextAndBackground.Base();
         }
 
+        /// <summary>
+        /// Окно подтверждения удаления
+        /// </summary>
+        /// <param name="message">Текст сообщения</param>
+        /// <param name="path">Информация о нажатой клавише</param>
         public void Confirmation(string message, string path)
         {
             CurrentClear.Message();
@@ -224,6 +288,12 @@ namespace FileManager
             ColorTextAndBackground.Base();
         }
 
+        /// <summary>
+        /// Вывод текущего пути и команды в командную строку
+        /// </summary>
+        /// <param name="path">Текущий путь</param>
+        /// <param name="command">Команда</param>
+        /// <returns></returns>
         public ConsoleKeyInfo CommandLine(string path, string command)
         {
             CurrentClear.CommandLine();
@@ -236,12 +306,18 @@ namespace FileManager
             return key;
         }
 
+        /// <summary>
+        /// Вывод нижней части окна приложения
+        /// </summary>
         public void Footer()
         {
             CurrentClear.CommandLine();
             Menu();
         }
 
+        /// <summary>
+        /// Вывод меню
+        /// </summary>
         public void Menu()
         {
             ColorTextAndBackground.Base();
@@ -262,6 +338,11 @@ namespace FileManager
             Console.SetCursorPosition(0, 0);
         }
 
+        /// <summary>
+        /// Вывод на экран окна копирования
+        /// </summary>
+        /// <param name="currentPath"></param>
+        /// <param name="targetPath"></param>
         public void Copy(string currentPath, string targetPath)
         {
             CurrentClear.Copy();
@@ -276,6 +357,10 @@ namespace FileManager
             ColorTextAndBackground.Base();
         }
 
+        /// <summary>
+        /// Вывод на экран числового представления прогресса копирования
+        /// </summary>
+        /// <param name="persentage">Проценты выполнения</param>
         public void CopyPersentage(double persentage)
         {
             ColorTextAndBackground.InverseBase();
@@ -285,6 +370,10 @@ namespace FileManager
             CopyLinePersentage(persentage);
         }
 
+        /// <summary>
+        /// Вывод на экран прогрессбара копирования
+        /// </summary>
+        /// <param name="persentage">Проценты выполнения</param>
         public void CopyLinePersentage(double persentage)
         {
             Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 7);
@@ -298,6 +387,12 @@ namespace FileManager
             Console.CursorVisible = false;
         }
 
+        /// <summary>
+        /// Вывод дерева файлов и директорий
+        /// </summary>
+        /// <param name="panel">Панель для отрисовки дерева</param>
+        /// <param name="source">Список файлов и директорий</param>
+        /// <param name="count">Количество элементов для отображения</param>
         public void Tree(FilesPanel panel, List<Attributes> source, int count)
         {
             for (int i = 0; i < WindowFileHeight; i++)
@@ -311,28 +406,19 @@ namespace FileManager
 
         }
 
+        /// <summary>
+        /// Вывод окна со справкой по приложению
+        /// </summary>
         public void Help()
         {
             new Clear().Help();
-            //ColorTextAndBackground.InverseBase();
-            //Console.SetCursorPosition(WindowWidth / 4, WindowHeight / 5);
-            //Console.Write("|");
-            //Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth / 2)));
-            //Console.Write("|");
-            //for (int i = WindowHeight / 5 + 1; i < WindowHeight / 2 + 7; i++)
-            //{
-            //    Console.SetCursorPosition(WindowWidth / 4, i);
-            //    Console.Write("|");
-            //    Console.Write(string.Concat(Enumerable.Repeat(' ', WindowWidth / 2)));
-            //    Console.Write("|");
-            //}
-            //Console.SetCursorPosition(WindowWidth / 4, WindowHeight / 2 + 7);
-            //Console.Write("|");
-            //Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth / 2)));
-            //Console.Write("|");
-            //ColorTextAndBackground.Base();
         }
 
+        /// <summary>
+        /// Вычисление отступа слева
+        /// </summary>
+        /// <param name="panel">Файловая панель</param>
+        /// <returns></returns>
         public int MarginLeft(FilesPanel panel)
         {
             int margin;
@@ -347,6 +433,11 @@ namespace FileManager
             return margin;
         }
 
+        /// <summary>
+        /// Сокращение длинных имен файлов и директорий
+        /// </summary>
+        /// <param name="str">Текущее имя</param>
+        /// <returns>Сокращенное имя</returns>
         public string Substring(string str)
         {
             int length = WindowWidth / 4;

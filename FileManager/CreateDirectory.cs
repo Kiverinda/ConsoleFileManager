@@ -22,7 +22,7 @@ namespace FileManager
         /// Создание новой директории при помощи метода Create и обновление
         /// окна приложения после создания
         /// </summary>
-        /// <returns>true or false</returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             Create();

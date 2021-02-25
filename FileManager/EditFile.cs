@@ -25,7 +25,7 @@ namespace FileManager
         /// <summary>
         /// Получение полного пути к файлу
         /// </summary>
-        /// <returns>true or false</returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             List<Attributes> currentList = Desktop.GetInstance().ActivePanel.CurrentListDirAndFiles;

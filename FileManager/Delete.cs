@@ -45,7 +45,7 @@ namespace FileManager
         /// <summary>
         /// Запуск цепочки удаления и обновление окна программы после удаления
         /// </summary>
-        /// <returns>true or false</returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             CheckBufferSelected();

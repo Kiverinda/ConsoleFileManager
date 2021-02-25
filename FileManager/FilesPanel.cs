@@ -1,58 +1,74 @@
 ﻿using System.IO;
 using System.Collections.Generic;
-using System;
 
 namespace FileManager
 {
+    /// <summary>
+    /// Класс файловой панели
+    /// </summary>
     public class FilesPanel
     {
+        /// <summary>
+        /// Является панел левой
+        /// </summary>
         public bool IsLeftPanel { get; set; }
+        
+        /// <summary>
+        /// Путь к теущей директории
+        /// </summary>
         public string CurrentPath { get; set; }
+
+        /// <summary>
+        /// Список файлов и директорий в текущей директории
+        /// </summary>
         public List<Attributes> CurrentListDirAndFiles { get; set; }
+
+        /// <summary>
+        /// Первая отображаемая линия при скроллинге
+        /// </summary>
         public int FirstLineWhenScrolling { get; set; }
+
+        /// <summary>
+        /// Абсолютная позиция курсора
+        /// </summary>
         public int AbsoluteCursorPosition { get; set; }
+
+        /// <summary>
+        /// Позиция курсора относительно окна панели при скроллинге
+        /// </summary>
         public int RelativeCursorPosition { get; set; }
-        public List<Attributes> ListTo { get; set; }
+
+        /// <summary>
+        /// Список выделенных абсолютных позиций курсора
+        /// </summary>
         public HashSet<int> BufferSelectedPositionCursor { get; set; }
 
-     
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="isLeftPanel">Является ли создаваемая панель левой</param>
         public FilesPanel(bool isLeftPanel)
         {
             IsLeftPanel = isLeftPanel;
             CurrentPath = DriveInfo.GetDrives()[0].Name;
             CurrentListDirAndFiles = new RequestToDisk(CurrentPath).GetListCurrentDirectory();
-            ListTo = new List<Attributes>();
             BufferSelectedPositionCursor = new HashSet<int>();
         }
 
-        public void AddListTo(Attributes linkToFileOrDirectory)
-        {
-            ListTo.Add(linkToFileOrDirectory);
-            if (!linkToFileOrDirectory.IsFile)
-            {
-                List<Attributes> list = new RequestToDisk(linkToFileOrDirectory.Path).GetListDirectoryAndFiles();
-                foreach(Attributes fa in list)
-                {
-                    ListTo.Add(fa);
-                }
-            }
-        }
-
+        /// <summary>
+        /// Добавление и удаление позиции курсора в буфер для осуществления 
+        /// общего действия с группой
+        /// </summary>
+        /// <param name="item"></param>
         public void AddBufferSelectedPositionCursor(int item)
         {
             if (!BufferSelectedPositionCursor.Add(item)) BufferSelectedPositionCursor.Remove(item);
         }
 
-        public double ListToSize()
-        {
-            double size = 0;
-            foreach(Attributes file in ListTo)
-            {
-                size += file.Size;
-            }
-            return size;
-        }
-        
+        /// <summary>
+        /// Одновление данных при изменении текущей директории
+        /// </summary>
+        /// <param name="path"></param>
         public void UpdatePath(string path)
         {
             RequestToDisk request = new RequestToDisk(path);
@@ -62,7 +78,6 @@ namespace FileManager
             RelativeCursorPosition = 0;
             FirstLineWhenScrolling = 0;
             BufferSelectedPositionCursor = new HashSet<int>();
-            ListTo = new List<Attributes>();
         }
     }
 }

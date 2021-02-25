@@ -1,17 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FileManager
 {
-    class SelectCommandLine : ICommand
+
+    /// <summary>
+    /// Класс выбора коммандной строки
+    /// </summary>
+    public class SelectCommandLine : ICommand
     {
 
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             return ((click.Modifiers & ConsoleModifiers.Control) != 0) && (click.Key == ConsoleKey.Z);
         }
 
+        /// <summary>
+        /// Переключение на коммандную строку
+        /// </summary>
+        /// <returns>Выход из прогаммы</returns>
         public bool Execute()
         {
             View view = new View();

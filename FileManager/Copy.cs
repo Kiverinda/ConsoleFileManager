@@ -54,7 +54,7 @@ namespace FileManager
         /// <summary>
         /// Запуск цепи проверок для копирования и обновление окна программы после копирования
         /// </summary>
-        /// <returns>true or false</returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             SelectTargetPanel();

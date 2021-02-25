@@ -21,7 +21,7 @@ namespace FileManager
         /// <summary>
         /// Создание нового файла при помощи метода Create
         /// </summary>
-        /// <returns>true or false</returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             Create();

@@ -26,7 +26,7 @@
             <summary>
             Переключение активной файловой панели
             </summary>
-            <returns></returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="T:FileManager.Clear">
             <summary>
@@ -138,7 +138,7 @@
             <summary>
             Запуск цепи проверок для копирования и обновление окна программы после копирования
             </summary>
-            <returns>true or false</returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="M:FileManager.Copy.SelectTargetPanel">
             <summary>
@@ -217,7 +217,7 @@
             Создание новой директории при помощи метода Create и обновление
             окна приложения после создания
             </summary>
-            <returns>true or false</returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="M:FileManager.CreateDirectory.Create">
             <summary>
@@ -246,7 +246,7 @@
             <summary>
             Создание нового файла при помощи метода Create
             </summary>
-            <returns>true or false</returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="M:FileManager.CreateFile.Create">
             <summary>
@@ -341,7 +341,7 @@
             <summary>
             Запуск цепочки удаления и обновление окна программы после удаления
             </summary>
-            <returns>true or false</returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="M:FileManager.Delete.CheckBufferSelected">
             <summary>
@@ -451,7 +451,7 @@
             <summary>
             Перемещение курсора на одну позицию вниз
             </summary>
-            <returns>true or false</returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="T:FileManager.EditFile">
             <summary>
@@ -469,7 +469,7 @@
             <summary>
             Получение полного пути к файлу
             </summary>
-            <returns>true or false</returns>
+            <returns>Выход из программы</returns>
         </member>
         <member name="M:FileManager.EditFile.Edit(System.String)">
             <summary>
@@ -489,10 +489,206 @@
             <param name="message">Сгенерированное сообщение</param>
             <param name="trace">Файл и строка с ошибкой</param>
         </member>
+        <member name="T:FileManager.FilesPanel">
+            <summary>
+            Класс файловой панели
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.IsLeftPanel">
+            <summary>
+            Является панел левой
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.CurrentPath">
+            <summary>
+            Путь к теущей директории
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.CurrentListDirAndFiles">
+            <summary>
+            Список файлов и директорий в текущей директории
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.FirstLineWhenScrolling">
+            <summary>
+            Первая отображаемая линия при скроллинге
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.AbsoluteCursorPosition">
+            <summary>
+            Абсолютная позиция курсора
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.RelativeCursorPosition">
+            <summary>
+            Позиция курсора относительно окна панели при скроллинге
+            </summary>
+        </member>
+        <member name="P:FileManager.FilesPanel.BufferSelectedPositionCursor">
+            <summary>
+            Список выделенных абсолютных позиций курсора
+            </summary>
+        </member>
+        <member name="M:FileManager.FilesPanel.#ctor(System.Boolean)">
+            <summary>
+            Конструктор класса
+            </summary>
+            <param name="isLeftPanel">Является ли создаваемая панель левой</param>
+        </member>
+        <member name="M:FileManager.FilesPanel.AddBufferSelectedPositionCursor(System.Int32)">
+            <summary>
+            Добавление и удаление позиции курсора в буфер для осуществления 
+            общего действия с группой
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:FileManager.FilesPanel.UpdatePath(System.String)">
+            <summary>
+            Одновление данных при изменении текущей директории
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="T:FileManager.Help">
+            <summary>
+            Класс для вывода справки по приложению на экран
+            </summary>
+        </member>
+        <member name="M:FileManager.Help.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.Help.Execute">
+            <summary>
+            Вывод справки по приложению на экран
+            </summary>
+            <returns>Выход из программы</returns>
+        </member>
+        <member name="T:FileManager.ICommand">
+            <summary>
+            Интерфейс для реализации паттерна Command
+            </summary>
+        </member>
+        <member name="M:FileManager.ICommand.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Условие для выполнения действия
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.ICommand.Execute">
+            <summary>
+            Выполняемое действие
+            </summary>
+            <returns>Выход из программы</returns>
+        </member>
+        <member name="T:FileManager.IStringCommand">
+            <summary>
+            Интерфейс для реализации паттерна Command
+            </summary>
+        </member>
+        <member name="M:FileManager.IStringCommand.CanExecute(System.String)">
+            <summary>
+            Условие для выполнения действия
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.IStringCommand.Execute(System.String[])">
+            <summary>
+            Выполняемое действие
+            </summary>
+        </member>
+        <member name="T:FileManager.KeyEnter">
+            <summary>
+            Класс для осуществления действий, при нажатии на клавишу Enter
+            </summary>
+        </member>
+        <member name="M:FileManager.KeyEnter.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.KeyEnter.Execute">
+            <summary>
+            Проверка, находится курсор на директории или на файле
+            </summary>
+            <returns>Выход из приложения</returns>
+        </member>
+        <member name="M:FileManager.KeyEnter.FileLaunch(FileManager.Attributes)">
+            <summary>
+            Действия с файлом в зависимости от его типа
+            </summary>
+            <param name="attributes">Путь к файлу</param>
+        </member>
+        <member name="T:FileManager.Move">
+            <summary>
+            Класс переноса файла или директории
+            </summary>
+        </member>
+        <member name="M:FileManager.Move.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.Move.Execute">
+            <summary>
+            Копирование файлов или директорий и последующее удаление старых обьектов 
+            </summary>
+            <returns>Выход из приложения</returns>
+        </member>
         <member name="M:FileManager.Program.ControlSize">
             <summary>
             Метод, вызываемый при изменении размеров окна
             </summary>
+        </member>
+        <member name="T:FileManager.Quit">
+            <summary>
+            Класс выхода из приложения с сохранением текущийх настроек пользователя  
+            </summary>
+        </member>
+        <member name="M:FileManager.Quit.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.Quit.Execute">
+            <summary>
+            Сохранение настроек пользователя и завершение работы приложения
+            </summary>
+            <returns>Выход из приложения</returns>
+        </member>
+        <member name="T:FileManager.RenameObject">
+            <summary>
+            Класс переименования обьекта
+            </summary>
+        </member>
+        <member name="M:FileManager.RenameObject.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.RenameObject.Execute">
+            <summary>
+            Получение пути к обьекту и запуск переименования
+            </summary>
+            <returns>Выход из программы</returns>
+        </member>
+        <member name="M:FileManager.RenameObject.Rename(System.String)">
+            <summary>
+            Получение от пользователя нового имени и переименование обьекта
+            </summary>
+            <param name="path">Путь к обьекту</param>
         </member>
         <member name="T:FileManager.RequestToDisk">
             <summary>
@@ -565,6 +761,60 @@
             </summary>
             <returns>Рекурсивный список директорий и файлов</returns>
         </member>
+        <member name="T:FileManager.SelectCommandLine">
+            <summary>
+            Класс выбора коммандной строки
+            </summary>
+        </member>
+        <member name="M:FileManager.SelectCommandLine.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.SelectCommandLine.Execute">
+            <summary>
+            Переключение на коммандную строку
+            </summary>
+            <returns>Выход из прогаммы</returns>
+        </member>
+        <member name="T:FileManager.SelectDisk">
+            <summary>
+            Класс выбора диска
+            </summary>
+        </member>
+        <member name="M:FileManager.SelectDisk.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.SelectDisk.Execute">
+            <summary>
+            Меню выбора диска с навигацией
+            </summary>
+            <returns>Выход из программы</returns>
+        </member>
+        <member name="T:FileManager.SelectObject">
+            <summary>
+            Класс выбора обьекта
+            </summary>
+        </member>
+        <member name="M:FileManager.SelectObject.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.SelectObject.Execute">
+            <summary>
+            Добавление абсолютной позиции курсора в буфер панели 
+            </summary>
+            <returns>Выход из программы</returns>
+        </member>
         <member name="T:FileManager.ResizeWindow">
             <summary>
             Тип делегата для события Resize
@@ -616,6 +866,43 @@
             Отслеживание изменений размеров окна приложения
             с генерацией события
             </summary>
+        </member>
+        <member name="T:FileManager.Tree">
+            <summary>
+             Класс построения дерева файлов и дирректорий
+            </summary>
+        </member>
+        <member name="M:FileManager.Tree.CanExecute(System.ConsoleKeyInfo)">
+            <summary>
+            Проверка условия для выполнения метода Execute
+            </summary>
+            <param name="click">Информация о нажатой клавише</param>
+            <returns>true or false</returns>
+        </member>
+        <member name="M:FileManager.Tree.Execute">
+            <summary>
+            Получение пути к целевой директории  
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FileManager.Tree.TreeFilesAndDirectory(System.String)">
+            <summary>
+            Получение данных о целевой директории
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="M:FileManager.Tree.GetPanelToView">
+            <summary>
+            Файловая панель, вместо которой отрисовывается дерево
+            </summary>
+            <returns>Файловая панель</returns>
+        </member>
+        <member name="M:FileManager.Tree.Navigation(FileManager.FilesPanel,System.Collections.Generic.List{FileManager.Attributes})">
+            <summary>
+            Постраничная отрисовка дерева с навигацией по страницам
+            </summary>
+            <param name="viewPanel">Файловая панель для отрисовки</param>
+            <param name="source">Список файлов и директорий</param>
         </member>
         <member name="T:FileManager.UpArrow">
             <summary>
@@ -715,6 +1002,161 @@
             <summary>
             Десирилизация данных из json
             </summary>
+        </member>
+        <member name="T:FileManager.View">
+            <summary>
+            Класс для вывода информации на экран
+            </summary>
+        </member>
+        <member name="P:FileManager.View.WindowHeight">
+            <summary>
+            Высота окна приложения
+            </summary>
+        </member>
+        <member name="P:FileManager.View.WindowWidth">
+            <summary>
+            Ширина окна приложения
+            </summary>
+        </member>
+        <member name="P:FileManager.View.MarginTop_For_StringPath">
+            <summary>
+            Отступ сверху до строки с путем к директории
+            </summary>
+        </member>
+        <member name="P:FileManager.View.MarginTop_For_WindowFiles">
+            <summary>
+            Отступ сверху до файловой панели
+            </summary>
+        </member>
+        <member name="P:FileManager.View.WindowFileHeight">
+            <summary>
+            Высота файловой панели
+            </summary>
+        </member>
+        <member name="P:FileManager.View.CurrentClear">
+            <summary>
+            Экзепляр класса с шаблонами окон
+            </summary>
+        </member>
+        <member name="M:FileManager.View.#ctor">
+            <summary>
+            Конструктор класса
+            </summary>
+        </member>
+        <member name="M:FileManager.View.FPanel(FileManager.FilesPanel)">
+            <summary>
+            Вывод файловой панели на экран
+            </summary>
+            <param name="panel"></param>
+        </member>
+        <member name="M:FileManager.View.CurrentCursor(FileManager.FilesPanel)">
+            <summary>
+            Вывод на экран текущего положения курсора
+            </summary>
+            <param name="panel"></param>
+        </member>
+        <member name="M:FileManager.View.OldCursor(FileManager.FilesPanel)">
+            <summary>
+            Вывод на экран старого положения курсора
+            </summary>
+            <param name="panel"></param>
+        </member>
+        <member name="M:FileManager.View.SelectDrive(FileManager.FilesPanel,System.Int32)">
+            <summary>
+            Окно выбора диска
+            </summary>
+            <param name="panel"></param>
+            <param name="positionCursor"></param>
+        </member>
+        <member name="M:FileManager.View.SelectedItems(FileManager.FilesPanel)">
+            <summary>
+            Отображение выбранного элемента файловой панели
+            </summary>
+            <param name="panel"></param>
+        </member>
+        <member name="M:FileManager.View.MessageCreate(System.String)">
+            <summary>
+            Вывод на экран окна создания файла или директории и получение имени от пользователя 
+            </summary>
+            <param name="message"></param>
+            <returns>Имя файла или директории</returns>
+        </member>
+        <member name="M:FileManager.View.Message(System.String)">
+            <summary>
+            Вывод на экран окна с сообщением
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:FileManager.View.Confirmation(System.String,System.String)">
+            <summary>
+            Окно подтверждения удаления
+            </summary>
+            <param name="message">Текст сообщения</param>
+            <param name="path">Информация о нажатой клавише</param>
+        </member>
+        <member name="M:FileManager.View.CommandLine(System.String,System.String)">
+            <summary>
+            Вывод текущего пути и команды в командную строку
+            </summary>
+            <param name="path">Текущий путь</param>
+            <param name="command">Команда</param>
+            <returns></returns>
+        </member>
+        <member name="M:FileManager.View.Footer">
+            <summary>
+            Вывод нижней части окна приложения
+            </summary>
+        </member>
+        <member name="M:FileManager.View.Menu">
+            <summary>
+            Вывод меню
+            </summary>
+        </member>
+        <member name="M:FileManager.View.Copy(System.String,System.String)">
+            <summary>
+            Вывод на экран окна копирования
+            </summary>
+            <param name="currentPath"></param>
+            <param name="targetPath"></param>
+        </member>
+        <member name="M:FileManager.View.CopyPersentage(System.Double)">
+            <summary>
+            Вывод на экран числового представления прогресса копирования
+            </summary>
+            <param name="persentage">Проценты выполнения</param>
+        </member>
+        <member name="M:FileManager.View.CopyLinePersentage(System.Double)">
+            <summary>
+            Вывод на экран прогрессбара копирования
+            </summary>
+            <param name="persentage">Проценты выполнения</param>
+        </member>
+        <member name="M:FileManager.View.Tree(FileManager.FilesPanel,System.Collections.Generic.List{FileManager.Attributes},System.Int32)">
+            <summary>
+            Вывод дерева файлов и директорий
+            </summary>
+            <param name="panel">Панель для отрисовки дерева</param>
+            <param name="source">Список файлов и директорий</param>
+            <param name="count">Количество элементов для отображения</param>
+        </member>
+        <member name="M:FileManager.View.Help">
+            <summary>
+            Вывод окна со справкой по приложению
+            </summary>
+        </member>
+        <member name="M:FileManager.View.MarginLeft(FileManager.FilesPanel)">
+            <summary>
+            Вычисление отступа слева
+            </summary>
+            <param name="panel">Файловая панель</param>
+            <returns></returns>
+        </member>
+        <member name="M:FileManager.View.Substring(System.String)">
+            <summary>
+            Сокращение длинных имен файлов и директорий
+            </summary>
+            <param name="str">Текущее имя</param>
+            <returns>Сокращенное имя</returns>
         </member>
     </members>
 </doc>

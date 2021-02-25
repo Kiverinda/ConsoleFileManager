@@ -3,13 +3,27 @@ using System.Collections.Generic;
 
 namespace FileManager
 {
-    class Move : ICommand
+    
+    /// <summary>
+    /// Класс переноса файла или директории
+    /// </summary>
+    public class Move : ICommand
     {
+
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.F6;
         }
 
+        /// <summary>
+        /// Копирование файлов или директорий и последующее удаление старых обьектов 
+        /// </summary>
+        /// <returns>Выход из приложения</returns>
         public bool Execute()
         {
             int cursorPosition = Desktop.GetInstance().ActivePanel.AbsoluteCursorPosition;

@@ -59,7 +59,7 @@ namespace FileManager
         /// </summary>
         public void Copy()
         {
-            byte[] buffer = new byte[1024 * 64]; // 64Kb buffer
+            byte[] buffer = new byte[1024 * 2048]; // 2Mb buffer
             bool cancelFlag = false;
 
             using (FileStream source = new FileStream(SourceFilePath, FileMode.Open, FileAccess.Read))

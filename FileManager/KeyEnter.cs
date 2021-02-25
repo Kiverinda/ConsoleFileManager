@@ -4,13 +4,26 @@ using System.Diagnostics;
 
 namespace FileManager
 {
-    class KeyEnter : ICommand
+    /// <summary>
+    /// Класс для осуществления действий, при нажатии на клавишу Enter
+    /// </summary>
+    public class KeyEnter : ICommand
     {
+
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.Enter;
         }
 
+        /// <summary>
+        /// Проверка, находится курсор на директории или на файле
+        /// </summary>
+        /// <returns>Выход из приложения</returns>
         public bool Execute()
         {
             FilesPanel currentPanel = Desktop.GetInstance().ActivePanel;
@@ -30,9 +43,12 @@ namespace FileManager
             return false;
         }
 
+        /// <summary>
+        /// Действия с файлом в зависимости от его типа
+        /// </summary>
+        /// <param name="attributes">Путь к файлу</param>
         private void FileLaunch(Attributes attributes)
         {
-            View view = new View();
             try
             {
                 if (attributes.Extension == ".exe")
@@ -69,7 +85,7 @@ namespace FileManager
             }
             catch (Exception ex)
             {
-                view.Message("ФАЙЛ НЕ НАЙДЕН");
+                new View().Message("ФАЙЛ НЕ НАЙДЕН");
                 new ErrorLog(this, ex.Message, ex.StackTrace);
             }
         }

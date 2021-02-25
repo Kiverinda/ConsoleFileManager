@@ -20,7 +20,7 @@ namespace FileManager
         /// <summary>
         /// Переключение активной файловой панели
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             View view = new View();

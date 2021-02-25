@@ -3,13 +3,27 @@
 
 namespace FileManager 
 {
-    class SelectDisk : ICommand
+    
+    /// <summary>
+    /// Класс выбора диска
+    /// </summary>
+    public class SelectDisk : ICommand
     {
+
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             return ((click.Modifiers & ConsoleModifiers.Control) != 0) && (click.Key == ConsoleKey.F1);
         }
 
+        /// <summary>
+        /// Меню выбора диска с навигацией
+        /// </summary>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             int positionCursor = 0;

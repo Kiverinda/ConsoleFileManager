@@ -22,7 +22,7 @@ namespace FileManager
         /// <summary>
         /// Перемещение курсора на одну позицию вниз
         /// </summary>
-        /// <returns>true or false</returns>
+        /// <returns>Выход из программы</returns>
         public bool Execute()
         {
             FilesPanel panel = Desktop.GetInstance().ActivePanel;

@@ -4,13 +4,25 @@ using System.Text;
 
 namespace FileManager
 {
-    class DownArrow : ICommand
+    /// <summary>
+    /// Класс для перемещения курсора на одну позицию вниз
+    /// </summary>
+    public class DownArrow : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.DownArrow;
         }
 
+        /// <summary>
+        /// Перемещение курсора на одну позицию вниз
+        /// </summary>
+        /// <returns>true or false</returns>
         public bool Execute()
         {
             FilesPanel panel = Desktop.GetInstance().ActivePanel;

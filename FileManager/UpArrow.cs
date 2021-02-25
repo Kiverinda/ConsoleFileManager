@@ -4,13 +4,25 @@ using System.Text;
 
 namespace FileManager
 {
-    class UpArrow : ICommand
+    /// <summary>
+    /// Класс для перемещения курсора на одну позицию вверх
+    /// </summary>
+    public class UpArrow : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.UpArrow;
         }
 
+        /// <summary>
+        /// Перемещение курсора на одну позицию вверх
+        /// </summary>
+        /// <returns>true or false</returns>
         public bool Execute()
         {
             FilesPanel panel = Desktop.GetInstance().ActivePanel;

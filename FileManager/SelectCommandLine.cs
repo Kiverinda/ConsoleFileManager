@@ -7,7 +7,7 @@ namespace FileManager
     class SelectCommandLine : ICommand
     {
 
-        public bool CanExexute(ConsoleKeyInfo click)
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return ((click.Modifiers & ConsoleModifiers.Control) != 0) && (click.Key == ConsoleKey.Z);
         }

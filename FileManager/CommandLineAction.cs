@@ -30,17 +30,17 @@ namespace FileManager
             Desktop.GetInstance().RightPanel.UpdatePath(target);
             Desktop.GetInstance().ActivePanel = Desktop.GetInstance().LeftPanel;
             Desktop.GetInstance().ViewDesktop();
-            FileAttributes newAttributes;
+            Attributes newAttributes;
             if (Path.GetExtension(CurrentPath) != "")
             {
                 string extension = Path.GetExtension(CurrentPath);
                 long size = (CurrentPath).Length;
                 string name = Path.GetFileName(CurrentPath);
-                newAttributes = new FileAttributes(name, CurrentPath, size, true, extension);
+                newAttributes = new Attributes(name, CurrentPath, size, true, extension);
             }
             else
             {
-                newAttributes = new FileAttributes(Path.GetFileName(CurrentPath), CurrentPath);
+                newAttributes = new Attributes(Path.GetFileName(CurrentPath), CurrentPath);
             }
 
             Copy copy = new Copy(Desktop.GetInstance().ActivePanel);
@@ -72,7 +72,7 @@ namespace FileManager
             string name = Path.GetFileName(CurrentPath);
             bool isFile = false;
             if (File.Exists(CurrentPath)) isFile = true;
-            FileAttributes attributes = new FileAttributes(name, CurrentPath, 0, isFile, "");
+            Attributes attributes = new Attributes(name, CurrentPath, 0, isFile, "");
             delete.DeleteFileOrDirectory(attributes);
         }
     }

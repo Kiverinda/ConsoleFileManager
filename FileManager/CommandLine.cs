@@ -11,12 +11,31 @@ namespace FileManager
         public View CommandView { get; set; }
         public Stack<String> StackString { get; set; }
         public Dictionary<string, ConsoleKeyInfo> MatchingCommandToButton { get; set; }
+     //   public List<IStringCommand> Commands { get; set; }
 
         public CommandLine(FilesPanel currentPanel)
         {
             CurrentPanel = currentPanel;
             CommandView = new View();
             StackString = new Stack<string>();
+            //Commands = new List<IStringCommand>() {
+            //    new SelectDisk(),
+            //    new SelectCommandLine(),
+            //    new ChangeActivePanel(),
+            //    new KeyEnter(),
+            //    new UpArrow(),
+            //    new DownArrow(),
+            //    new SelectObject(),
+            //    new CreateFile(),
+            //    new RenameObject(),
+            //    new EditFile(),
+            //    new Copy(),
+            //    new Delete(),
+            //    new Move(),
+            //    new CreateDirectory(),
+            //    new Tree(),
+            //    new Quit(),
+            //    new Help()};
         }
 
         public void Parse()
@@ -78,6 +97,18 @@ namespace FileManager
                 }
             } while (true);
         }
+
+        //public void Explorer(string userCommand)
+        //{
+        //    foreach (IStringCommand command in Commands)
+        //    {
+        //        if (command.CanExecute(userCommand))
+        //        {
+        //            command.Execute();
+        //            break;
+        //        }
+        //    }
+        //}
 
         public void CheckCommand(string[] command)
         {

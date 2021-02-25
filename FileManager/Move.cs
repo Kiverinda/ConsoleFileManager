@@ -5,7 +5,7 @@ namespace FileManager
 {
     class Move : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.F6;
         }

@@ -42,7 +42,7 @@ namespace FileManager
                 if (panel.CurrentListDirAndFiles[i].IsFile)
                 {
                     ColorTextAndBackground.ForFile();
-                    Console.Write(panel.CurrentListDirAndFiles[i].SubName);
+                    Console.Write(Substring(panel.CurrentListDirAndFiles[i].Name));
                     Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, positionInFilePanel);
                     Console.Write($"| {panel.CurrentListDirAndFiles[i].Extension}  ");
                     Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, positionInFilePanel);
@@ -64,8 +64,7 @@ namespace FileManager
 
             Console.CursorVisible = false;
             int startPositionFilePanel = 3;
-            string name = panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].SubName;
-            //Console.SetCursorPosition(MarginLeft(panel), panel.RelativeCursorPosition + startPositionFilePanel);
+            string name = Substring(panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Name);
             string extension = panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Extension;
             string size = (panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Size).ToString("#,#", CultureInfo.InvariantCulture);
             if (panel.BufferSelectedPositionCursor.Contains(panel.AbsoluteCursorPosition))
@@ -73,10 +72,6 @@ namespace FileManager
                 Console.SetCursorPosition(MarginLeft(panel), panel.RelativeCursorPosition + startPositionFilePanel);
                 ColorTextAndBackground.InverseSelect();
                 Console.Write(name);
-                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, panel.RelativeCursorPosition + startPositionFilePanel);
-                //Console.Write($"| {extension}   ");
-                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, panel.RelativeCursorPosition + startPositionFilePanel);
-                //Console.Write($"| {size}");
                 ColorTextAndBackground.ForFile();
             }
             else
@@ -107,19 +102,14 @@ namespace FileManager
         {
             Console.CursorVisible = false;
             int positionInFilePanel = MarginTop_For_WindowFiles;
-            string name = panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].SubName;
+            string name = Substring(panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Name);
             string extension = panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Extension;
             string size = (panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Size).ToString("#,#", CultureInfo.InvariantCulture);
-            //Console.SetCursorPosition(MarginLeft(panel), panel.RelativeCursorPosition + positionInFilePanel);
             if (panel.BufferSelectedPositionCursor.Contains(panel.AbsoluteCursorPosition))
             {
                 ColorTextAndBackground.Select();
                 Console.SetCursorPosition(MarginLeft(panel), panel.RelativeCursorPosition + positionInFilePanel);
                 Console.Write(name);
-                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 1 / 3, panel.RelativeCursorPosition + positionInFilePanel);
-                //Console.Write($"| {extension}   ");
-                //Console.SetCursorPosition(MarginLeft(panel) + WindowWidth * 5 / 13, panel.RelativeCursorPosition + positionInFilePanel);
-                //Console.Write($"| {size}");
                 ColorTextAndBackground.ForFile();
             }
             else
@@ -145,7 +135,7 @@ namespace FileManager
 
         public void SelectDrive(FilesPanel panel, int positionCursor)
         {
-            FileAttributes[] allDrives = new RequestToDisk().AllDrives();
+            Attributes[] allDrives = new RequestToDisk().AllDrives();
             int count = 0;
             ColorTextAndBackground.InverseBase();
             Console.CursorVisible = false;
@@ -308,7 +298,7 @@ namespace FileManager
             Console.CursorVisible = false;
         }
 
-        public void Tree(FilesPanel panel, List<FileAttributes> source, int count)
+        public void Tree(FilesPanel panel, List<Attributes> source, int count)
         {
             for (int i = 0; i < WindowFileHeight; i++)
             {
@@ -319,6 +309,28 @@ namespace FileManager
                 }
             }
 
+        }
+
+        public void Help()
+        {
+            new Clear().Help();
+            //ColorTextAndBackground.InverseBase();
+            //Console.SetCursorPosition(WindowWidth / 4, WindowHeight / 5);
+            //Console.Write("|");
+            //Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth / 2)));
+            //Console.Write("|");
+            //for (int i = WindowHeight / 5 + 1; i < WindowHeight / 2 + 7; i++)
+            //{
+            //    Console.SetCursorPosition(WindowWidth / 4, i);
+            //    Console.Write("|");
+            //    Console.Write(string.Concat(Enumerable.Repeat(' ', WindowWidth / 2)));
+            //    Console.Write("|");
+            //}
+            //Console.SetCursorPosition(WindowWidth / 4, WindowHeight / 2 + 7);
+            //Console.Write("|");
+            //Console.Write(string.Concat(Enumerable.Repeat('*', WindowWidth / 2)));
+            //Console.Write("|");
+            //ColorTextAndBackground.Base();
         }
 
         public int MarginLeft(FilesPanel panel)
@@ -333,6 +345,16 @@ namespace FileManager
                 margin = WindowWidth / 2 + 2;
             }
             return margin;
+        }
+
+        public string Substring(string str)
+        {
+            int length = WindowWidth / 4;
+            if (str.Length > length)
+            {
+                return str.Substring(0, length) + "~~";
+            }
+            return str;
         }
 
     }

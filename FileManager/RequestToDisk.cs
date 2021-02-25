@@ -1,39 +1,63 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FileManager
 {
-    class RequestToDisk
+    /// <summary>
+    /// Класс для получения информации с диска
+    /// </summary>
+    public class RequestToDisk
     {
+        /// <summary>
+        /// Текущий путь
+        /// </summary>
         public string CurrentPath { get; set; }
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public RequestToDisk()
         {
         }
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="path">Текущий путь</param>
         public RequestToDisk(string path)
         {
             CurrentPath = path;
         }
 
-        public FileAttributes[] AllDrives()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Attributes[] AllDrives()
         {
             DriveInfo[] alldisk = DriveInfo.GetDrives();
-            FileAttributes[] disks = new FileAttributes[alldisk.Length];
+            Attributes[] disks = new Attributes[alldisk.Length];
             for (int i = 0; i < alldisk.Length; i++)
             {
-                disks[i] = new FileAttributes(alldisk[i].Name, alldisk[i].Name);
+                disks[i] = new Attributes(alldisk[i].Name, alldisk[i].Name);
             }
             return disks;
         }
 
+        /// <summary>
+        /// Получение корневой директории для текущего пути
+        /// </summary>
+        /// <returns></returns>
         public string GetRoot()
         {
             return Path.GetPathRoot(CurrentPath);
         }
 
+        /// <summary>
+        /// Является ли текущий путь корневой директорией диска
+        /// </summary>
+        /// <returns></returns>
         public bool IsRoot()
         {
             bool isRoot = false;
@@ -67,14 +91,19 @@ namespace FileManager
             return isRoot;
         }
 
-        public List<FileAttributes> GetListCurrentDirectory()
+        /// <summary>
+        /// Создание списка для текущего пути
+        /// </summary>
+        /// <returns></returns>
+        public List<Attributes> GetListCurrentDirectory()
         {
-            List<FileAttributes> newTreeFiles = new List<FileAttributes>();
+            List<Attributes> newTreeFiles = new List<Attributes>();
 
             if (!IsRoot())
             {
                 string upLevel = CurrentPath.Remove(CurrentPath.LastIndexOf(@"\"), CurrentPath.Length - CurrentPath.LastIndexOf(@"\"));
-                newTreeFiles.Add(new FileAttributes("[..]", "[..]", upLevel, 0, false, ""));
+
+                newTreeFiles.Add(new Attributes("[..]", upLevel, 0, false, ""));
             }
 
             newTreeFiles = AddedFilesToList(newTreeFiles);
@@ -82,7 +111,12 @@ namespace FileManager
             return newTreeFiles;
         }
 
-        public List<FileAttributes> AddedFilesToList(List<FileAttributes> list)
+        /// <summary>
+        /// Добавление файлов и директорий в текущий список Attributes
+        /// </summary>
+        /// <param name="list">Текущий список Attributes</param>
+        /// <returns>Заполненный список Attributes</returns>
+        public List<Attributes> AddedFilesToList(List<Attributes> list)
         {
             try
             {
@@ -91,17 +125,15 @@ namespace FileManager
                 foreach (var str in directories)
                 {
                     string name = Path.GetFileName(str);
-                    string subname = Substring(name);
-                    list.Add(new FileAttributes(name, subname, str, 0, false, ""));
+                    list.Add(new Attributes(name, str, 0, false, ""));
                 }
                 foreach (var str in files)
                 {
                     FileInfo file = new FileInfo(str);
                     long size = file.Length;
                     string name = Path.GetFileName(str);
-                    string subname = Substring(name);
 
-                    list.Add(new FileAttributes(name, subname, str, size, true, Path.GetExtension(str)));
+                    list.Add(new Attributes(name, str, size, true, Path.GetExtension(str)));
                 }
                 return list;
             }
@@ -111,6 +143,10 @@ namespace FileManager
             }
         }
 
+        /// <summary>
+        /// Получение размера свободного места на диске
+        /// </summary>
+        /// <returns></returns>
         public long GetFreeSpace()
         {
             string root = Path.GetPathRoot(CurrentPath);
@@ -118,27 +154,29 @@ namespace FileManager
             return di.AvailableFreeSpace;
         }
 
-        public long GetSizeDirectory()
-        {
-            List<FileAttributes> list = GetListDirectoryAndFiles();
-            long sizeDir = GetSizeDirectory(list);
-            return sizeDir;
-        }
-
-        public long GetSizeDirectory(List<FileAttributes> list)
+        /// <summary>
+        /// Вычисление размера директории
+        /// </summary>
+        /// <param name="list">Список Attributes</param>
+        /// <returns></returns>
+        public long GetSizeDirectory(List<Attributes> list)
         {
             long sizeDir = 0;
 
-            foreach (FileAttributes el in list)
+            foreach (Attributes el in list)
             {
                 sizeDir += el.Size;
             }
             return sizeDir;
         }
 
-        public List<FileAttributes> GetListDirectoryAndFiles()
+        /// <summary>
+        /// Получение дерева файлов и директорий
+        /// </summary>
+        /// <returns>Рекурсивный список директорий и файлов</returns>
+        public List<Attributes> GetListDirectoryAndFiles()
         {
-            List<FileAttributes> list = new List<FileAttributes>();
+            List<Attributes> list = new List<Attributes>();
 
             Stack<string> dirs = new Stack<string>();
             dirs.Push(CurrentPath);
@@ -179,8 +217,8 @@ namespace FileManager
                         FileInfo file = new FileInfo(pathToFile);
                         long size = file.Length;
                         string name = Path.GetFileName(pathToFile);
-                        string subname = Substring(name);
-                        list.Add(new FileAttributes(name, subname, pathToFile, size, true, Path.GetExtension(pathToFile)));
+                        DateTime date = File.GetCreationTime(pathToFile);
+                        list.Add(new Attributes(name, pathToFile, size, true, Path.GetExtension(pathToFile), date));
                     }
                     catch (FileNotFoundException)
                     {
@@ -191,21 +229,12 @@ namespace FileManager
                 {
                     dirs.Push(pathToDir);
                     string name = Path.GetFileName(pathToDir);
-                    string subname = Substring(name);
-                    list.Add(new FileAttributes(name, subname, pathToDir, 0, false, ""));
+                    DateTime date = Directory.GetCreationTime(pathToDir);
+                    list.Add(new Attributes(name, pathToDir, 0, false, "", date));
                 }
             }
             return list;
         }
 
-        public string Substring(string str)
-        {
-            int length = 56;
-            if (str.Length > length)
-            {
-                return str.Substring(0, length);
-            }
-            return str;
-        }
     }
 }

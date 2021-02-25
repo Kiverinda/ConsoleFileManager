@@ -3,32 +3,55 @@ using System.IO;
 
 namespace FileManager
 {
-    class CreateFile : ICommand
+    /// <summary>
+    /// Класс для создания файла
+    /// </summary>
+    public class CreateFile : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.F2;
         }
 
+        /// <summary>
+        /// Создание нового файла при помощи метода Create
+        /// </summary>
+        /// <returns>true or false</returns>
         public bool Execute()
         {
-            string path = Desktop.GetInstance().ActivePanel.CurrentPath;
-            Create(path);
+            Create();
             Desktop.GetInstance().Update();
             return false;
         }
 
-        private void Create(string path)
+        /// <summary>
+        /// Создание нового файла в текущей директории
+        /// </summary>
+        public void Create()
         {
-            string message = "Введите имя файла";
-            View view = new View();
-            string nameFile = view.MessageCreate(message);
-
+            string path = Desktop.GetInstance().ActivePanel.CurrentPath;
+            string nameFile = GetUserNameFile();
             string pathToFile = Path.Combine(path, nameFile);
             if (!File.Exists(pathToFile) && nameFile != "")
             {
                 using (File.Create(pathToFile)) { }
             }
+        }
+
+        /// <summary>
+        /// Получение от пользователя имени нового файла
+        /// </summary>
+        /// <returns>Имя файла</returns>
+        public string GetUserNameFile()
+        {
+            string message = "Введите имя файла";
+            View view = new View();
+            return view.MessageCreate(message);
         }
 
     }

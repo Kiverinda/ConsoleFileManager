@@ -5,7 +5,7 @@ namespace FileManager
 {
     class Tree : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.F9;
         }
@@ -27,7 +27,7 @@ namespace FileManager
             RequestToDisk request = new RequestToDisk(path);
             View view = new View();
             view.Message("ИДЕТ ПОСТРОЕНИЕ ДЕРЕВА");
-            List<FileAttributes> source = request.GetListDirectoryAndFiles();
+            List<Attributes> source = request.GetListDirectoryAndFiles();
             view.FPanel(Desktop.GetInstance().ActivePanel);
             Clear clear = new Clear();
 

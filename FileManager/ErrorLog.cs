@@ -4,14 +4,19 @@ using System.Xml.Serialization;
 
 namespace FileManager
 {
-    class ErrorLog
+    /// <summary>
+    /// Класс для записи логов об ошибках в файл
+    /// </summary>
+    public class ErrorLog
     {
+        
+        /// <summary>
+        /// Получение информации об ошибке и запись ее в файл
+        /// </summary>
+        /// <param name="ob">Класс в котором произошла ошибка</param>
+        /// <param name="message">Сгенерированное сообщение</param>
+        /// <param name="trace">Файл и строка с ошибкой</param>
         public ErrorLog(object ob, string message, string trace)
-        {
-            Log(ob, message, trace);
-        }
-
-        private void Log(object ob, string message, string trace)
         {
             if (!File.Exists(@"errorlog.txt"))
             {

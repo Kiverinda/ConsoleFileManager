@@ -6,7 +6,7 @@ namespace FileManager
 {
     class KeyEnter : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.Enter;
         }
@@ -14,7 +14,7 @@ namespace FileManager
         public bool Execute()
         {
             FilesPanel currentPanel = Desktop.GetInstance().ActivePanel;
-            List<FileAttributes> currentList = currentPanel.CurrentListDirAndFiles;
+            List<Attributes> currentList = currentPanel.CurrentListDirAndFiles;
             string currentPath = currentList[currentPanel.AbsoluteCursorPosition].Path;
             View view = new View();
             if (currentList[currentPanel.AbsoluteCursorPosition].IsFile)
@@ -26,11 +26,11 @@ namespace FileManager
                 Desktop.GetInstance().ActivePanel.UpdatePath(currentPath);
                 view.CurrentCursor(Desktop.GetInstance().ActivePanel);
             }
-            Desktop.GetInstance().Update();
+            Desktop.GetInstance().ViewDesktop();
             return false;
         }
 
-        private void FileLaunch(FileAttributes attributes)
+        private void FileLaunch(Attributes attributes)
         {
             View view = new View();
             try

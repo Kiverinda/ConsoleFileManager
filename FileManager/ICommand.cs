@@ -4,7 +4,7 @@ namespace FileManager
 {
     public interface ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click);
+        public bool CanExecute(ConsoleKeyInfo click);
         public bool Execute();
     }
 }

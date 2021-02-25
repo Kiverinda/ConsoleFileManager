@@ -5,7 +5,7 @@ namespace FileManager
 {
     class SelectDisk : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return ((click.Modifiers & ConsoleModifiers.Control) != 0) && (click.Key == ConsoleKey.F1);
         }
@@ -14,7 +14,7 @@ namespace FileManager
         {
             int positionCursor = 0;
             View view = new View();
-            FileAttributes[] allDrives = new RequestToDisk().AllDrives();
+            Attributes[] allDrives = new RequestToDisk().AllDrives();
             view.SelectDrive(Desktop.GetInstance().ActivePanel, positionCursor);
             while (true)
             {

@@ -1,16 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FileManager
 {
-    class ChangeActivePanel : ICommand
+    /// <summary>
+    /// Класс, осуществляющий выбор активной файловой панели.
+    /// Реализует паттерн Command
+    /// </summary>
+    public class ChangeActivePanel : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.Tab;
         }
-
+        /// <summary>
+        /// Переключение активной файловой панели
+        /// </summary>
+        /// <returns></returns>
         public bool Execute()
         {
             View view = new View();

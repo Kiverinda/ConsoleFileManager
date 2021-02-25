@@ -6,7 +6,7 @@ namespace FileManager
     {
         public bool Close = false;
 
-        public bool CanExexute(ConsoleKeyInfo click)
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.Escape;
         }

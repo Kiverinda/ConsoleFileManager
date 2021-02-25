@@ -1,36 +1,58 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FileManager
 {
-    class CreateDirectory : ICommand
+    /// <summary>
+    /// Класс для создания директории
+    /// </summary>
+    public class CreateDirectory : ICommand
     {
-        public bool CanExexute(ConsoleKeyInfo click)
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
+        public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.F7;
         }
 
+        /// <summary>
+        /// Создание новой директории при помощи метода Create и обновление
+        /// окна приложения после создания
+        /// </summary>
+        /// <returns>true or false</returns>
         public bool Execute()
         {
-            string path = Desktop.GetInstance().ActivePanel.CurrentPath;
-            string message = "Введите имя директории";
-            View view = new View();
-            string nameDirectory = view.MessageCreate(message);
-
-            string pathToDirectory = Path.Combine(path, nameDirectory);
-            if (!Directory.Exists(pathToDirectory) && nameDirectory != "")
-            {
-                Create(pathToDirectory);
-            }
+            Create();
             Desktop.GetInstance().Update();
             return false;
         }
 
-        public void Create(string path)
+        /// <summary>
+        /// Создание новой директории в текущей директории
+        /// </summary>
+        private void Create()
         {
-            Directory.CreateDirectory(path);
+            string path = Desktop.GetInstance().ActivePanel.CurrentPath;
+            string nameDirectory = GetUserNameDirectory();
+            string pathToDirectory = Path.Combine(path, nameDirectory);
+            if (!Directory.Exists(pathToDirectory) && nameDirectory != "")
+            {
+                Directory.CreateDirectory(pathToDirectory);
+            }
+        }
+
+        /// <summary>
+        /// Получение от пользователя имени новой директории
+        /// </summary>
+        /// <returns>Имя директории</returns>
+        public string GetUserNameDirectory()
+        {
+            string message = "Введите имя директории";
+            View view = new View();
+            return view.MessageCreate(message);
         }
     }
 }

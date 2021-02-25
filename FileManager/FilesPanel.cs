@@ -8,11 +8,11 @@ namespace FileManager
     {
         public bool IsLeftPanel { get; set; }
         public string CurrentPath { get; set; }
-        public List<FileAttributes> CurrentListDirAndFiles { get; set; }
+        public List<Attributes> CurrentListDirAndFiles { get; set; }
         public int FirstLineWhenScrolling { get; set; }
         public int AbsoluteCursorPosition { get; set; }
         public int RelativeCursorPosition { get; set; }
-        public List<FileAttributes> ListTo { get; set; }
+        public List<Attributes> ListTo { get; set; }
         public HashSet<int> BufferSelectedPositionCursor { get; set; }
 
      
@@ -21,17 +21,17 @@ namespace FileManager
             IsLeftPanel = isLeftPanel;
             CurrentPath = DriveInfo.GetDrives()[0].Name;
             CurrentListDirAndFiles = new RequestToDisk(CurrentPath).GetListCurrentDirectory();
-            ListTo = new List<FileAttributes>();
+            ListTo = new List<Attributes>();
             BufferSelectedPositionCursor = new HashSet<int>();
         }
 
-        public void AddListTo(FileAttributes linkToFileOrDirectory)
+        public void AddListTo(Attributes linkToFileOrDirectory)
         {
             ListTo.Add(linkToFileOrDirectory);
             if (!linkToFileOrDirectory.IsFile)
             {
-                List<FileAttributes> list = new RequestToDisk(linkToFileOrDirectory.Path).GetListDirectoryAndFiles();
-                foreach(FileAttributes fa in list)
+                List<Attributes> list = new RequestToDisk(linkToFileOrDirectory.Path).GetListDirectoryAndFiles();
+                foreach(Attributes fa in list)
                 {
                     ListTo.Add(fa);
                 }
@@ -46,7 +46,7 @@ namespace FileManager
         public double ListToSize()
         {
             double size = 0;
-            foreach(FileAttributes file in ListTo)
+            foreach(Attributes file in ListTo)
             {
                 size += file.Size;
             }
@@ -62,7 +62,7 @@ namespace FileManager
             RelativeCursorPosition = 0;
             FirstLineWhenScrolling = 0;
             BufferSelectedPositionCursor = new HashSet<int>();
-            ListTo = new List<FileAttributes>();
+            ListTo = new List<Attributes>();
         }
     }
 }

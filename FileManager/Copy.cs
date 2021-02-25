@@ -4,12 +4,19 @@ using System.IO;
 
 namespace FileManager
 {
+    /// <summary>
+    /// Подготовка к копированию обьектов
+    /// </summary>
     class Copy : ICommand
     {
         public FilesPanel ActivePanel { get; set; }
         public FilesPanel TargetPanel { get; set; }
         public View ViewCopy { get; set; }
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="activePanel">Активная панель</param>
         public Copy(FilesPanel activePanel)
         {
             ActivePanel = activePanel;
@@ -26,30 +33,108 @@ namespace FileManager
             ViewCopy = new View();
         }
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public Copy()
         {
             ViewCopy = new View();
         }
 
+        /// <summary>
+        /// Проверка условия для выполнения метода Execute
+        /// </summary>
+        /// <param name="click">Информация о нажатой клавише</param>
+        /// <returns>true or false</returns>
+        public bool CanExecute(ConsoleKeyInfo click)
+        {
+            return click.Key == ConsoleKey.F5;
+        }
+
+        /// <summary>
+        /// Запуск цепи проверок для копирования и обновление окна программы после копирования
+        /// </summary>
+        /// <returns>true or false</returns>
+        public bool Execute()
+        {
+            SelectTargetPanel();
+            CheckBufferSelected();
+            Desktop.GetInstance().Update();
+            return false;
+        }
+
+        /// <summary>
+        /// Вычисление пути назначения
+        /// </summary>
+        public void SelectTargetPanel()
+        {
+            ActivePanel = Desktop.GetInstance().ActivePanel;
+            if (ActivePanel.IsLeftPanel)
+            {
+                TargetPanel = Desktop.GetInstance().RightPanel;
+            }
+            else
+            {
+                TargetPanel = Desktop.GetInstance().LeftPanel;
+            }
+        }
+
+        /// <summary>
+        /// Проверяется наличие выделенных обьектов и если такие есть, то они поочередно отправляются на проверку.
+        /// Если выделенных обьектов нет, то на проверку отправляется обьект, на котором находится курсор. 
+        /// </summary>
+        public void CheckBufferSelected()
+        {
+            if (ActivePanel.BufferSelectedPositionCursor.Count == 0)
+            {
+                Check();
+            }
+            else
+            {
+                foreach (int i in ActivePanel.BufferSelectedPositionCursor)
+                {
+                    Attributes attributes = ActivePanel.CurrentListDirAndFiles[i];
+                    CheckingExistenceObjectInDestinationFolder(attributes);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Проверка равентства текущего пути и пути назначения
+        /// </summary>
         public void Check()
         {
-            List<FileAttributes> currentList = ActivePanel.CurrentListDirAndFiles;
-            
-            if (currentList[ActivePanel.AbsoluteCursorPosition].Name == "[..]")
-            {
-                return;
-            }
-            else if (ActivePanel.CurrentPath == TargetPanel.CurrentPath)
+            if (ActivePanel.CurrentPath == TargetPanel.CurrentPath)
             {
                 ViewCopy.Message($"НЕЛЬЗЯ СКОПИРОВАТЬ ФАЙЛ В ТЕКУЩИЙ КАТАЛОГ");
                 Console.ReadKey();
                 return;
             }
 
+            CheckingCorrectnessCurrentPath();
+        }
+
+        /// <summary>
+        /// Проверка корректности текущего пути
+        /// </summary>
+        public void CheckingCorrectnessCurrentPath()
+        {
+
+            List<Attributes> currentList = ActivePanel.CurrentListDirAndFiles;
+
+            if (currentList[ActivePanel.AbsoluteCursorPosition].Name == "[..]")
+            {
+                return;
+            }
+
             CheckingExistenceObjectInDestinationFolder(currentList[ActivePanel.AbsoluteCursorPosition]);
         }
 
-        public void CheckingExistenceObjectInDestinationFolder(FileAttributes attributes)
+        /// <summary>
+        /// Проверка существования текущего обьекта в папке назначения
+        /// </summary>
+        /// <param name="attributes">Атрибуты обьекта копирования</param>
+        public void CheckingExistenceObjectInDestinationFolder(Attributes attributes)
         {
             if (attributes.IsFile)
             {
@@ -79,7 +164,11 @@ namespace FileManager
             }
         }
 
-        public void CheckFreeSpaceFile(FileAttributes attributes)
+        /// <summary>
+        /// Проверка достаточности свободного места для файла на диске - получателе
+        /// </summary>
+        /// <param name="attributes">Атрибуты копируемого файла</param>
+        public void CheckFreeSpaceFile(Attributes attributes)
         {
             long freeSpace = new RequestToDisk(TargetPanel.CurrentPath).GetFreeSpace();
             long size = new FileInfo(attributes.Path).Length;
@@ -95,10 +184,14 @@ namespace FileManager
             }
         }
 
-        public void CheckFreeSpaceDirectory(FileAttributes attributes) 
+        /// <summary>
+        /// Проверка достаточности свободного места для директории на диске - получателе
+        /// </summary>
+        /// <param name="attributes">Атрибуты копируемой директории</param>
+        public void CheckFreeSpaceDirectory(Attributes attributes) 
         {
             RequestToDisk list = new RequestToDisk(attributes.Path);
-            List<FileAttributes> newTreeFiles = list.GetListDirectoryAndFiles();
+            List<Attributes> newTreeFiles = list.GetListDirectoryAndFiles();
             long freeSpace = new RequestToDisk(TargetPanel.CurrentPath).GetFreeSpace();
             long size = list.GetSizeDirectory(newTreeFiles);
             
@@ -114,6 +207,11 @@ namespace FileManager
             }
         }
 
+        /// <summary>
+        /// Создание экземпляра класса для копирования файла, добавление к событию метода, получающего проценты
+        /// выполнения и запуск потоков для копирования
+        /// </summary>
+        /// <param name="path">Путь к текущему</param>
         public void CopyFile(string path)
         {
             ViewCopy.Copy(Path.GetFileName(path), TargetPanel.CurrentPath);
@@ -123,19 +221,24 @@ namespace FileManager
             cs.Copy();
         }
 
-        public void CopyDirectory(string path, List<FileAttributes> newTreeFiles)
+        /// <summary>
+        /// Копирование директории
+        /// </summary>
+        /// <param name="path">Путь к директории</param>
+        /// <param name="newTreeFiles">Внутреннее дерево файлов и директорий</param>
+        public void CopyDirectory(string path, List<Attributes> newTreeFiles)
         {
             string nameDirectory = Path.Combine(TargetPanel.CurrentPath, Path.GetFileName(path));
             Directory.CreateDirectory(nameDirectory);
 
-            foreach (FileAttributes attributes in newTreeFiles)
+            foreach (Attributes attributes in newTreeFiles)
             {
                 if (!attributes.IsFile)
                 {
                     Directory.CreateDirectory(attributes.Path.Replace(ActivePanel.CurrentPath, TargetPanel.CurrentPath));
                 }
             }
-            foreach (FileAttributes attributes in newTreeFiles)
+            foreach (Attributes attributes in newTreeFiles)
             {
                 if (attributes.IsFile)
                 {
@@ -144,6 +247,11 @@ namespace FileManager
             }
         }
 
+        /// <summary>
+        /// Получение процентов и завершение процесса копирования 
+        /// </summary>
+        /// <param name="persentage">Процент выполнения</param>
+        /// <param name="cancelFlag">Закрытие потоков</param>
         public void ViewPersentageToConsole(double persentage, ref bool cancelFlag)
         {
             ViewCopy.CopyPersentage(persentage);
@@ -151,39 +259,6 @@ namespace FileManager
             {
                 cancelFlag = true;
             }
-        }
-
-        public bool CanExexute(ConsoleKeyInfo click)
-        {
-            return click.Key == ConsoleKey.F5;
-        }
-
-        public bool Execute()
-        {
-            ActivePanel = Desktop.GetInstance().ActivePanel;
-            if (ActivePanel.IsLeftPanel)
-            {
-                TargetPanel = Desktop.GetInstance().RightPanel;
-            }
-            else
-            {
-                TargetPanel = Desktop.GetInstance().LeftPanel;
-            }
-
-            if (ActivePanel.BufferSelectedPositionCursor.Count == 0)
-            {
-                Check();
-            }
-            else
-            {
-                foreach (int i in ActivePanel.BufferSelectedPositionCursor)
-                {
-                    FileAttributes attributes = ActivePanel.CurrentListDirAndFiles[i];
-                    CheckingExistenceObjectInDestinationFolder(attributes);
-                }
-            }
-            Desktop.GetInstance().Update();
-            return false;
         }
 
         //public void ViewVessageCompleteToConsole()

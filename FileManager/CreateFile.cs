@@ -6,7 +6,7 @@ namespace FileManager
     /// <summary>
     /// Класс для создания файла
     /// </summary>
-    public class CreateFile : ICommand
+    public class CreateFile : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка условия для выполнения метода Execute

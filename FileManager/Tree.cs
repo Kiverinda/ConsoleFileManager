@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     ///  Класс построения дерева файлов и дирректорий
     /// </summary>
-    public class Tree : ICommand
+    public class Tree : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

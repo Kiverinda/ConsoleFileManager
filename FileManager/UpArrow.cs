@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс для перемещения курсора на одну позицию вверх
     /// </summary>
-    public class UpArrow : ICommand
+    public class UpArrow : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка условия для выполнения метода Execute

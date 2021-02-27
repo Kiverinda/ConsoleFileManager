@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс для осуществления действий, при нажатии на клавишу Enter
     /// </summary>
-    public class KeyEnter : ICommand
+    public class KeyEnter : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

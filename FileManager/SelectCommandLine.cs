@@ -6,7 +6,7 @@ namespace FileManager
     /// <summary>
     /// Класс выбора коммандной строки
     /// </summary>
-    public class SelectCommandLine : ICommand
+    public class SelectCommandLine : ICommand <ConsoleKeyInfo>
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace FileManager
             View view = new View();
             view.OldCursor(Desktop.GetInstance().ActivePanel);
             CommandLine line = new CommandLine(Desktop.GetInstance().ActivePanel);
-            line.Parse();
+            line.Management();
             view.CurrentCursor(Desktop.GetInstance().ActivePanel);
             return false;
         }

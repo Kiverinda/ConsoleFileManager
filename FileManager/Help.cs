@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс для вывода справки по приложению на экран
     /// </summary>
-    public class Help : ICommand
+    public class Help : ICommand <ConsoleKeyInfo>
     {
 
         /// <summary>

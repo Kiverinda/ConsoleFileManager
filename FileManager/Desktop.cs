@@ -30,7 +30,7 @@ namespace FileManager
         /// <summary>
         /// Список возможных действий с файлами и директориями
         /// </summary>
-        public List<ICommand> Commands { get; set; }
+        public List<ICommand<ConsoleKeyInfo>> Commands { get; set; }
 
         /// <summary>
         /// Конструктор класса
@@ -40,7 +40,7 @@ namespace FileManager
             LeftPanel = new FilesPanel(true);
             RightPanel = new FilesPanel(false);
             ActivePanel = LeftPanel;
-            Commands = new List<ICommand>() { 
+            Commands = new List<ICommand<ConsoleKeyInfo>>() { 
                 new SelectDisk(), 
                 new SelectCommandLine(), 
                 new ChangeActivePanel(), 
@@ -139,7 +139,7 @@ namespace FileManager
             while (!quit)
             {
                 click = Console.ReadKey(true);
-                foreach (ICommand command in Commands)
+                foreach (ICommand<ConsoleKeyInfo> command in Commands)
                 {
                     if (command.CanExecute(click))
                     {

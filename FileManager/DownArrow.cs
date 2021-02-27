@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс для перемещения курсора на одну позицию вниз
     /// </summary>
-    public class DownArrow : ICommand
+    public class DownArrow : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка условия для выполнения метода Execute

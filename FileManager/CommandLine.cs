@@ -5,86 +5,108 @@ using System.Collections.Generic;
 
 namespace FileManager
 {
-    class CommandLine
+    public class CommandLine
     {
         public FilesPanel CurrentPanel { get; set; }
         public View CommandView { get; set; }
-        public Stack<String> StackString { get; set; }
-        public Dictionary<string, ConsoleKeyInfo> MatchingCommandToButton { get; set; }
-     //   public List<IStringCommand> Commands { get; set; }
+        public int SizeBuffer { get; set; }
+        public List<String> BufferCommands { get; set; }
 
         public CommandLine(FilesPanel currentPanel)
         {
             CurrentPanel = currentPanel;
             CommandView = new View();
-            StackString = new Stack<string>();
-            //Commands = new List<IStringCommand>() {
-            //    new SelectDisk(),
-            //    new SelectCommandLine(),
-            //    new ChangeActivePanel(),
-            //    new KeyEnter(),
-            //    new UpArrow(),
-            //    new DownArrow(),
-            //    new SelectObject(),
-            //    new CreateFile(),
-            //    new RenameObject(),
-            //    new EditFile(),
-            //    new Copy(),
-            //    new Delete(),
-            //    new Move(),
-            //    new CreateDirectory(),
-            //    new Tree(),
-            //    new Quit(),
-            //    new Help()};
+            SizeBuffer = 5;
+            BufferCommands = new List<string>(SizeBuffer);
         }
 
-        public void Parse()
+        public void Management()
         {
-            string commandString = "";
-            ConsoleKeyInfo key;
+            string commandLine = "";
+            int commandNumberInBuffer = 0;
+            int cursorPositionInLine = 0;
+
+            ConsoleKeyInfo click;
             do
             {
-                key = CommandView.CommandLine(CurrentPanel.CurrentPath, commandString);
-                if (key.Key == ConsoleKey.Escape)
+                
+                CommandView.CommandLine(CurrentPanel.CurrentPath, commandLine, cursorPositionInLine);
+                click = Console.ReadKey(true);
+                if (click.Key == ConsoleKey.Escape)
                 {
                     return;
                 }
-                if (key.Key == ConsoleKey.Enter)
+                else if (click.Key == ConsoleKey.Enter)
                 {
-                    StackString.Push(commandString);
-                    string[] command = commandString.Split(' ');
+                    if(BufferCommands.Count >= SizeBuffer)
+                    {
+                        BufferCommands.RemoveAt(0);
+                    }   
+                    BufferCommands.Add(commandLine);
+                    commandNumberInBuffer = BufferCommands.Count;
+                    List<string> command = CustomMethods.SplitString(" ", commandLine);
                     CheckCommand(command);
+                    commandLine = "";
+                    cursorPositionInLine = commandLine.Length;
                     Desktop.GetInstance().Update();
                     CommandView.OldCursor(CurrentPanel);
-                    commandString = "";
+                    commandLine = "";
                     continue;
                 }
-                if (key.Key == ConsoleKey.UpArrow)
+                else if(click.Key == ConsoleKey.P && (click.Modifiers & ConsoleModifiers.Control) != 0)
                 {
-                    commandString += CurrentPanel.CurrentPath;
+                    commandLine += CurrentPanel.CurrentPath;
+                    cursorPositionInLine = commandLine.Length;
                     continue;
                 }
-                if (key.Key == ConsoleKey.DownArrow)
+                else if(click.Key == ConsoleKey.DownArrow)
                 {
-                    if(StackString.Count != 0)
+                    if(BufferCommands.Count != 0)
                     {
-                        commandString = StackString.Pop();
+                        if (commandNumberInBuffer > 0)
+                        {
+                            commandNumberInBuffer--;
+                            commandLine = BufferCommands[commandNumberInBuffer];
+                            cursorPositionInLine = commandLine.Length;
+                        }
                     }
                     continue;
                 }
-                if (key.Key == ConsoleKey.LeftArrow)
+                else if(click.Key == ConsoleKey.UpArrow)
                 {
-                    continue;
-                }
-                if (key.Key == ConsoleKey.RightArrow)
-                {
-                    continue;
-                }
-                if (key.Key == ConsoleKey.Backspace)
-                {
-                    if (commandString.Length > 0)
+                    if (BufferCommands.Count != 0)
                     {
-                        commandString = commandString.Remove(commandString.Length - 1);
+                        if (commandNumberInBuffer < BufferCommands.Count - 1)
+                        {
+                            commandNumberInBuffer++;
+                            commandLine = BufferCommands[commandNumberInBuffer];
+                            cursorPositionInLine = commandLine.Length;
+                        }
+                    }
+                    continue;
+                }
+                else if(click.Key == ConsoleKey.LeftArrow)
+                {
+                    if(commandLine.Length > 0 && cursorPositionInLine > 0)
+                    {
+                        cursorPositionInLine -= 1;
+                    }
+                    continue;
+                }
+                else if(click.Key == ConsoleKey.RightArrow)
+                {
+                    if (cursorPositionInLine < commandLine.Length)
+                    {
+                        cursorPositionInLine += 1;
+                    }
+                    continue;
+                }
+                else if(click.Key == ConsoleKey.Backspace)
+                {
+                    if (commandLine.Length > 0 && cursorPositionInLine > 0)
+                    {
+                        commandLine = commandLine.Remove(cursorPositionInLine - 1, 1);
+                        cursorPositionInLine -= 1;
                     }
                     else
                     {
@@ -93,24 +115,21 @@ namespace FileManager
                 }
                 else
                 {
-                    commandString += key.KeyChar;
+                    if(cursorPositionInLine == commandLine.Length)
+                    {
+                        commandLine += click.KeyChar;
+                        cursorPositionInLine += 1;
+                    }
+                    else if(cursorPositionInLine < commandLine.Length)
+                    {
+                        commandLine = commandLine.Insert(cursorPositionInLine, click.KeyChar.ToString());
+                        cursorPositionInLine += 1;
+                    }
                 }
             } while (true);
         }
 
-        //public void Explorer(string userCommand)
-        //{
-        //    foreach (IStringCommand command in Commands)
-        //    {
-        //        if (command.CanExecute(userCommand))
-        //        {
-        //            command.Execute();
-        //            break;
-        //        }
-        //    }
-        //}
-
-        public void CheckCommand(string[] command)
+        public void CheckCommand(List<string> command)
         {
             try
             {

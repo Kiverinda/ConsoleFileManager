@@ -294,16 +294,15 @@ namespace FileManager
         /// <param name="path">Текущий путь</param>
         /// <param name="command">Команда</param>
         /// <returns></returns>
-        public ConsoleKeyInfo CommandLine(string path, string command)
+        public void CommandLine(string path, string command, int positionCursor)
         {
             CurrentClear.CommandLine();
             Console.CursorVisible = true;
             Console.SetCursorPosition(2, WindowHeight - 4);
             Console.Write($"{path} ");
             Console.Write(command);
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            Console.CursorVisible = false;
-            return key;
+            Console.SetCursorPosition(2 + path.Length + positionCursor + 1, WindowHeight - 4);
+            //Console.CursorVisible = true;
         }
 
         /// <summary>

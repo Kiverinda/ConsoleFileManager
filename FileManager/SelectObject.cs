@@ -8,7 +8,7 @@ namespace FileManager
     /// <summary>
     /// Класс выбора обьекта
     /// </summary>
-    public class SelectObject : ICommand
+    public class SelectObject : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

@@ -309,6 +309,26 @@
             Копирование файла
             </summary>
         </member>
+        <member name="T:FileManager.CustomMethods">
+            <summary>
+            Класс кастомных методов
+            </summary>
+        </member>
+        <member name="M:FileManager.CustomMethods.GetPrefixFunc(System.String)">
+            <summary>
+            Вычисление префикс функций
+            </summary>
+            <param name="source">Строка для которой вычисляется функция</param>
+            <returns>Массив префикс функций</returns>
+        </member>
+        <member name="M:FileManager.CustomMethods.FindSubstring(System.String,System.String)">
+            <summary>
+            Поиск подстроки в строке
+            </summary>
+            <param name="target">Подстрока</param>
+            <param name="source">Строка</param>
+            <returns>Список с начальными индексами вхождения</returns>
+        </member>
         <member name="T:FileManager.Delete">
             <summary>
             Класс для удаления файлов или директорий
@@ -566,40 +586,41 @@
             </summary>
             <returns>Выход из программы</returns>
         </member>
-        <member name="T:FileManager.ICommand">
+        <member name="T:FileManager.ICommand`1">
             <summary>
             Интерфейс для реализации паттерна Command
             </summary>
         </member>
-        <member name="M:FileManager.ICommand.CanExecute(System.ConsoleKeyInfo)">
+        <member name="M:FileManager.ICommand`1.CanExecute(`0)">
             <summary>
             Условие для выполнения действия
             </summary>
-            <param name="click">Информация о нажатой клавише</param>
+            <param name="value">Значение для сравнения</param>
             <returns>true or false</returns>
         </member>
-        <member name="M:FileManager.ICommand.Execute">
+        <member name="M:FileManager.ICommand`1.Execute">
             <summary>
             Выполняемое действие
             </summary>
             <returns>Выход из программы</returns>
         </member>
-        <member name="T:FileManager.IStringCommand">
+        <member name="T:FileManager.ICommandForCLine`1">
             <summary>
-            Интерфейс для реализации паттерна Command
+            Интерфейс для реализации паттерна Command для командной строки
             </summary>
         </member>
-        <member name="M:FileManager.IStringCommand.CanExecute(System.String)">
+        <member name="M:FileManager.ICommandForCLine`1.CanExecuteForCLine(`0)">
             <summary>
             Условие для выполнения действия
             </summary>
-            <param name="click">Информация о нажатой клавише</param>
+            <param name="value">Значение для сравнения</param>
             <returns>true or false</returns>
         </member>
-        <member name="M:FileManager.IStringCommand.Execute(System.String[])">
+        <member name="M:FileManager.ICommandForCLine`1.ExecuteForCLine">
             <summary>
             Выполняемое действие
             </summary>
+            <returns>Выход из программы</returns>
         </member>
         <member name="T:FileManager.KeyEnter">
             <summary>
@@ -1094,7 +1115,7 @@
             <param name="message">Текст сообщения</param>
             <param name="path">Информация о нажатой клавише</param>
         </member>
-        <member name="M:FileManager.View.CommandLine(System.String,System.String)">
+        <member name="M:FileManager.View.CommandLine(System.String,System.String,System.Int32)">
             <summary>
             Вывод текущего пути и команды в командную строку
             </summary>

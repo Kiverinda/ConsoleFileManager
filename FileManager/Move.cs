@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс переноса файла или директории
     /// </summary>
-    public class Move : ICommand
+    public class Move : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

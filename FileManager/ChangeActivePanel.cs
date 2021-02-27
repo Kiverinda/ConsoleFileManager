@@ -6,7 +6,7 @@ namespace FileManager
     /// Класс, осуществляющий выбор активной файловой панели.
     /// Реализует паттерн Command
     /// </summary>
-    public class ChangeActivePanel : ICommand
+    public class ChangeActivePanel : ICommand <ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка условия для выполнения метода Execute

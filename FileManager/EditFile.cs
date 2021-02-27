@@ -9,7 +9,7 @@ namespace FileManager
     /// <summary>
     /// Класс для открытия файла в блокноте
     /// </summary>
-    public class EditFile : ICommand
+    public class EditFile : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

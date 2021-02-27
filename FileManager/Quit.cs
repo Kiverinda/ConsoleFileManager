@@ -6,7 +6,7 @@ namespace FileManager
     /// <summary>
     /// Класс выхода из приложения с сохранением текущийх настроек пользователя  
     /// </summary>
-    public class Quit : ICommand
+    public class Quit : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

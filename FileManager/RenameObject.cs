@@ -9,7 +9,7 @@ namespace FileManager
     /// <summary>
     /// Класс переименования обьекта
     /// </summary>
-    public class RenameObject : ICommand
+    public class RenameObject : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

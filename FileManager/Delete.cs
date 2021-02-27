@@ -8,7 +8,7 @@ namespace FileManager
     /// <summary>
     /// Класс для удаления файлов или директорий
     /// </summary>
-    public class Delete : ICommand
+    public class Delete : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Активная панель

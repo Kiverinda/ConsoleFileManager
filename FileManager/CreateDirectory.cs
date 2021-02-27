@@ -6,7 +6,7 @@ namespace FileManager
     /// <summary>
     /// Класс для создания директории
     /// </summary>
-    public class CreateDirectory : ICommand
+    public class CreateDirectory : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка условия для выполнения метода Execute

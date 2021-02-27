@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Подготовка к копированию обьектов
     /// </summary>
-    class Copy : ICommand
+    class Copy : ICommand<ConsoleKeyInfo>
     {
         public FilesPanel ActivePanel { get; set; }
         public FilesPanel TargetPanel { get; set; }

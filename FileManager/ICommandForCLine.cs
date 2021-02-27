@@ -4,9 +4,9 @@ namespace FileManager
 {
     
     /// <summary>
-    /// Интерфейс для реализации паттерна Command
+    /// Интерфейс для реализации паттерна Command для командной строки
     /// </summary>
-    public interface ICommand <T>
+    public interface ICommandForCLine<T>
     {
 
         /// <summary>
@@ -14,12 +14,12 @@ namespace FileManager
         /// </summary>
         /// <param name="value">Значение для сравнения</param>
         /// <returns>true or false</returns>
-        public bool CanExecute (T value);
+        public bool CanExecuteForCLine (T value);
 
         /// <summary>
         /// Выполняемое действие
         /// </summary>
         /// <returns>Выход из программы</returns>
-        public bool Execute();
+        public bool ExecuteForCLine();
     }
 }

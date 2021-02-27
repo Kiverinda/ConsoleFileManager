@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс выбора диска
     /// </summary>
-    public class SelectDisk : ICommand
+    public class SelectDisk : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>

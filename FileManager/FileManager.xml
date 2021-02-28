@@ -140,15 +140,15 @@
             </summary>
             <returns>Выход из программы</returns>
         </member>
-        <member name="M:FileManager.Copy.SelectTargetPanel">
-            <summary>
-            Вычисление пути назначения
-            </summary>
-        </member>
         <member name="M:FileManager.Copy.CheckBufferSelected">
             <summary>
             Проверяется наличие выделенных обьектов и если такие есть, то они поочередно отправляются на проверку.
             Если выделенных обьектов нет, то на проверку отправляется обьект, на котором находится курсор. 
+            </summary>
+        </member>
+        <member name="M:FileManager.Copy.SelectTargetPanel">
+            <summary>
+            Вычисление пути назначения
             </summary>
         </member>
         <member name="M:FileManager.Copy.Check">
@@ -328,6 +328,14 @@
             <param name="target">Подстрока</param>
             <param name="source">Строка</param>
             <returns>Список с начальными индексами вхождения</returns>
+        </member>
+        <member name="M:FileManager.CustomMethods.SplitString(System.String,System.String)">
+            <summary>
+            Разделение строки на массив подстрок
+            </summary>
+            <param name="target">Строка разделитель</param>
+            <param name="source">Исходная строка</param>
+            <returns>Массив подстрок</returns>
         </member>
         <member name="T:FileManager.Delete">
             <summary>
@@ -599,24 +607,6 @@
             <returns>true or false</returns>
         </member>
         <member name="M:FileManager.ICommand`1.Execute">
-            <summary>
-            Выполняемое действие
-            </summary>
-            <returns>Выход из программы</returns>
-        </member>
-        <member name="T:FileManager.ICommandForCLine`1">
-            <summary>
-            Интерфейс для реализации паттерна Command для командной строки
-            </summary>
-        </member>
-        <member name="M:FileManager.ICommandForCLine`1.CanExecuteForCLine(`0)">
-            <summary>
-            Условие для выполнения действия
-            </summary>
-            <param name="value">Значение для сравнения</param>
-            <returns>true or false</returns>
-        </member>
-        <member name="M:FileManager.ICommandForCLine`1.ExecuteForCLine">
             <summary>
             Выполняемое действие
             </summary>

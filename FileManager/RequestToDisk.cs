@@ -189,12 +189,9 @@ namespace FileManager
                 {
                     subDirs = Directory.GetDirectories(currentDir);
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception ex)
                 {
-                    continue;
-                }
-                catch (DirectoryNotFoundException)
-                {
+                    new ErrorLog(this, ex.Message, ex.StackTrace);
                     continue;
                 }
                 string[] files;
@@ -202,12 +199,9 @@ namespace FileManager
                 {
                     files = Directory.GetFiles(currentDir);
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception ex)
                 {
-                    continue;
-                }
-                catch (DirectoryNotFoundException)
-                {
+                    new ErrorLog(this, ex.Message, ex.StackTrace);
                     continue;
                 }
                 foreach (string pathToFile in files)
@@ -220,8 +214,9 @@ namespace FileManager
                         DateTime date = File.GetCreationTime(pathToFile);
                         list.Add(new Attributes(name, pathToFile, size, true, Path.GetExtension(pathToFile), date));
                     }
-                    catch (FileNotFoundException)
+                    catch (Exception ex)
                     {
+                        new ErrorLog(this, ex.Message, ex.StackTrace);
                         continue;
                     }
                 }

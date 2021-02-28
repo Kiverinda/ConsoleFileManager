@@ -13,9 +13,11 @@ namespace FileManager
 
         public bool Execute()
         {
-            CommandLine.GetInstance().Line = CommandLine.GetInstance().Line.Remove(CommandLine.GetInstance().CursorPositionInLine - 1, 1);
-            CommandLine.GetInstance().CursorPositionInLine -= 1;
-
+            if (CommandLine.GetInstance().CursorPositionInLine > 0)
+            {
+                CommandLine.GetInstance().CursorPositionInLine --;
+                CommandLine.GetInstance().Line = CommandLine.GetInstance().Line.Remove(CommandLine.GetInstance().CursorPositionInLine, 1);
+            }
             return false;
         }
     }

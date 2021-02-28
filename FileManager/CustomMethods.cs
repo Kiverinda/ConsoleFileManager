@@ -97,6 +97,12 @@ namespace FileManager
             return indexes;
         }
 
+        /// <summary>
+        /// Разделение строки на массив подстрок
+        /// </summary>
+        /// <param name="target">Строка разделитель</param>
+        /// <param name="source">Исходная строка</param>
+        /// <returns>Массив подстрок</returns>
         public static List<string> SplitString(string target, string source)
         {
             List<string> result = new List<string>();

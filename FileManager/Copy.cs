@@ -64,22 +64,6 @@ namespace FileManager
         }
 
         /// <summary>
-        /// Вычисление пути назначения
-        /// </summary>
-        public void SelectTargetPanel()
-        {
-            ActivePanel = Desktop.GetInstance().ActivePanel;
-            if (ActivePanel.IsLeftPanel)
-            {
-                TargetPanel = Desktop.GetInstance().RightPanel;
-            }
-            else
-            {
-                TargetPanel = Desktop.GetInstance().LeftPanel;
-            }
-        }
-
-        /// <summary>
         /// Проверяется наличие выделенных обьектов и если такие есть, то они поочередно отправляются на проверку.
         /// Если выделенных обьектов нет, то на проверку отправляется обьект, на котором находится курсор. 
         /// </summary>
@@ -96,6 +80,22 @@ namespace FileManager
                     Attributes attributes = ActivePanel.CurrentListDirAndFiles[i];
                     CheckingExistenceObjectInDestinationFolder(attributes);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Вычисление пути назначения
+        /// </summary>
+        public void SelectTargetPanel()
+        {
+            ActivePanel = Desktop.GetInstance().ActivePanel;
+            if (ActivePanel.IsLeftPanel)
+            {
+                TargetPanel = Desktop.GetInstance().RightPanel;
+            }
+            else
+            {
+                TargetPanel = Desktop.GetInstance().LeftPanel;
             }
         }
 

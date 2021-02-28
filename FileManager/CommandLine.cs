@@ -28,16 +28,6 @@ namespace FileManager
             return instance;
         }
 
-        public void ClearData()
-        {
-            CurrentPanel = Desktop.GetInstance().ActivePanel;
-            BufferCommands.Clear();
-            CommandNumberInBuffer = 0;
-            CursorPositionInLine = 0;
-            Line = "";
-            ListUserCommands.Clear();
-        }
-
         public CommandLine()
         {
             CurrentPanel = Desktop.GetInstance().ActivePanel;
@@ -63,7 +53,10 @@ namespace FileManager
             };
             Commands = new List<ICommand<String>>()
             {
-
+                new CL_CD(),
+                new CL_Copy(),
+                new CL_Rename(),
+                new CL_Delete()
             };
 
         }
@@ -73,6 +66,7 @@ namespace FileManager
             ConsoleKeyInfo click;
             bool quit = false;
             Line = "";
+            CurrentPanel = Desktop.GetInstance().ActivePanel;
             CursorPositionInLine = Line.Length;
             CommandNumberInBuffer = BufferCommands.Count - 1;
             while (!quit)
@@ -99,7 +93,7 @@ namespace FileManager
                     if (command.CanExecute(ListUserCommands[0]))
                     {
                         command.Execute();
-                        break;
+                        return;
                     }
                 }
             }
@@ -108,48 +102,5 @@ namespace FileManager
                 new ErrorLog(this, ex.Message, ex.StackTrace);
             }
         }
-
-        //public void CheckCommand(List<string> command)
-        //{
-        //    try
-        //    {
-        //        switch (command[0])
-        //        {
-        //            case "cd":
-        //                if (Directory.Exists(command[1]))
-        //                {
-        //                    Desktop.GetInstance().ActivePanel.UpdatePath(command[1]);
-        //                }
-        //                break;
-        //            case "copy":
-        //                CommandLineAction claCopy = new CommandLineAction(command[1], command[2]);
-        //                claCopy.CL_Copy();
-        //                break;
-        //            case "rename":
-        //                CommandLineAction claRename = new CommandLineAction(command[1]);
-        //                claRename.CL_Rename();
-        //                break;
-        //            case "delete":
-        //                CommandLineAction claDelete = new CommandLineAction(command[1]);
-        //                claDelete.CL_Delete();
-        //                break;
-        //            case "tree":
-        //                if (Directory.Exists(command[1]))
-        //                {
-        //                    new Tree().TreeFilesAndDirectory(command[1]);
-        //                    Desktop.GetInstance().Update();
-        //                }
-        //                break;
-        //            default:
-        //                return;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        new ErrorLog(this, ex.Message, ex.StackTrace);
-        //    }
-
-        //}
-
     }
 }

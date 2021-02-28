@@ -8,7 +8,6 @@ namespace FileManager
     {
         public string CurrentPath { get; set; }
         public string TargetPath { get; set; }
-        public Stack<string> StackString { get; set; }
 
         public CommandLineAction(string currentPath, string targetPath)
         {

@@ -7,169 +7,149 @@ namespace FileManager
 {
     public class CommandLine
     {
+        private static CommandLine instance;
         public FilesPanel CurrentPanel { get; set; }
         public View CommandView { get; set; }
-        public int SizeBuffer { get; set; }
+        public readonly int SizeBuffer = 5;
         public List<String> BufferCommands { get; set; }
+        public List<String> ListUserCommands { get; set; }
+        public List<ICommand<ConsoleKeyInfo>> KeyManagement { get; set; }
+        public List<ICommand<String>> Commands { get; set; }
+        public string Line { get; set; }
+        public int CommandNumberInBuffer { get; set; }
+        public int CursorPositionInLine { get; set; }
 
-        public CommandLine(FilesPanel currentPanel)
+        public static CommandLine GetInstance()
         {
-            CurrentPanel = currentPanel;
+            if (instance == null)
+            {
+                instance = new CommandLine();
+            }
+            return instance;
+        }
+
+        public void ClearData()
+        {
+            CurrentPanel = Desktop.GetInstance().ActivePanel;
+            BufferCommands.Clear();
+            CommandNumberInBuffer = 0;
+            CursorPositionInLine = 0;
+            Line = "";
+            ListUserCommands.Clear();
+        }
+
+        public CommandLine()
+        {
+            CurrentPanel = Desktop.GetInstance().ActivePanel;
             CommandView = new View();
             SizeBuffer = 5;
             BufferCommands = new List<string>(SizeBuffer);
+            CommandNumberInBuffer = 0;
+            CursorPositionInLine = 0;
+            Line = "";
+            ListUserCommands = new List<string>();
+            KeyManagement = new List<ICommand<ConsoleKeyInfo>>()
+            {
+                new CL_Escape(),
+                new CL_AddPath(),
+                new CL_Enter(),
+                new CL_DownArrow(),
+                new CL_UpArrow(),
+                new CL_LeftArrow(),
+                new CL_RightArrow(),
+                new CL_Backspace(),
+                new CL_AddChar()
+
+            };
+            Commands = new List<ICommand<String>>()
+            {
+
+            };
+
         }
 
         public void Management()
         {
-            string commandLine = "";
-            int commandNumberInBuffer = 0;
-            int cursorPositionInLine = 0;
-
             ConsoleKeyInfo click;
-            do
+            bool quit = false;
+            Line = "";
+            CursorPositionInLine = Line.Length;
+            CommandNumberInBuffer = BufferCommands.Count - 1;
+            while (!quit)
             {
-                
-                CommandView.CommandLine(CurrentPanel.CurrentPath, commandLine, cursorPositionInLine);
+                CommandView.CommandLine(CurrentPanel.CurrentPath, Line, CursorPositionInLine);
                 click = Console.ReadKey(true);
-                if (click.Key == ConsoleKey.Escape)
+                foreach (ICommand<ConsoleKeyInfo> command in KeyManagement)
                 {
-                    return;
-                }
-                else if (click.Key == ConsoleKey.Enter)
-                {
-                    if(BufferCommands.Count >= SizeBuffer)
+                    if (command.CanExecute(click))
                     {
-                        BufferCommands.RemoveAt(0);
-                    }   
-                    BufferCommands.Add(commandLine);
-                    commandNumberInBuffer = BufferCommands.Count;
-                    List<string> command = CustomMethods.SplitString(" ", commandLine);
-                    CheckCommand(command);
-                    commandLine = "";
-                    cursorPositionInLine = commandLine.Length;
-                    Desktop.GetInstance().Update();
-                    CommandView.OldCursor(CurrentPanel);
-                    commandLine = "";
-                    continue;
-                }
-                else if(click.Key == ConsoleKey.P && (click.Modifiers & ConsoleModifiers.Control) != 0)
-                {
-                    commandLine += CurrentPanel.CurrentPath;
-                    cursorPositionInLine = commandLine.Length;
-                    continue;
-                }
-                else if(click.Key == ConsoleKey.DownArrow)
-                {
-                    if(BufferCommands.Count != 0)
-                    {
-                        if (commandNumberInBuffer > 0)
-                        {
-                            commandNumberInBuffer--;
-                            commandLine = BufferCommands[commandNumberInBuffer];
-                            cursorPositionInLine = commandLine.Length;
-                        }
-                    }
-                    continue;
-                }
-                else if(click.Key == ConsoleKey.UpArrow)
-                {
-                    if (BufferCommands.Count != 0)
-                    {
-                        if (commandNumberInBuffer < BufferCommands.Count - 1)
-                        {
-                            commandNumberInBuffer++;
-                            commandLine = BufferCommands[commandNumberInBuffer];
-                            cursorPositionInLine = commandLine.Length;
-                        }
-                    }
-                    continue;
-                }
-                else if(click.Key == ConsoleKey.LeftArrow)
-                {
-                    if(commandLine.Length > 0 && cursorPositionInLine > 0)
-                    {
-                        cursorPositionInLine -= 1;
-                    }
-                    continue;
-                }
-                else if(click.Key == ConsoleKey.RightArrow)
-                {
-                    if (cursorPositionInLine < commandLine.Length)
-                    {
-                        cursorPositionInLine += 1;
-                    }
-                    continue;
-                }
-                else if(click.Key == ConsoleKey.Backspace)
-                {
-                    if (commandLine.Length > 0 && cursorPositionInLine > 0)
-                    {
-                        commandLine = commandLine.Remove(cursorPositionInLine - 1, 1);
-                        cursorPositionInLine -= 1;
-                    }
-                    else
-                    {
-                        continue;
+                        quit = command.Execute();
+                        break;
                     }
                 }
-                else
-                {
-                    if(cursorPositionInLine == commandLine.Length)
-                    {
-                        commandLine += click.KeyChar;
-                        cursorPositionInLine += 1;
-                    }
-                    else if(cursorPositionInLine < commandLine.Length)
-                    {
-                        commandLine = commandLine.Insert(cursorPositionInLine, click.KeyChar.ToString());
-                        cursorPositionInLine += 1;
-                    }
-                }
-            } while (true);
+            }
         }
 
-        public void CheckCommand(List<string> command)
+        public void Action()
         {
             try
             {
-                switch (command[0])
+                foreach (ICommand<String> command in Commands)
                 {
-                    case "cd":
-                        if (Directory.Exists(command[1]))
-                        {
-                            Desktop.GetInstance().ActivePanel.UpdatePath(command[1]);
-                        }
+                    if (command.CanExecute(ListUserCommands[0]))
+                    {
+                        command.Execute();
                         break;
-                    case "copy":
-                        CommandLineAction claCopy = new CommandLineAction(command[1], command[2]);
-                        claCopy.CL_Copy();
-                        break;
-                    case "rename":
-                        CommandLineAction claRename = new CommandLineAction(command[1]);
-                        claRename.CL_Rename();
-                        break;
-                    case "delete":
-                        CommandLineAction claDelete = new CommandLineAction(command[1]);
-                        claDelete.CL_Delete();
-                        break;
-                    case "tree":
-                        if (Directory.Exists(command[1]))
-                        {
-                            new Tree().TreeFilesAndDirectory(command[1]);
-                            Desktop.GetInstance().Update();
-                        }
-                        break;
-                    default:
-                        return;
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 new ErrorLog(this, ex.Message, ex.StackTrace);
             }
-            
         }
-        
+
+        //public void CheckCommand(List<string> command)
+        //{
+        //    try
+        //    {
+        //        switch (command[0])
+        //        {
+        //            case "cd":
+        //                if (Directory.Exists(command[1]))
+        //                {
+        //                    Desktop.GetInstance().ActivePanel.UpdatePath(command[1]);
+        //                }
+        //                break;
+        //            case "copy":
+        //                CommandLineAction claCopy = new CommandLineAction(command[1], command[2]);
+        //                claCopy.CL_Copy();
+        //                break;
+        //            case "rename":
+        //                CommandLineAction claRename = new CommandLineAction(command[1]);
+        //                claRename.CL_Rename();
+        //                break;
+        //            case "delete":
+        //                CommandLineAction claDelete = new CommandLineAction(command[1]);
+        //                claDelete.CL_Delete();
+        //                break;
+        //            case "tree":
+        //                if (Directory.Exists(command[1]))
+        //                {
+        //                    new Tree().TreeFilesAndDirectory(command[1]);
+        //                    Desktop.GetInstance().Update();
+        //                }
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new ErrorLog(this, ex.Message, ex.StackTrace);
+        //    }
+
+        //}
+
     }
 }

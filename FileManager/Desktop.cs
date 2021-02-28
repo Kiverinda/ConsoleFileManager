@@ -57,7 +57,8 @@ namespace FileManager
                 new CreateDirectory(),
                 new Tree(),
                 new Quit(),
-                new Help()};
+                new Help()
+            };
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace FileManager
         {
             View view = new View();
             view.OldCursor(Desktop.GetInstance().ActivePanel);
-            CommandLine line = new CommandLine(Desktop.GetInstance().ActivePanel);
+            CommandLine line = CommandLine.GetInstance();
             line.Management();
             view.CurrentCursor(Desktop.GetInstance().ActivePanel);
             return false;

@@ -4,19 +4,62 @@ using System.Collections.Generic;
 
 namespace FileManager
 {
+    /// <summary>
+    /// Класс реализующий командную строку
+    /// </summary>
     public class CommandLine
     {
         private static CommandLine instance;
+
+        /// <summary>
+        /// Текущий путь
+        /// </summary>
         public FilesPanel CurrentPanel { get; set; }
+
+        /// <summary>
+        /// Размер буфера для введенных команд
+        /// </summary>
         public readonly int SizeBuffer = 5;
+
+        /// <summary>
+        /// Буфер введенных комманд
+        /// </summary>
         public List<String> BufferCommands { get; set; }
+
+        /// <summary>
+        /// Номер команды в буфере
+        /// </summary>
         public int CommandNumberInBuffer { get; set; }
+
+        /// <summary>
+        /// Строка, введенная пользователем в командной строке
+        /// </summary>
         public List<String> ListUserCommands { get; set; }
+
+        /// <summary>
+        /// Список для метода KeyManagement
+        /// </summary>
         public List<ICommand<ConsoleKeyInfo>> KeyManagement { get; set; }
-        public List<ICommand<String>> Commands { get; set; }
+
+        /// <summary>
+        /// Список для метода Comands
+        /// </summary>
+        public List<ICommand<String>> Comands { get; set; }
+
+        /// <summary>
+        /// Введенная пользователем строка
+        /// </summary>
         public string Line { get; set; }
+
+        /// <summary>
+        /// Позиция курсора
+        /// </summary>
         public int CursorPositionInLine { get; set; }
 
+        /// <summary>
+        /// Реализация шаблона singlton
+        /// </summary>
+        /// <returns></returns>
         public static CommandLine GetInstance()
         {
             if (instance == null)
@@ -26,6 +69,9 @@ namespace FileManager
             return instance;
         }
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public CommandLine()
         {
             CurrentPanel = Desktop.GetInstance().ActivePanel;
@@ -48,7 +94,7 @@ namespace FileManager
                 new CL_AddChar()
 
             };
-            Commands = new List<ICommand<String>>()
+            Comands = new List<ICommand<String>>()
             {
                 new CL_CD(),
                 new CL_Copy(),
@@ -58,6 +104,9 @@ namespace FileManager
 
         }
 
+        /// <summary>
+        /// Управление в командной строке
+        /// </summary>
         public void Management()
         {
             ConsoleKeyInfo click;
@@ -81,11 +130,14 @@ namespace FileManager
             }
         }
 
+        /// <summary>
+        /// Выбор метода в зависимости от введенной команды
+        /// </summary>
         public void Action()
         {
             try
             {
-                foreach (ICommand<String> command in Commands)
+                foreach (ICommand<String> command in Comands)
                 {
                     if (command.CanExecute(ListUserCommands[0]))
                     {

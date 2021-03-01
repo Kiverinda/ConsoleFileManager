@@ -1,0 +1,153 @@
+.TH "FileManager.CommandLine" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.CommandLine \- Класс реализующий командную строку  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCommandLine\fP ()"
+.br
+.RI "Конструктор класса "
+.ti -1c
+.RI "void \fBManagement\fP ()"
+.br
+.RI "Управление в командной строке "
+.ti -1c
+.RI "void \fBAction\fP ()"
+.br
+.RI "Выбор метода в зависимости от введенной команды "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBCommandLine\fP \fBGetInstance\fP ()"
+.br
+.RI "Реализация шаблона singlton "
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "readonly int \fBSizeBuffer\fP = 5"
+.br
+.RI "Размер буфера для введенных команд "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBFilesPanel\fP \fBCurrentPanel\fP\fC [get, set]\fP"
+.br
+.RI "Текущий путь "
+.ti -1c
+.RI "List< String > \fBBufferCommands\fP\fC [get, set]\fP"
+.br
+.RI "Буфер введенных комманд "
+.ti -1c
+.RI "int \fBCommandNumberInBuffer\fP\fC [get, set]\fP"
+.br
+.RI "Номер команды в буфере "
+.ti -1c
+.RI "List< String > \fBListUserCommands\fP\fC [get, set]\fP"
+.br
+.RI "Строка, введенная пользователем в командной строке "
+.ti -1c
+.RI "List< \fBICommand\fP< ConsoleKeyInfo > > \fBKeyManagement\fP\fC [get, set]\fP"
+.br
+.RI "Список для метода KeyManagement "
+.ti -1c
+.RI "List< \fBICommand\fP< String > > \fBComands\fP\fC [get, set]\fP"
+.br
+.RI "Список для метода Comands "
+.ti -1c
+.RI "string \fBLine\fP\fC [get, set]\fP"
+.br
+.RI "Введенная пользователем строка "
+.ti -1c
+.RI "int \fBCursorPositionInLine\fP\fC [get, set]\fP"
+.br
+.RI "Позиция курсора "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс реализующий командную строку 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "FileManager\&.CommandLine\&.CommandLine ()"
+
+.PP
+Конструктор класса 
+.SH "Member Function Documentation"
+.PP 
+.SS "void FileManager\&.CommandLine\&.Action ()"
+
+.PP
+Выбор метода в зависимости от введенной команды 
+.SS "static \fBCommandLine\fP FileManager\&.CommandLine\&.GetInstance ()\fC [static]\fP"
+
+.PP
+Реализация шаблона singlton 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "void FileManager\&.CommandLine\&.Management ()"
+
+.PP
+Управление в командной строке 
+.SH "Member Data Documentation"
+.PP 
+.SS "readonly int FileManager\&.CommandLine\&.SizeBuffer = 5"
+
+.PP
+Размер буфера для введенных команд 
+.SH "Property Documentation"
+.PP 
+.SS "List<String> FileManager\&.CommandLine\&.BufferCommands\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Буфер введенных комманд 
+.SS "List<\fBICommand\fP<String> > FileManager\&.CommandLine\&.Comands\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Список для метода Comands 
+.SS "int FileManager\&.CommandLine\&.CommandNumberInBuffer\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Номер команды в буфере 
+.SS "\fBFilesPanel\fP FileManager\&.CommandLine\&.CurrentPanel\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Текущий путь 
+.SS "int FileManager\&.CommandLine\&.CursorPositionInLine\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Позиция курсора 
+.SS "List<\fBICommand\fP<ConsoleKeyInfo> > FileManager\&.CommandLine\&.KeyManagement\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Список для метода KeyManagement 
+.SS "string FileManager\&.CommandLine\&.Line\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Введенная пользователем строка 
+.SS "List<String> FileManager\&.CommandLine\&.ListUserCommands\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Строка, введенная пользователем в командной строке 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

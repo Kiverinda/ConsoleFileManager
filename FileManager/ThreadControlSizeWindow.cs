@@ -39,6 +39,7 @@ namespace FileManager
             Height = Console.WindowHeight;
             Resize += delegate { };
         }
+
         /// <summary>
         /// Реализация паттерна singlton. 
         /// </summary>
@@ -51,13 +52,14 @@ namespace FileManager
             }
             return instance;
         }
+
         /// <summary>
         /// Создание и запуск потока
         /// </summary>
         public void Start()
         {
             Thread controlSize = new Thread(Control);
-            controlSize.Priority = ThreadPriority.BelowNormal;
+            controlSize.Priority = ThreadPriority.Lowest;
             controlSize.Start();
         }
         /// <summary>

@@ -1,0 +1,69 @@
+.TH "FileManager.EditFile" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.EditFile \- Класс для открытия файла в блокноте  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBFileManager\&.ICommand< ConsoleKeyInfo >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBCanExecute\fP (ConsoleKeyInfo click)"
+.br
+.RI "Проверка условия для выполнения метода Execute "
+.ti -1c
+.RI "bool \fBExecute\fP ()"
+.br
+.RI "Получение полного пути к файлу "
+.ti -1c
+.RI "void \fBEdit\fP (string path)"
+.br
+.RI "Запуск блокнота и открытие в нем файла "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс для открытия файла в блокноте 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool FileManager\&.EditFile\&.CanExecute (ConsoleKeyInfo click)"
+
+.PP
+Проверка условия для выполнения метода Execute 
+.PP
+\fBParameters\fP
+.RS 4
+\fIclick\fP Информация о нажатой клавише
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true or false
+.RE
+.PP
+
+.SS "void FileManager\&.EditFile\&.Edit (string path)"
+
+.PP
+Запуск блокнота и открытие в нем файла 
+.SS "bool FileManager\&.EditFile\&.Execute ()"
+
+.PP
+Получение полного пути к файлу 
+.PP
+\fBReturns\fP
+.RS 4
+Выход из программы
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

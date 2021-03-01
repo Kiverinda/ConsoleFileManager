@@ -1,0 +1,191 @@
+.TH "FileManager.RequestToDisk" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.RequestToDisk \- Класс для получения информации с диска  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRequestToDisk\fP ()"
+.br
+.RI "Конструктор класса "
+.ti -1c
+.RI "\fBRequestToDisk\fP (string path)"
+.br
+.RI "Конструктор класса "
+.ti -1c
+.RI "\fBAttributes\fP[] \fBAllDrives\fP ()"
+.br
+.ti -1c
+.RI "string \fBGetRoot\fP ()"
+.br
+.RI "Получение корневой директории для текущего пути "
+.ti -1c
+.RI "bool \fBIsRoot\fP ()"
+.br
+.RI "Является ли текущий путь корневой директорией диска "
+.ti -1c
+.RI "List< \fBAttributes\fP > \fBGetListCurrentDirectory\fP ()"
+.br
+.RI "Создание списка для текущего пути "
+.ti -1c
+.RI "List< \fBAttributes\fP > \fBAddedFilesToList\fP (List< \fBAttributes\fP > list)"
+.br
+.RI "Добавление файлов и директорий в текущий список \fBAttributes\fP "
+.ti -1c
+.RI "long \fBGetFreeSpace\fP ()"
+.br
+.RI "Получение размера свободного места на диске "
+.ti -1c
+.RI "long \fBGetSizeDirectory\fP (List< \fBAttributes\fP > list)"
+.br
+.RI "Вычисление размера директории "
+.ti -1c
+.RI "List< \fBAttributes\fP > \fBGetListDirectoryAndFiles\fP ()"
+.br
+.RI "Получение дерева файлов и директорий "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "string \fBCurrentPath\fP\fC [get, set]\fP"
+.br
+.RI "Текущий путь "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс для получения информации с диска 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "FileManager\&.RequestToDisk\&.RequestToDisk ()"
+
+.PP
+Конструктор класса 
+.SS "FileManager\&.RequestToDisk\&.RequestToDisk (string path)"
+
+.PP
+Конструктор класса 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP Текущий путь
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "List<\fBAttributes\fP> FileManager\&.RequestToDisk\&.AddedFilesToList (List< \fBAttributes\fP > list)"
+
+.PP
+Добавление файлов и директорий в текущий список \fBAttributes\fP 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlist\fP Текущий список \fBAttributes\fP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Заполненный список \fBAttributes\fP
+.RE
+.PP
+
+.SS "\fBAttributes\fP [] FileManager\&.RequestToDisk\&.AllDrives ()"
+
+.PP
+
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "long FileManager\&.RequestToDisk\&.GetFreeSpace ()"
+
+.PP
+Получение размера свободного места на диске 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "List<\fBAttributes\fP> FileManager\&.RequestToDisk\&.GetListCurrentDirectory ()"
+
+.PP
+Создание списка для текущего пути 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "List<\fBAttributes\fP> FileManager\&.RequestToDisk\&.GetListDirectoryAndFiles ()"
+
+.PP
+Получение дерева файлов и директорий 
+.PP
+\fBReturns\fP
+.RS 4
+Рекурсивный список директорий и файлов
+.RE
+.PP
+
+.SS "string FileManager\&.RequestToDisk\&.GetRoot ()"
+
+.PP
+Получение корневой директории для текущего пути 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "long FileManager\&.RequestToDisk\&.GetSizeDirectory (List< \fBAttributes\fP > list)"
+
+.PP
+Вычисление размера директории 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlist\fP Список \fBAttributes\fP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "bool FileManager\&.RequestToDisk\&.IsRoot ()"
+
+.PP
+Является ли текущий путь корневой директорией диска 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SH "Property Documentation"
+.PP 
+.SS "string FileManager\&.RequestToDisk\&.CurrentPath\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Текущий путь 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

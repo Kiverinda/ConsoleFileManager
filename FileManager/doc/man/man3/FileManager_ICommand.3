@@ -1,0 +1,59 @@
+.TH "FileManager.ICommand< T >" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.ICommand< T > \- Интерфейс для реализации паттерна Command  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBCanExecute\fP (T value)"
+.br
+.RI "Условие для выполнения действия "
+.ti -1c
+.RI "bool \fBExecute\fP ()"
+.br
+.RI "Выполняемое действие "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Интерфейс для реализации паттерна Command 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool \fBFileManager\&.ICommand\fP< T >\&.CanExecute (T value)"
+
+.PP
+Условие для выполнения действия 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvalue\fP Значение для сравнения
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true or false
+.RE
+.PP
+
+.SS "bool \fBFileManager\&.ICommand\fP< T >\&.Execute ()"
+
+.PP
+Выполняемое действие 
+.PP
+\fBReturns\fP
+.RS 4
+Выход из программы
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

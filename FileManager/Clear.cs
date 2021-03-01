@@ -3,7 +3,8 @@ using System.Linq;
 
 
 namespace FileManager
-    {/// <summary>
+{
+    /// <summary>
     /// Класс для отрисовки рамок и пустых форм
     /// </summary>
     public class Clear

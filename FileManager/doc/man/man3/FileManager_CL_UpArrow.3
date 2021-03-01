@@ -1,0 +1,54 @@
+.TH "FileManager.CL_UpArrow" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.CL_UpArrow \- Класс перебора комманд FIFO в буфере и добавления их в командную строку  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBFileManager\&.ICommand< ConsoleKeyInfo >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBCanExecute\fP (ConsoleKeyInfo click)"
+.br
+.RI "Проверка нажатия горячей клавиши "
+.ti -1c
+.RI "bool \fBExecute\fP ()"
+.br
+.RI "Перебор команд FIFO в буфере и добавление их в командную строку "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс перебора комманд FIFO в буфере и добавления их в командную строку 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool FileManager\&.CL_UpArrow\&.CanExecute (ConsoleKeyInfo click)"
+
+.PP
+Проверка нажатия горячей клавиши 
+.PP
+\fBParameters\fP
+.RS 4
+\fIclick\fP Код горячей клавиши
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true or false
+.RE
+.PP
+
+.SS "bool FileManager\&.CL_UpArrow\&.Execute ()"
+
+.PP
+Перебор команд FIFO в буфере и добавление их в командную строку 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

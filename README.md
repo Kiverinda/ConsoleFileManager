@@ -35,4 +35,4 @@
 ## Документация по классам и методам 
 
 Ссылка на документацию по классам и методам
-https://github.com/Kiverinda/ConsoleFileManager/blob/master/doc/index.html
+https://github.com/Kiverinda/ConsoleFileManager/tree/master/doc/html/index.html

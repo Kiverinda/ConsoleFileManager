@@ -4,13 +4,25 @@ using System.IO;
 
 namespace FileManager
 {
-    class CL_Delete : ICommand<string>
+    /// <summary>
+    /// Класс для удаления обьекта файловой системы
+    /// </summary>
+    public class CL_Delete : ICommand<string>
     {
+        /// <summary>
+        /// Сравнение входящей строки с контрольной строкой
+        /// </summary>
+        /// <param name="value">Входящая строка</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(string value)
         {
             return value.ToLower() == "delete";
         }
 
+        /// <summary>
+        /// Удаление директории или файла
+        /// </summary>
+        /// <returns></returns>
         public bool Execute()
         {
             string currentPath = CommandLine.GetInstance().ListUserCommands[1];
@@ -33,6 +45,11 @@ namespace FileManager
             return true;
         }
 
+        /// <summary>
+        /// Подтверждение пользователем удаления
+        /// </summary>
+        /// <param name="path">Путь к удалямому обьекту</param>
+        /// <returns>true or false</returns>
         public bool Confirmation(string path)
         {
             View view = new View();

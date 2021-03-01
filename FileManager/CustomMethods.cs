@@ -9,7 +9,7 @@ namespace FileManager
     public static class CustomMethods
     {
         /// <summary>
-        /// Вычисление префикс функций
+        /// Вычисление префикс функций при помощи алгоритма Кнута-Морриса-Пратта
         /// </summary>
         /// <param name="source">Строка для которой вычисляется функция</param>
         /// <returns>Массив префикс функций</returns>

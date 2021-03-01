@@ -2,12 +2,21 @@
 
 namespace FileManager
 {
-    class CL_Rename : ICommand<string>
+    /// <summary>
+    /// Класс переименования обьекта файловой системы
+    /// </summary>
+    public class CL_Rename : ICommand<string>
     {
+        /// <summary>
+        /// Сравнение входящей строки с контрольной строкой
+        /// </summary>
+        /// <param name="value">Входящая строка</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(string value)
         {
             return value.ToLower() == "rename";
         }
+
 
         public bool Execute()
         {

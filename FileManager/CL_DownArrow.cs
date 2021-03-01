@@ -4,13 +4,25 @@ using System.Text;
 
 namespace FileManager
 {
-    class CL_DownArrow : ICommand<ConsoleKeyInfo>
+    /// <summary>
+    /// Класс перебора комманд LIFO и добавления их в командную строку 
+    /// </summary>
+    public class CL_DownArrow : ICommand<ConsoleKeyInfo>
     {
+
+        /// <summary>
+        /// Проверка нажатия горячей клавиши
+        /// </summary>
+        /// <param name="click">Код горячей клавиши</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.DownArrow;
         }
 
+        /// <summary>
+        /// Перебор команд LIFO в буфере и добавление их в командную строку
+        /// </summary>
         public bool Execute()
         {
             if (CommandLine.GetInstance().BufferCommands.Count != 0)

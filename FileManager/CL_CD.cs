@@ -3,13 +3,25 @@ using System.IO;
 
 namespace FileManager
 {
-    class CL_CD : ICommand<string>
+    /// <summary>
+    /// Класс для перехода в указанную директорию
+    /// </summary>
+    public class CL_CD : ICommand<string>
     {
+        
+        /// <summary>
+        /// Сравнение входящей строки с контрольной строкой
+        /// </summary>
+        /// <param name="value">Код горячей клавиши</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(string value)
         {
             return value.ToLower() == "cd";
         }
 
+        /// <summary>
+        /// Переход в указанную директорию
+        /// </summary>
         public bool Execute()
         {
             try

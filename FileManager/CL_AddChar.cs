@@ -4,10 +4,19 @@ using System.Text;
 
 namespace FileManager
 {
-    class CL_AddChar : ICommand<ConsoleKeyInfo>
+    /// <summary>
+    /// Класс обрабатывающий все нажатия клавиш, кроме указанных выше 
+    /// в методе Management() класса CommandLine
+    /// </summary>
+    public class CL_AddChar : ICommand<ConsoleKeyInfo>
     {
         ConsoleKeyInfo Click { get; set; }
-        
+
+        /// <summary>
+        /// Присвоение полю Click кода нажатой клавиши
+        /// </summary>
+        /// <param name="click"></param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             Click = click;
@@ -15,6 +24,9 @@ namespace FileManager
             return true;
         }
 
+        /// <summary>
+        /// Добавление символа нажатой клавиши в командной строке
+        /// </summary>
         public bool Execute()
         {
             if (CommandLine.GetInstance().CursorPositionInLine == CommandLine.GetInstance().Line.Length)

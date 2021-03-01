@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 
 
@@ -9,14 +8,13 @@ namespace FileManager
     {
         private static CommandLine instance;
         public FilesPanel CurrentPanel { get; set; }
-        public View CommandView { get; set; }
         public readonly int SizeBuffer = 5;
         public List<String> BufferCommands { get; set; }
+        public int CommandNumberInBuffer { get; set; }
         public List<String> ListUserCommands { get; set; }
         public List<ICommand<ConsoleKeyInfo>> KeyManagement { get; set; }
         public List<ICommand<String>> Commands { get; set; }
         public string Line { get; set; }
-        public int CommandNumberInBuffer { get; set; }
         public int CursorPositionInLine { get; set; }
 
         public static CommandLine GetInstance()
@@ -31,7 +29,6 @@ namespace FileManager
         public CommandLine()
         {
             CurrentPanel = Desktop.GetInstance().ActivePanel;
-            CommandView = new View();
             SizeBuffer = 5;
             BufferCommands = new List<string>(SizeBuffer);
             CommandNumberInBuffer = 0;
@@ -71,7 +68,7 @@ namespace FileManager
             CommandNumberInBuffer = BufferCommands.Count - 1;
             while (!quit)
             {
-                CommandView.CommandLine(CurrentPanel.CurrentPath, Line, CursorPositionInLine);
+                new View().CommandLine(CurrentPanel.CurrentPath, Line, CursorPositionInLine);
                 click = Console.ReadKey(true);
                 foreach (ICommand<ConsoleKeyInfo> command in KeyManagement)
                 {

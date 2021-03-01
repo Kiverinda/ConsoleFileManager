@@ -375,9 +375,10 @@ namespace FileManager
         /// <param name="persentage">Проценты выполнения</param>
         public void CopyLinePersentage(double persentage)
         {
+            ColorTextAndBackground.InverseBase();
             Console.SetCursorPosition(WindowWidth / 4 + 5, WindowHeight / 3 + 7);
             Console.Write("[");
-            Console.Write(string.Concat(Enumerable.Repeat('-', WindowWidth / 2 - 10)));
+            Console.Write(string.Concat(Enumerable.Repeat(' ', WindowWidth / 2 - 10)));
             Console.Write("]");
             Console.SetCursorPosition(WindowWidth / 4 + 6, WindowHeight / 3 + 7);
             ColorTextAndBackground.Base();

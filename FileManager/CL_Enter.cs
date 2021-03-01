@@ -5,13 +5,23 @@ using System.Text;
 
 namespace FileManager
 {
-    class CL_Enter : ICommand<ConsoleKeyInfo>                           
+    /// <summary>
+    /// Класс, обрабатывающий командную строку после ввода
+    /// </summary>
+    public class CL_Enter : ICommand<ConsoleKeyInfo>                           
     {
+        /// <summary>
+        /// Проверка нажатия горячей клавиши
+        /// </summary>
+        /// <param name="click">Код горячей клавиши</param>
+        /// <returns>true or false</returns>
         public bool CanExecute(ConsoleKeyInfo click)
         {
             return click.Key == ConsoleKey.Enter;
         }
-
+        /// <summary>
+        /// Обработка командной строки после ввода
+        /// </summary>
         public bool Execute()
         {
             if (CommandLine.GetInstance().BufferCommands.Count >= CommandLine.GetInstance().SizeBuffer)
@@ -25,9 +35,8 @@ namespace FileManager
             CommandLine.GetInstance().Line = "";
             CommandLine.GetInstance().CursorPositionInLine = CommandLine.GetInstance().Line.Length;
             Desktop.GetInstance().Update();
-            CommandLine.GetInstance().CommandView.OldCursor(CommandLine.GetInstance().CurrentPanel);
+            new View().OldCursor(CommandLine.GetInstance().CurrentPanel);
             return false;
-            //commandLine = "";
         }
     }
 }

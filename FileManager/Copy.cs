@@ -11,7 +11,7 @@ namespace FileManager
     {
         public FilesPanel ActivePanel { get; set; }
         public FilesPanel TargetPanel { get; set; }
-        public View ViewCopy { get; set; }
+        //public View ViewCopy { get; set; }
 
         /// <summary>
         /// Конструктор класса
@@ -30,7 +30,7 @@ namespace FileManager
                 TargetPanel = Desktop.GetInstance().LeftPanel;
             }
 
-            ViewCopy = new View();
+            //ViewCopy = new View();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FileManager
         /// </summary>
         public Copy()
         {
-            ViewCopy = new View();
+            //ViewCopy = new View();
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace FileManager
         {
             if (ActivePanel.CurrentPath == TargetPanel.CurrentPath)
             {
-                ViewCopy.Message($"НЕЛЬЗЯ СКОПИРОВАТЬ ФАЙЛ В ТЕКУЩИЙ КАТАЛОГ");
+                new View().Message($"НЕЛЬЗЯ СКОПИРОВАТЬ ФАЙЛ В ТЕКУЩИЙ КАТАЛОГ");
                 Console.ReadKey();
                 return;
             }
@@ -140,7 +140,7 @@ namespace FileManager
             {
                 if(File.Exists(Path.Combine(TargetPanel.CurrentPath, attributes.Name)))
                 {
-                    ViewCopy.Message($"ФАЙЛ УЖЕ СУЩЕСТВУЕТ");
+                    new View().Message($"ФАЙЛ УЖЕ СУЩЕСТВУЕТ");
                     Console.ReadKey();
                     return;
                 }
@@ -153,7 +153,7 @@ namespace FileManager
             {
                 if (Directory.Exists(Path.Combine(TargetPanel.CurrentPath, attributes.Name)))
                 {
-                    ViewCopy.Message($"ДИРЕКТОРИЯ УЖЕ СУЩЕСТВУЕТ");
+                    new View().Message($"ДИРЕКТОРИЯ УЖЕ СУЩЕСТВУЕТ");
                     Console.ReadKey();
                     return;
                 }
@@ -174,7 +174,7 @@ namespace FileManager
             long size = new FileInfo(attributes.Path).Length;
             if (size > freeSpace)
             {
-                ViewCopy.Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
+                new View().Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
                 Console.ReadKey();
                 return;
             }
@@ -197,7 +197,7 @@ namespace FileManager
             
             if (size > freeSpace)
             {
-                ViewCopy.Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
+                new View().Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
                 Console.ReadKey();
                 return;
             }
@@ -214,7 +214,7 @@ namespace FileManager
         /// <param name="path">Путь к текущему</param>
         public void CopyFile(string path)
         {
-            ViewCopy.Copy(Path.GetFileName(path), TargetPanel.CurrentPath);
+            new View().Copy(Path.GetFileName(path), TargetPanel.CurrentPath);
             CustomFileCopy cs = new CustomFileCopy(path, path.Replace(ActivePanel.CurrentPath, TargetPanel.CurrentPath));
             cs.OnProgressChanged += ViewPersentageToConsole;
             //cs.OnComplete += ViewVessageCompleteToConsole;
@@ -254,7 +254,7 @@ namespace FileManager
         /// <param name="cancelFlag">Закрытие потоков</param>
         public void ViewPersentageToConsole(double persentage, ref bool cancelFlag)
         {
-            ViewCopy.CopyPersentage(persentage);
+            new View().CopyPersentage(persentage);
             if (persentage == 100)
             {
                 cancelFlag = true;

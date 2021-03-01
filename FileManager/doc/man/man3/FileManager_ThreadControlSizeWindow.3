@@ -1,0 +1,113 @@
+.TH "FileManager.ThreadControlSizeWindow" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.ThreadControlSizeWindow \- Класс для отслеживания изменения размера окна приложения  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBThreadControlSizeWindow\fP ()"
+.br
+.RI "Конструктор класса "
+.ti -1c
+.RI "void \fBStart\fP ()"
+.br
+.RI "Создание и запуск потока "
+.ti -1c
+.RI "void \fBControl\fP ()"
+.br
+.RI "Отслеживание изменений размеров окна приложения с генерацией события "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBThreadControlSizeWindow\fP \fBGetInstance\fP ()"
+.br
+.RI "Реализация паттерна singlton\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "int \fBWidth\fP\fC [get, set]\fP"
+.br
+.RI "Ширина окна приложения "
+.ti -1c
+.RI "int \fBHeight\fP\fC [get, set]\fP"
+.br
+.RI "Высота окна приложения "
+.ti -1c
+.RI "bool \fBClose\fP\fC [get, set]\fP"
+.br
+.RI "Условие закрытия потока "
+.in -1c
+.SS "Events"
+
+.in +1c
+.ti -1c
+.RI "\fBResizeWindow\fP \fBResize\fP"
+.br
+.RI "Событие, возникающее при изменении размеров окна "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс для отслеживания изменения размера окна приложения 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "FileManager\&.ThreadControlSizeWindow\&.ThreadControlSizeWindow ()"
+
+.PP
+Конструктор класса 
+.SH "Member Function Documentation"
+.PP 
+.SS "void FileManager\&.ThreadControlSizeWindow\&.Control ()"
+
+.PP
+Отслеживание изменений размеров окна приложения с генерацией события 
+.SS "static \fBThreadControlSizeWindow\fP FileManager\&.ThreadControlSizeWindow\&.GetInstance ()\fC [static]\fP"
+
+.PP
+Реализация паттерна singlton\&. 
+.PP
+\fBReturns\fP
+.RS 4
+Экземпляр класса
+.RE
+.PP
+
+.SS "void FileManager\&.ThreadControlSizeWindow\&.Start ()"
+
+.PP
+Создание и запуск потока 
+.SH "Property Documentation"
+.PP 
+.SS "bool FileManager\&.ThreadControlSizeWindow\&.Close\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Условие закрытия потока 
+.SS "int FileManager\&.ThreadControlSizeWindow\&.Height\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Высота окна приложения 
+.SS "int FileManager\&.ThreadControlSizeWindow\&.Width\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Ширина окна приложения 
+.SH "Event Documentation"
+.PP 
+.SS "\fBResizeWindow\fP FileManager\&.ThreadControlSizeWindow\&.Resize"
+
+.PP
+Событие, возникающее при изменении размеров окна 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

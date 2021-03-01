@@ -16,13 +16,15 @@ namespace FileManager
         /// </summary>
         public static void Main()
         {
+            Desktop desktop = Desktop.GetInstance();
+            
             // Запуск потока, контролируещего размер окна приложения
             ThreadControlSizeWindow Control = ThreadControlSizeWindow.GetInstance();
             Control.Resize += ControlSize;
             Control.Start();
 
             // Запуск приложения
-            Desktop.GetInstance().Run();
+            desktop.Run();
         }
 
         /// <summary>

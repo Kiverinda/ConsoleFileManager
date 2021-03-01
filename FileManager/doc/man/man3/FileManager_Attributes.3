@@ -1,0 +1,143 @@
+.TH "FileManager.Attributes" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.Attributes \- Тип данных для хранения информации об обьектах файловой системы  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBAttributes\fP (string name, string path)"
+.br
+.RI "Конструктор "
+.ti -1c
+.RI "\fBAttributes\fP (string name, string path, long size, bool isFile, string extension)"
+.br
+.RI "Конструктор "
+.ti -1c
+.RI "\fBAttributes\fP (string name, string path, long size, bool isFile, string extension, DateTime date)"
+.br
+.RI "Конструктор "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "string \fBName\fP\fC [get, set]\fP"
+.br
+.RI "Имя обьекта "
+.ti -1c
+.RI "string \fBPath\fP\fC [get, set]\fP"
+.br
+.RI "Полный путь к обьекту "
+.ti -1c
+.RI "long \fBSize\fP\fC [get, set]\fP"
+.br
+.RI "Размер обьекта "
+.ti -1c
+.RI "bool \fBIsFile\fP\fC [get, set]\fP"
+.br
+.RI "Является ли обьект файлом "
+.ti -1c
+.RI "string \fBExtension\fP\fC [get, set]\fP"
+.br
+.RI "Расширение обьекта "
+.ti -1c
+.RI "DateTime \fBDate\fP\fC [get, set]\fP"
+.br
+.RI "Дата и время редактирования обьекта "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Тип данных для хранения информации об обьектах файловой системы 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "FileManager\&.Attributes\&.Attributes (string name, string path)"
+
+.PP
+Конструктор 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP Имя обьекта
+.br
+\fIpath\fP Путь к обьекту
+.RE
+.PP
+
+.SS "FileManager\&.Attributes\&.Attributes (string name, string path, long size, bool isFile, string extension)"
+
+.PP
+Конструктор 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP Имя обьекта
+.br
+\fIpath\fP Путь к обьекту
+.br
+\fIsize\fP Размер обьекта
+.br
+\fIisFile\fP Является ли обьект файлом
+.br
+\fIextension\fP Расширение обьекта
+.RE
+.PP
+
+.SS "FileManager\&.Attributes\&.Attributes (string name, string path, long size, bool isFile, string extension, DateTime date)"
+
+.PP
+Конструктор 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP Имя обьекта
+.br
+\fIpath\fP Путь к обьекту
+.br
+\fIsize\fP Размер обьекта
+.br
+\fIisFile\fP Является ли обьект файлом
+.br
+\fIextension\fP Расширение обьекта
+.br
+\fIdate\fP Дата последнего редактирования
+.RE
+.PP
+
+.SH "Property Documentation"
+.PP 
+.SS "DateTime FileManager\&.Attributes\&.Date\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Дата и время редактирования обьекта 
+.SS "string FileManager\&.Attributes\&.Extension\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Расширение обьекта 
+.SS "bool FileManager\&.Attributes\&.IsFile\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Является ли обьект файлом 
+.SS "string FileManager\&.Attributes\&.Name\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Имя обьекта 
+.SS "string FileManager\&.Attributes\&.Path\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Полный путь к обьекту 
+.SS "long FileManager\&.Attributes\&.Size\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Размер обьекта 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

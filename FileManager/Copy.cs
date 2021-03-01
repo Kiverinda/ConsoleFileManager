@@ -140,8 +140,23 @@ namespace FileManager
             {
                 if(File.Exists(Path.Combine(TargetPanel.CurrentPath, attributes.Name)))
                 {
-                    new View().Message($"ФАЙЛ УЖЕ СУЩЕСТВУЕТ");
-                    Console.ReadKey();
+                    new View().Confirmation($"ФАЙЛ УЖЕ СУЩЕСТВУЕТ. Заменить ?", Path.Combine(TargetPanel.CurrentPath, attributes.Name));
+                    ConsoleKeyInfo click;
+                    do
+                    {
+                        click = Console.ReadKey(true);
+                        if (click.Key == ConsoleKey.Y)
+                        {
+                            File.Delete(Path.Combine(TargetPanel.CurrentPath, attributes.Name));
+                            CheckFreeSpaceFile(attributes);
+                            return;
+                        }
+                        else if (click.Key == ConsoleKey.N)
+                        {
+                            return;
+                        }
+
+                    } while (click.Key != ConsoleKey.Escape);
                     return;
                 }
                 else
@@ -170,17 +185,24 @@ namespace FileManager
         /// <param name="attributes">Атрибуты копируемого файла</param>
         public void CheckFreeSpaceFile(Attributes attributes)
         {
-            long freeSpace = new RequestToDisk(TargetPanel.CurrentPath).GetFreeSpace();
-            long size = new FileInfo(attributes.Path).Length;
-            if (size > freeSpace)
+            try
             {
-                new View().Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
-                Console.ReadKey();
-                return;
+                long freeSpace = new RequestToDisk(TargetPanel.CurrentPath).GetFreeSpace();
+                long size = new FileInfo(attributes.Path).Length;
+                if (size > freeSpace)
+                {
+                    new View().Message($"НЕ ДОСТАТОЧНО МЕСТА НА ДИСКЕ  {Path.GetPathRoot(TargetPanel.CurrentPath)}");
+                    Console.ReadKey();
+                    return;
+                }
+                else
+                {
+                    CopyFile(attributes.Path);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                CopyFile(attributes.Path);
+                new ErrorLog(this, ex.Message, ex.StackTrace);
             }
         }
 

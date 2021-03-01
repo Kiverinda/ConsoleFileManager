@@ -1,0 +1,128 @@
+.TH "FileManager.Desktop" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.Desktop \- Класс отвечающий за создание главного окна приложения  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBRun\fP ()"
+.br
+.RI "Запуск визуализации приложения и навигации "
+.ti -1c
+.RI "void \fBViewDesktop\fP ()"
+.br
+.RI "Очистка окна и вывод на экран файловых панелей, командной строки нажней подсказки горячих клавиш и текущего положения курсора "
+.ti -1c
+.RI "void \fBUpdatePanel\fP (\fBFilesPanel\fP panel)"
+.br
+.RI "Обновление данных в файловой панеле "
+.ti -1c
+.RI "void \fBUpdate\fP ()"
+.br
+.RI "Обновление всего главного окна приложения "
+.ti -1c
+.RI "void \fBExplorer\fP ()"
+.br
+.RI "Навигация по файловым панелям и выбор действия с обьектами "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBDesktop\fP \fBGetInstance\fP ()"
+.br
+.RI "Реализация паттерна singlton "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBFilesPanel\fP \fBLeftPanel\fP\fC [get, set]\fP"
+.br
+.RI "Левая файловая панель "
+.ti -1c
+.RI "\fBFilesPanel\fP \fBRightPanel\fP\fC [get, set]\fP"
+.br
+.RI "Правая файловая панель "
+.ti -1c
+.RI "\fBFilesPanel\fP \fBActivePanel\fP\fC [get, set]\fP"
+.br
+.RI "Активная файловая панель "
+.ti -1c
+.RI "List< \fBICommand\fP< ConsoleKeyInfo > > \fBComands\fP\fC [get, set]\fP"
+.br
+.RI "Список возможных действий с файлами и директориями "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс отвечающий за создание главного окна приложения 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void FileManager\&.Desktop\&.Explorer ()"
+
+.PP
+Навигация по файловым панелям и выбор действия с обьектами 
+.SS "static \fBDesktop\fP FileManager\&.Desktop\&.GetInstance ()\fC [static]\fP"
+
+.PP
+Реализация паттерна singlton 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "void FileManager\&.Desktop\&.Run ()"
+
+.PP
+Запуск визуализации приложения и навигации 
+.SS "void FileManager\&.Desktop\&.Update ()"
+
+.PP
+Обновление всего главного окна приложения 
+.SS "void FileManager\&.Desktop\&.UpdatePanel (\fBFilesPanel\fP panel)"
+
+.PP
+Обновление данных в файловой панеле 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP 
+.RE
+.PP
+
+.SS "void FileManager\&.Desktop\&.ViewDesktop ()"
+
+.PP
+Очистка окна и вывод на экран файловых панелей, командной строки нажней подсказки горячих клавиш и текущего положения курсора 
+.SH "Property Documentation"
+.PP 
+.SS "\fBFilesPanel\fP FileManager\&.Desktop\&.ActivePanel\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Активная файловая панель 
+.SS "List<\fBICommand\fP<ConsoleKeyInfo> > FileManager\&.Desktop\&.Comands\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Список возможных действий с файлами и директориями 
+.SS "\fBFilesPanel\fP FileManager\&.Desktop\&.LeftPanel\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Левая файловая панель 
+.SS "\fBFilesPanel\fP FileManager\&.Desktop\&.RightPanel\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Правая файловая панель 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

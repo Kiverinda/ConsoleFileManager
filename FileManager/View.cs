@@ -293,7 +293,8 @@ namespace FileManager
         /// </summary>
         /// <param name="path">Текущий путь</param>
         /// <param name="command">Команда</param>
-        /// <returns></returns>
+        /// <param name="positionCursor">Позиция курсора в командной строке</param>
+        
         public void CommandLine(string path, string command, int positionCursor)
         {
             CurrentClear.CommandLine();
@@ -302,7 +303,6 @@ namespace FileManager
             Console.Write($"{path} ");
             Console.Write(command);
             Console.SetCursorPosition(2 + path.Length + positionCursor + 1, WindowHeight - 4);
-            //Console.CursorVisible = true;
         }
 
         /// <summary>

@@ -17,7 +17,10 @@ namespace FileManager
             return value.ToLower() == "rename";
         }
 
-
+        /// <summary>
+        /// Переименование обьекта файловой системы
+        /// </summary>
+        /// <returns></returns>
         public bool Execute()
         {
             View view = new View();

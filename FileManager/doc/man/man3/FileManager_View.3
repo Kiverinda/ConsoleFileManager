@@ -1,0 +1,365 @@
+.TH "FileManager.View" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.View \- Класс для вывода информации на экран  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBView\fP ()"
+.br
+.RI "Конструктор класса "
+.ti -1c
+.RI "void \fBFPanel\fP (\fBFilesPanel\fP panel)"
+.br
+.RI "Вывод файловой панели на экран "
+.ti -1c
+.RI "void \fBCurrentCursor\fP (\fBFilesPanel\fP panel)"
+.br
+.RI "Вывод на экран текущего положения курсора "
+.ti -1c
+.RI "void \fBOldCursor\fP (\fBFilesPanel\fP panel)"
+.br
+.RI "Вывод на экран старого положения курсора "
+.ti -1c
+.RI "void \fBSelectDrive\fP (\fBFilesPanel\fP panel, int positionCursor)"
+.br
+.RI "Окно выбора диска "
+.ti -1c
+.RI "void \fBSelectedItems\fP (\fBFilesPanel\fP panel)"
+.br
+.RI "Отображение выбранного элемента файловой панели "
+.ti -1c
+.RI "string \fBMessageCreate\fP (string message)"
+.br
+.RI "Вывод на экран окна создания файла или директории и получение имени от пользователя "
+.ti -1c
+.RI "void \fBMessage\fP (string message)"
+.br
+.RI "Вывод на экран окна с сообщением "
+.ti -1c
+.RI "void \fBConfirmation\fP (string message, string path)"
+.br
+.RI "Окно подтверждения удаления "
+.ti -1c
+.RI "void \fBCommandLine\fP (string path, string command, int positionCursor)"
+.br
+.RI "Вывод текущего пути и команды в командную строку "
+.ti -1c
+.RI "void \fBFooter\fP ()"
+.br
+.RI "Вывод нижней части окна приложения "
+.ti -1c
+.RI "void \fBMenu\fP ()"
+.br
+.RI "Вывод меню "
+.ti -1c
+.RI "void \fBCopy\fP (string currentPath, string targetPath)"
+.br
+.RI "Вывод на экран окна копирования "
+.ti -1c
+.RI "void \fBCopyPersentage\fP (double persentage)"
+.br
+.RI "Вывод на экран числового представления прогресса копирования "
+.ti -1c
+.RI "void \fBCopyLinePersentage\fP (double persentage)"
+.br
+.RI "Вывод на экран прогрессбара копирования "
+.ti -1c
+.RI "void \fBTree\fP (\fBFilesPanel\fP panel, List< \fBAttributes\fP > source, int count)"
+.br
+.RI "Вывод дерева файлов и директорий "
+.ti -1c
+.RI "void \fBHelp\fP ()"
+.br
+.RI "Вывод окна со справкой по приложению "
+.ti -1c
+.RI "int \fBMarginLeft\fP (\fBFilesPanel\fP panel)"
+.br
+.RI "Вычисление отступа слева "
+.ti -1c
+.RI "string \fBSubstring\fP (string str)"
+.br
+.RI "Сокращение длинных имен файлов и директорий "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "int \fBWindowHeight\fP\fC [get, set]\fP"
+.br
+.RI "Высота окна приложения "
+.ti -1c
+.RI "int \fBWindowWidth\fP\fC [get, set]\fP"
+.br
+.RI "Ширина окна приложения "
+.ti -1c
+.RI "int \fBMarginTop_For_StringPath\fP\fC [get, set]\fP"
+.br
+.RI "Отступ сверху до строки с путем к директории "
+.ti -1c
+.RI "int \fBMarginTop_For_WindowFiles\fP\fC [get, set]\fP"
+.br
+.RI "Отступ сверху до файловой панели "
+.ti -1c
+.RI "int \fBWindowFileHeight\fP\fC [get, set]\fP"
+.br
+.RI "Высота файловой панели "
+.ti -1c
+.RI "\fBClear\fP \fBCurrentClear\fP\fC [get, set]\fP"
+.br
+.RI "Экзепляр класса с шаблонами окон "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс для вывода информации на экран 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "FileManager\&.View\&.View ()"
+
+.PP
+Конструктор класса 
+.SH "Member Function Documentation"
+.PP 
+.SS "void FileManager\&.View\&.CommandLine (string path, string command, int positionCursor)"
+
+.PP
+Вывод текущего пути и команды в командную строку 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP Текущий путь
+.br
+\fIcommand\fP Команда
+.br
+\fIpositionCursor\fP Позиция курсора в командной строке
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.Confirmation (string message, string path)"
+
+.PP
+Окно подтверждения удаления 
+.PP
+\fBParameters\fP
+.RS 4
+\fImessage\fP Текст сообщения
+.br
+\fIpath\fP Информация о нажатой клавише
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.Copy (string currentPath, string targetPath)"
+
+.PP
+Вывод на экран окна копирования 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurrentPath\fP 
+.br
+\fItargetPath\fP 
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.CopyLinePersentage (double persentage)"
+
+.PP
+Вывод на экран прогрессбара копирования 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpersentage\fP Проценты выполнения
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.CopyPersentage (double persentage)"
+
+.PP
+Вывод на экран числового представления прогресса копирования 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpersentage\fP Проценты выполнения
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.CurrentCursor (\fBFilesPanel\fP panel)"
+
+.PP
+Вывод на экран текущего положения курсора 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP 
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.Footer ()"
+
+.PP
+Вывод нижней части окна приложения 
+.SS "void FileManager\&.View\&.FPanel (\fBFilesPanel\fP panel)"
+
+.PP
+Вывод файловой панели на экран 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP 
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.Help ()"
+
+.PP
+Вывод окна со справкой по приложению 
+.SS "int FileManager\&.View\&.MarginLeft (\fBFilesPanel\fP panel)"
+
+.PP
+Вычисление отступа слева 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP Файловая панель
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.Menu ()"
+
+.PP
+Вывод меню 
+.SS "void FileManager\&.View\&.Message (string message)"
+
+.PP
+Вывод на экран окна с сообщением 
+.PP
+\fBParameters\fP
+.RS 4
+\fImessage\fP 
+.RE
+.PP
+
+.SS "string FileManager\&.View\&.MessageCreate (string message)"
+
+.PP
+Вывод на экран окна создания файла или директории и получение имени от пользователя 
+.PP
+\fBParameters\fP
+.RS 4
+\fImessage\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Имя файла или директории
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.OldCursor (\fBFilesPanel\fP panel)"
+
+.PP
+Вывод на экран старого положения курсора 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP 
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.SelectDrive (\fBFilesPanel\fP panel, int positionCursor)"
+
+.PP
+Окно выбора диска 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP 
+.br
+\fIpositionCursor\fP 
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.SelectedItems (\fBFilesPanel\fP panel)"
+
+.PP
+Отображение выбранного элемента файловой панели 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP 
+.RE
+.PP
+
+.SS "string FileManager\&.View\&.Substring (string str)"
+
+.PP
+Сокращение длинных имен файлов и директорий 
+.PP
+\fBParameters\fP
+.RS 4
+\fIstr\fP Текущее имя
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Сокращенное имя
+.RE
+.PP
+
+.SS "void FileManager\&.View\&.Tree (\fBFilesPanel\fP panel, List< \fBAttributes\fP > source, int count)"
+
+.PP
+Вывод дерева файлов и директорий 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpanel\fP Панель для отрисовки дерева
+.br
+\fIsource\fP Список файлов и директорий
+.br
+\fIcount\fP Количество элементов для отображения
+.RE
+.PP
+
+.SH "Property Documentation"
+.PP 
+.SS "\fBClear\fP FileManager\&.View\&.CurrentClear\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Экзепляр класса с шаблонами окон 
+.SS "int FileManager\&.View\&.MarginTop_For_StringPath\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Отступ сверху до строки с путем к директории 
+.SS "int FileManager\&.View\&.MarginTop_For_WindowFiles\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Отступ сверху до файловой панели 
+.SS "int FileManager\&.View\&.WindowFileHeight\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Высота файловой панели 
+.SS "int FileManager\&.View\&.WindowHeight\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Высота окна приложения 
+.SS "int FileManager\&.View\&.WindowWidth\fC [get]\fP, \fC [set]\fP"
+
+.PP
+Ширина окна приложения 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

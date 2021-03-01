@@ -1,0 +1,65 @@
+.TH "FileManager.Quit" 3 "Mon Mar 1 2021" "Console File Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FileManager.Quit \- Класс выхода из приложения с сохранением текущийх настроек пользователя 
+.br
+  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBFileManager\&.ICommand< ConsoleKeyInfo >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBCanExecute\fP (ConsoleKeyInfo click)"
+.br
+.RI "Проверка условия для выполнения метода Execute "
+.ti -1c
+.RI "bool \fBExecute\fP ()"
+.br
+.RI "Сохранение настроек пользователя и завершение работы приложения "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Класс выхода из приложения с сохранением текущийх настроек пользователя 
+.br
+ 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool FileManager\&.Quit\&.CanExecute (ConsoleKeyInfo click)"
+
+.PP
+Проверка условия для выполнения метода Execute 
+.PP
+\fBParameters\fP
+.RS 4
+\fIclick\fP Информация о нажатой клавише
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true or false
+.RE
+.PP
+
+.SS "bool FileManager\&.Quit\&.Execute ()"
+
+.PP
+Сохранение настроек пользователя и завершение работы приложения 
+.PP
+\fBReturns\fP
+.RS 4
+Выход из приложения
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Console File Manager from the source code\&.

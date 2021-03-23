@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс перебора комманд LIFO и добавления их в командную строку 
     /// </summary>
-    public class CL_DownArrow : ICommand<ConsoleKeyInfo>
+    public class CommandLineDownArrow : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>
@@ -25,13 +25,14 @@ namespace FileManager
         /// </summary>
         public bool Execute()
         {
-            if (CommandLine.GetInstance().BufferCommands.Count != 0)
+            CommandLine commandLine = CommandLine.GetInstance();
+            if (commandLine.BufferCommands.Count != 0)
             {
-                if (CommandLine.GetInstance().CommandNumberInBuffer > 0)
+                if (commandLine.CommandNumberInBuffer > 0)
                 {
-                    CommandLine.GetInstance().CommandNumberInBuffer--;
-                    CommandLine.GetInstance().Line = CommandLine.GetInstance().BufferCommands[CommandLine.GetInstance().CommandNumberInBuffer];
-                    CommandLine.GetInstance().CursorPositionInLine = CommandLine.GetInstance().Line.Length;
+                    commandLine.CommandNumberInBuffer--;
+                    commandLine.Line = commandLine.BufferCommands[commandLine.CommandNumberInBuffer];
+                    commandLine.CursorPositionInLine = commandLine.Line.Length;
                 }
             }
             return false;

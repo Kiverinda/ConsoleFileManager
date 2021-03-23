@@ -83,23 +83,23 @@ namespace FileManager
             ListUserCommands = new List<string>();
             KeyManagement = new List<ICommand<ConsoleKeyInfo>>()
             {
-                new CL_Escape(),
-                new CL_AddPath(),
-                new CL_Enter(),
-                new CL_DownArrow(),
-                new CL_UpArrow(),
-                new CL_LeftArrow(),
-                new CL_RightArrow(),
-                new CL_Backspace(),
-                new CL_AddChar()
+                new CommandLineEscape(),
+                new CommandLineAddPath(),
+                new CommandLineEnter(),
+                new CommandLineDownArrow(),
+                new CommandLineUpArrow(),
+                new CommandLineLeftArrow(),
+                new CommandLineRightArrow(),
+                new CommandLineBackspace(),
+                new CommandLineAddChar()
 
             };
             Comands = new List<ICommand<String>>()
             {
-                new CL_CD(),
-                new CL_Copy(),
-                new CL_Rename(),
-                new CL_Delete()
+                new CommandLineCD(),
+                new CommandLineCopy(),
+                new CommandLineRename(),
+                new CommandLineDelete()
             };
 
         }

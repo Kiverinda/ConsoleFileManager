@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Выход из режима командной строки
     /// </summary>
-    public class CL_Escape : ICommand<ConsoleKeyInfo>
+    public class CommandLineEscape : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка нажатия горячей клавиши

@@ -5,7 +5,7 @@ namespace FileManager
     /// <summary>
     /// Класс переименования обьекта файловой системы
     /// </summary>
-    public class CL_Rename : ICommand<string>
+    public class CommandLineRename : ICommand<string>
     {
         /// <summary>
         /// Сравнение входящей строки с контрольной строкой

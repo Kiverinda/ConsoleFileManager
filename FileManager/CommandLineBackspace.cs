@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс, удаляющий символ до курсора
     /// </summary>
-    public class CL_Backspace : ICommand<ConsoleKeyInfo>
+    public class CommandLineBackspace : ICommand<ConsoleKeyInfo>
     {
         
         /// <summary>
@@ -25,10 +25,11 @@ namespace FileManager
         /// </summary>
         public bool Execute()
         {
-            if (CommandLine.GetInstance().CursorPositionInLine > 0)
+            CommandLine commandLine = CommandLine.GetInstance();
+            if (commandLine.CursorPositionInLine > 0)
             {
-                CommandLine.GetInstance().CursorPositionInLine --;
-                CommandLine.GetInstance().Line = CommandLine.GetInstance().Line.Remove(CommandLine.GetInstance().CursorPositionInLine, 1);
+                commandLine.CursorPositionInLine --;
+                commandLine.Line = commandLine.Line.Remove(commandLine.CursorPositionInLine, 1);
             }
             return false;
         }

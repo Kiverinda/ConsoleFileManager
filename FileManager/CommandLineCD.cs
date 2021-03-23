@@ -6,7 +6,7 @@ namespace FileManager
     /// <summary>
     /// Класс для перехода в указанную директорию
     /// </summary>
-    public class CL_CD : ICommand<string>
+    public class CommandLineCD : ICommand<string>
     {
         
         /// <summary>
@@ -24,11 +24,12 @@ namespace FileManager
         /// </summary>
         public bool Execute()
         {
+            CommandLine commandLine = CommandLine.GetInstance();
             try
             {
-                if (Directory.Exists(CommandLine.GetInstance().ListUserCommands[1]))
+                if (Directory.Exists(commandLine.ListUserCommands[1]))
                 {
-                    Desktop.GetInstance().ActivePanel.UpdatePath(CommandLine.GetInstance().ListUserCommands[1]);
+                    Desktop.GetInstance().ActivePanel.UpdatePath(commandLine.ListUserCommands[1]);
                 }
             }
             catch (Exception ex)

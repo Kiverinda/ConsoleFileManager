@@ -6,7 +6,7 @@ namespace FileManager
     /// <summary>
     /// Класс для копирования файла и директории
     /// </summary>
-    public class CL_Copy : ICommand<string>
+    public class CommandLineCopy : ICommand<string>
     {
         /// <summary>
         /// Сравнение входящей строки с контрольной строкой

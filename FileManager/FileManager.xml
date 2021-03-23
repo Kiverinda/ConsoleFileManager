@@ -1029,12 +1029,12 @@
             Ширина окна приложения
             </summary>
         </member>
-        <member name="P:FileManager.View.MarginTop_For_StringPath">
+        <member name="P:FileManager.View.MarginTopForStringPath">
             <summary>
             Отступ сверху до строки с путем к директории
             </summary>
         </member>
-        <member name="P:FileManager.View.MarginTop_For_WindowFiles">
+        <member name="P:FileManager.View.MarginTopForWindowFiles">
             <summary>
             Отступ сверху до файловой панели
             </summary>

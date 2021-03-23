@@ -8,7 +8,7 @@ namespace FileManager
     /// <summary>
     /// Класс, обрабатывающий командную строку после ввода
     /// </summary>
-    public class CL_Enter : ICommand<ConsoleKeyInfo>                           
+    public class CommandLineEnter : ICommand<ConsoleKeyInfo>                           
     {
         /// <summary>
         /// Проверка нажатия горячей клавиши
@@ -24,18 +24,21 @@ namespace FileManager
         /// </summary>
         public bool Execute()
         {
-            if (CommandLine.GetInstance().BufferCommands.Count >= CommandLine.GetInstance().SizeBuffer)
+            CommandLine commandLine = CommandLine.GetInstance();
+
+            if (commandLine.BufferCommands.Count >= commandLine.SizeBuffer)
             {
-                CommandLine.GetInstance().BufferCommands.RemoveAt(0);
+                commandLine.BufferCommands.RemoveAt(0);
             }
-            CommandLine.GetInstance().BufferCommands.Add(CommandLine.GetInstance().Line);
-            CommandLine.GetInstance().CommandNumberInBuffer = CommandLine.GetInstance().BufferCommands.Count;
-            CommandLine.GetInstance().ListUserCommands = CustomMethods.SplitString(" ", CommandLine.GetInstance().Line);
-            CommandLine.GetInstance().Action();
-            CommandLine.GetInstance().Line = "";
-            CommandLine.GetInstance().CursorPositionInLine = CommandLine.GetInstance().Line.Length;
+
+            commandLine.BufferCommands.Add(commandLine.Line);
+            commandLine.CommandNumberInBuffer = commandLine.BufferCommands.Count;
+            commandLine.ListUserCommands = CustomMethods.SplitString(" ", commandLine.Line);
+            commandLine.Action();
+            commandLine.Line = "";
+            commandLine.CursorPositionInLine = commandLine.Line.Length;
             Desktop.GetInstance().Update();
-            new View().OldCursor(CommandLine.GetInstance().CurrentPanel);
+            new View().OldCursor(commandLine.CurrentPanel);
             return false;
         }
     }

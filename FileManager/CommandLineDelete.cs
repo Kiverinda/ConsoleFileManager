@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс для удаления обьекта файловой системы
     /// </summary>
-    public class CL_Delete : ICommand<string>
+    public class CommandLineDelete : ICommand<string>
     {
         /// <summary>
         /// Сравнение входящей строки с контрольной строкой

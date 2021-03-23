@@ -23,12 +23,12 @@ namespace FileManager
         /// <summary>
         /// Отступ сверху до строки с путем к директории
         /// </summary>
-        public int MarginTop_For_StringPath { get; set; }
+        public int MarginTopForStringPath { get; set; }
 
         /// <summary>
         /// Отступ сверху до файловой панели
         /// </summary>
-        public int MarginTop_For_WindowFiles { get; set; }
+        public int MarginTopForWindowFiles { get; set; }
 
         /// <summary>
         /// Высота файловой панели
@@ -48,8 +48,8 @@ namespace FileManager
             CurrentClear = new Clear();
             WindowHeight = Console.WindowHeight;
             WindowWidth = Console.WindowWidth;
-            MarginTop_For_StringPath = 1;
-            MarginTop_For_WindowFiles = 3;
+            MarginTopForStringPath = 1;
+            MarginTopForWindowFiles = 3;
             WindowFileHeight = WindowHeight - 9;
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
@@ -64,10 +64,10 @@ namespace FileManager
         {
             CurrentClear.FPanel(panel);
             Console.SetWindowPosition(0, 0);
-            Console.SetCursorPosition(MarginLeft(panel), MarginTop_For_StringPath);
+            Console.SetCursorPosition(MarginLeft(panel), MarginTopForStringPath);
             Console.Write(panel.CurrentPath);
             int i = panel.FirstLineWhenScrolling;
-            int positionInFilePanel = MarginTop_For_WindowFiles;
+            int positionInFilePanel = MarginTopForWindowFiles;
             while (i < WindowFileHeight + panel.FirstLineWhenScrolling + 1 && i < panel.CurrentListDirAndFiles.Count)
             {
                 Console.SetCursorPosition(MarginLeft(panel), positionInFilePanel);
@@ -141,7 +141,7 @@ namespace FileManager
         public void OldCursor(FilesPanel panel)
         {
             Console.CursorVisible = false;
-            int positionInFilePanel = MarginTop_For_WindowFiles;
+            int positionInFilePanel = MarginTopForWindowFiles;
             string name = Substring(panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Name);
             string extension = panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Extension;
             string size = (panel.CurrentListDirAndFiles[panel.AbsoluteCursorPosition].Size).ToString("#,#", CultureInfo.InvariantCulture);
@@ -184,23 +184,23 @@ namespace FileManager
             int count = 0;
             ColorTextAndBackground.InverseBase();
             Console.CursorVisible = false;
-            Console.SetCursorPosition(MarginLeft(panel) + 25, MarginTop_For_WindowFiles + 3);
-            Console.Write(string.Concat(Enumerable.Repeat('*', MarginTop_For_WindowFiles + 8)));
+            Console.SetCursorPosition(MarginLeft(panel) + 25, MarginTopForWindowFiles + 3);
+            Console.Write(string.Concat(Enumerable.Repeat('*', MarginTopForWindowFiles + 8)));
 
             while (count < allDrives.Length)
             {
-                Console.SetCursorPosition(MarginLeft(panel) + 25, MarginTop_For_WindowFiles + 4 + count);
+                Console.SetCursorPosition(MarginLeft(panel) + 25, MarginTopForWindowFiles + 4 + count);
                 Console.Write("||");
-                Console.Write(string.Concat(Enumerable.Repeat(' ', MarginTop_For_WindowFiles / 2)));
+                Console.Write(string.Concat(Enumerable.Repeat(' ', MarginTopForWindowFiles / 2)));
                 Console.Write($" {allDrives[count].Name} ");
-                Console.Write(string.Concat(Enumerable.Repeat(' ', MarginTop_For_WindowFiles / 2)));
+                Console.Write(string.Concat(Enumerable.Repeat(' ', MarginTopForWindowFiles / 2)));
                 Console.Write("||");
                 count++;
             }
-            Console.SetCursorPosition(MarginLeft(panel) + 25, MarginTop_For_WindowFiles + 4 + count);
-            Console.Write(string.Concat(Enumerable.Repeat('*', MarginTop_For_WindowFiles + 8)));
+            Console.SetCursorPosition(MarginLeft(panel) + 25, MarginTopForWindowFiles + 4 + count);
+            Console.Write(string.Concat(Enumerable.Repeat('*', MarginTopForWindowFiles + 8)));
 
-            Console.SetCursorPosition(MarginLeft(panel) + 29, MarginTop_For_WindowFiles + 4 + positionCursor);
+            Console.SetCursorPosition(MarginLeft(panel) + 29, MarginTopForWindowFiles + 4 + positionCursor);
             ColorTextAndBackground.Base();
             Console.Write($"{allDrives[positionCursor].Name}");
 
@@ -399,7 +399,7 @@ namespace FileManager
             {
                 if(source.Count > (count + i))
                 {
-                    Console.SetCursorPosition(MarginLeft(panel), MarginTop_For_WindowFiles + i);
+                    Console.SetCursorPosition(MarginLeft(panel), MarginTopForWindowFiles + i);
                     Console.Write(source[count + i].Path);
                 }
             }

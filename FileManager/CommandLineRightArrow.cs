@@ -5,7 +5,7 @@ namespace FileManager
     /// <summary>
     /// Класс, перемещающий курсор вправо
     /// </summary>
-    public class CL_RightArrow : ICommand<ConsoleKeyInfo>
+    public class CommandLineRightArrow : ICommand<ConsoleKeyInfo>
     {
         /// <summary>
         /// Проверка нажатия горячей клавиши

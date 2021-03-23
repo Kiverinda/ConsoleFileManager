@@ -8,7 +8,7 @@ namespace FileManager
     /// Класс обрабатывающий все нажатия клавиш, кроме указанных выше 
     /// в методе Management() класса CommandLine
     /// </summary>
-    public class CL_AddChar : ICommand<ConsoleKeyInfo>
+    public class CommandLineAddChar : ICommand<ConsoleKeyInfo>
     {
         ConsoleKeyInfo Click { get; set; }
 
@@ -29,16 +29,18 @@ namespace FileManager
         /// </summary>
         public bool Execute()
         {
-            if (CommandLine.GetInstance().CursorPositionInLine == CommandLine.GetInstance().Line.Length)
+            CommandLine commandLine = CommandLine.GetInstance();
+
+            if (commandLine.CursorPositionInLine == commandLine.Line.Length)
             {
-                CommandLine.GetInstance().Line += Click.KeyChar;
-                CommandLine.GetInstance().CursorPositionInLine += 1;
+                commandLine.Line += Click.KeyChar;
+                commandLine.CursorPositionInLine += 1;
             }
-            else if (CommandLine.GetInstance().CursorPositionInLine < CommandLine.GetInstance().Line.Length)
+            else if (commandLine.CursorPositionInLine < commandLine.Line.Length)
             {
-                CommandLine.GetInstance().Line = CommandLine.GetInstance().Line.Insert(CommandLine.GetInstance().CursorPositionInLine,
+                commandLine.Line = commandLine.Line.Insert(commandLine.CursorPositionInLine,
                     Click.KeyChar.ToString());
-                CommandLine.GetInstance().CursorPositionInLine += 1;
+                commandLine.CursorPositionInLine += 1;
             }
 
             return false;

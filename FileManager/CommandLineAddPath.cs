@@ -7,7 +7,7 @@ namespace FileManager
     /// <summary>
     /// Класс, добавляющий текщий путь в командную строку
     /// </summary>
-    public class CL_AddPath : ICommand<ConsoleKeyInfo>
+    public class CommandLineAddPath : ICommand<ConsoleKeyInfo>
     {
 
         /// <summary>
@@ -25,8 +25,9 @@ namespace FileManager
         /// </summary>
         public bool Execute()
         {
-            CommandLine.GetInstance().Line += CommandLine.GetInstance().CurrentPanel.CurrentPath;
-            CommandLine.GetInstance().CursorPositionInLine = CommandLine.GetInstance().Line.Length;
+            CommandLine commandLine = CommandLine.GetInstance();
+            commandLine.Line += commandLine.CurrentPanel.CurrentPath;
+            commandLine.CursorPositionInLine = commandLine.Line.Length;
             return false;
         }
     }
